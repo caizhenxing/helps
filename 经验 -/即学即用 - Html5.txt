@@ -1,0 +1,146 @@
+内容模型	-	
+	元数据式内容: header里面的元素，如: base, command, link, meta, noscript,script,style,title
+	章节式内容: 定义标题及页脚的内容，如: article, aside, nav, section
+	标题式内容: h1,h2,h3,h4,h5,h6,hgroup
+	段落式内容: a, abbr, img
+	嵌入式内容: audio,canvas,embed,iframe,img,math,object,svng,video
+	交互式内容: a,audio,button,details,embed,iframe,img,input,kengen,label,menu,object,select,textarea,video
+	
+常用html标签	-	
+	<div>
+	<span>
+	<ul><li>
+	<p>
+	<h1>,<h2>,<h3>,<h4>,<h5>,<h6>
+	<a>
+	<img>
+	
+	
+	
+	
+搜索框	-	<input type="search"  placeholder = "Search..."/>
+电子邮件	-	<input type="email"  placeholder = "email..."/>
+url	-	<input type="url"  placeholder = "URL..."/>
+电话	-	<input type="telephone"  placeholder = "telephone..."/>
+数字	-	<input type="number"  placeholder = "number..."/>
+区间	-	<input type="range"  min = 1 max=10 step=1 value=5/>
+颜色选择器		-	<input type="color" />
+日期	-	
+		<input type="date" />
+		<input type="month" />
+		<input type="week" />
+		<input type="time" />
+<s>	-	删除线
+<small>	-	小字体，用于版权信息等
+<q>	-	引号
+<sub>	-	上标文本
+<sup>	-	下标文本
+<mark>	-	标记或高亮文本
+<bdo>	-	文本显示方向 <bdo dir=rtl>Test</dbo>显示为tseT
+
+canvas	-	基于javascript的绘图
+svg	-	使用xml文档绘图
+vml	-	使用xml文档绘图
+
+网站简单布局	-	
+	<!DOCTYPE html>
+	<html lang="zh-cn" >
+	<head>
+	<meta charset="utf-8"></meta>
+	<style type=text/css> 
+		*{
+			margin:0px;
+			padding:0px;
+			font: 14px/16px "微软雅黑","Times New Roman",Georgia,Serif;
+		}
+		.container{
+			margin: 0px auto;
+			width: 1024px;
+			heigth: auto;
+		}
+		.header{
+			background-color:#aaaaaa;
+			height: 200px;
+		}
+		.nav{
+			background-color:#CCCCCC;
+			height: 20px;
+		}
+
+		ul li{
+			list-style: none;
+			float: left;
+			margin-left: 20px;
+		}
+		
+		.main{
+			border: 1px solid #eeeeee;
+			height: 400px;
+		}
+		.leftbar{
+			background: gray;
+			width:30%;
+			height: 100%;
+
+			border-collapse: collapse;
+			float: left;
+		}
+		.content{
+			background: #EEEEEE;
+			float: right;
+			height: 100%;
+			width: 70%;
+		}
+		
+		.footer{
+			margin: 0px auto;
+			text-align: center;
+			heigth: 100px;
+			margin-top: 20px;
+			color: gray;
+		}
+		
+		a{
+			text-decoration: underline;
+			color: blue;
+			cursor: pointer;
+		}
+		a:hover{
+			color: green;
+		}
+		
+	</style>
+
+	</head>
+
+	<body>
+		
+		<div class="container">
+			<div class="header">
+				
+			</div>
+			<div class="nav">
+				<nav>
+					<ul>
+						<li><a>首页</a></li>
+						<li><a>我的博文</a></li>
+						<li><a>班级故事</a></li>
+						<li><a>我的收藏</a></li>
+					</ul>
+				<nav>
+			</div>
+			<div class="main">
+				<div class="leftbar"></div>
+				<div class="content"></div>
+			</div>
+			<div class="footer">
+				<small>版权所有</small>
+			</div>
+			
+		</div>
+		
+	</body>
+
+	</html>
+
+		

@@ -1,0 +1,10 @@
+编程字体	-	
+	Consolas						11号
+	Microsoft YaHei Mono			11号		msyhmono.ttf
+	LiberationMono					11号		LiberationMono-fonts-ttf-2.00.1.tar.gz
+	
+文本字体	-
+	微软雅黑	9号
+	
+手机字体	-
+	华康翩翩体W5

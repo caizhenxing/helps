@@ -1,0 +1,36 @@
+stop.sh	-
+	#!/bin/sh
+
+	pidlist=`ps -ef | grep /usr/local/gearman/sbin/gearmand | grep -v "grep" | awk '{print $2}'`
+	echo "pidlist: $pidlist"
+	if [ "$pidlist" == "" ]
+	then
+		echo "no pidlist"
+	else
+		for pid in ${pidlist}
+		{
+			kill -9 $pid
+			echo "kill pid: $pid"
+		}
+	fi
+
+	
+sleep 2	-	
+
+
+sudo 授权管理员权限 	-	
+
+whereis nginx - 
+
+scp	-	
+	scp svnadm@10.12.121.121:/data/home/carlcyang ./
+
+ls	-	
+	ls | xargs -i du -hs {}
+
+curl	-	查看或下载网页信息
+	curl -u username:password https://testsite/test.html
+	-x: -x 123.45.67.89:1080	代理
+	-o: -o test.html	下载到本地
+	-O: -O 下载到本地，有默认文件名
+	正则: curl -O  https://testsite/[100-200].html 下载100.html到200.html文件

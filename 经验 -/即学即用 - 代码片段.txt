@@ -1,0 +1,67 @@
+java	-	
+	******************************************************************************************************************hash
+		private int hash;
+		public ConnectionKey(String userName, String password) {
+			this.hash = 31;
+			if (userName != null) {
+				this.hash += userName.hashCode();
+			}
+			this.hash *= 31;
+			if (password != null)
+				this.hash += password.hashCode();
+		}
+	******************************************************************************************************************jsonp跨域
+	java:
+		@RequestMapping(method = RequestMethod.GET, value = "/jsonp")
+		public @ResponseBody JSONPObject getOverView(@RequestParam(value = "streamName") String streamName, @RequestParam(value = "callback") String callback) {
+			List data = covDataService.getData(streamName);
+			return new JSONPObject(callback, data);
+		}
+	
+	js:
+		$.getJSON(
+			"http://xxx.com/test/jsonp?streamName=test&callback=?", 
+			function(data) {
+				for(i = 0; i < data.length; i++){
+					alert(data[i].name);
+				}
+			}
+		);
+	******************************************************************************************************************泛型
+	public static <T> T getBean(Class<T> cls) {
+		return applicationContext.getBean(cls);
+	}
+	
+	public static <T> T getBean(String name) {
+		return (T) applicationContext.getBean(name);
+	}
+	******************************************************************************************************************套结流 Buffer > InputStream > FileInputStream > File
+	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+	******************************************************************************************************************string分词
+	public StringTokenizer(String str) {
+        this(str, " \t\n\r\f", false);
+    }
+	new StringTokenizer("good morning").nextToken();
+	******************************************************************************************************************MessageFormat
+	MessageFormat.format("adding [gitblit] indexBranch={0} for {1}", params.branch, repo);
+	******************************************************************************************************************文件工具类
+	org.apache.commons.io.FileUtils.copyFile(new File(this.nginxConf), new File(this.nginxConf + "." + System.currentTimeMillis()));
+	******************************************************************************************************************文件锁
+	FileLock lock = new FileOutputStream(lockPath).getChannel().lock();
+	FileUtils.writeLines(tempFile, "UTF-8", content);
+	lock.release();
+	******************************************************************************************************************charAt
+	 if (name.charAt(name.length() - 1) == '/') {
+            name = name.substring(0, name.length() - 1);
+	}
+	******************************************************************************************************************string截取
+	String username = new String("carlcyang:123456".getBytes(), 0, 9);
+    System.out.println(username);// carlcyang
+	
+css	-
+	******************************************************************************************************************首字下沉
+	span.first{
+		font-size:60px; float:left; font-weight:bold;
+	}
+	
+	

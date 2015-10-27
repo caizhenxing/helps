@@ -1,0 +1,19 @@
+Git fork	-	为一个项目贡献代码非常简单：首先点击项目站点的“fork”的按钮，然后将代码检出并将修改加入到刚才分出的代码库中，最后通过内建的“pull request”机制向项目负责人申请代码合并。
+Git	-	版本控制工具
+Github	-	一个网站，提供给用户空间创建git仓储，保存用户的一些数据文档或者代码等
+GitLab	-	是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。
+
+IIFE	-	立即调用函数表达式 Immediately Invoked Function Expression
+
+LVS	-	LVS是Linux Virtual Server的简写，意即Linux虚拟服务器，是一个虚拟的服务器集群系统。
+
+SVN blame - 追溯，过去的时间中谁，什么时候，修改了什么代码
+
+LAMP	-	Linux+Apache+Mysql/MariaDB+Perl/PHP/Python
+LNMLGC	-	linux+nginx+mysql+lua+gearman+C	http://blog.csdn.net/jiao_fuyou/article/details/35985843
+MEAN	-	Mongodb+Express+AngularJS+Node.js	http://edu.csdn.net/course/detail/1425
+
+EhCache	-	 是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider。 Ehcache是一种广泛使用的开源Java分布式缓存。
+Redis	-	它使用内存提供主存储支持,而仅使用硬盘做持久性的存储;它的数据模型非常独特,用的是单线程。
+RequireJS	-	模块化js
+Browerify	-	是一个node.js模块，主要用于改写现有的CommonJS模块，使得浏览器端也可以使用这些模块。
