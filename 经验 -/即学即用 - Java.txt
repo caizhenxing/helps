@@ -1,2 +1,24 @@
+常用	-	
+	String
+	List
+	Map
+	Array
+	Set
+	Thread
+	Runnable
+	FileUtils
+	
+	for{}
+	while{}
+	if{}
+	case{}
+	
+	charAt()
+	
+	enum
+	interface
+	abstract class
+	
+
 transient - 短暂的，不会被序列化持久化到磁盘里，防止敏感信息泄露
 java -jar test.jar	-	

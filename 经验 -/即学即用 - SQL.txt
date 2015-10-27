@@ -1,3 +1,24 @@
+常用	-
+	select * from
+	insert into
+	update set
+	delete from
+	group by having
+	order by xxx desc
+	left join ... on
+	inner join ... on
+	right join ... on
+	group_concat()
+	concat()
+	distinct
+	like
+	set @ranking = 0
+	@ranking := @ranking + 1
+	replace(xxx, oldchar, newchar)
+	date_format(xxx, '%Y-%m-%d') 
+	union
+	
+	
 规范	-	
 	表名： 驼峰命名法
 	字段：大写，单词间用下划线连接

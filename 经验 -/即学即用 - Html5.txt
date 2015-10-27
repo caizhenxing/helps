@@ -1,11 +1,3 @@
-内容模型	-	
-	元数据式内容: header里面的元素，如: base, command, link, meta, noscript,script,style,title
-	章节式内容: 定义标题及页脚的内容，如: article, aside, nav, section
-	标题式内容: h1,h2,h3,h4,h5,h6,hgroup
-	段落式内容: a, abbr, img
-	嵌入式内容: audio,canvas,embed,iframe,img,math,object,svng,video
-	交互式内容: a,audio,button,details,embed,iframe,img,input,kengen,label,menu,object,select,textarea,video
-	
 常用html标签	-	
 	<div>
 	<span>
@@ -15,7 +7,14 @@
 	<a>
 	<img>
 	
-	
+内容模型	-	
+	元数据式内容: header里面的元素，如: base, command, link, meta, noscript,script,style,title
+	章节式内容: 定义标题及页脚的内容，如: article, aside, nav, section
+	标题式内容: h1,h2,h3,h4,h5,h6,hgroup
+	段落式内容: a, abbr, img
+	嵌入式内容: audio,canvas,embed,iframe,img,math,object,svng,video
+	交互式内容: a,audio,button,details,embed,iframe,img,input,kengen,label,menu,object,select,textarea,video
+		
 	
 	
 搜索框	-	<input type="search"  placeholder = "Search..."/>

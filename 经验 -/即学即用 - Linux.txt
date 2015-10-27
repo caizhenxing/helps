@@ -1,3 +1,14 @@
+≥£”√	-	
+	ssh root@xx.xx.xx.xx
+	cd /xxx
+	ls
+	rm
+	mv
+	vim xxx.log
+	tail -f xxx.log
+	cat xxx.log
+	top
+
 stop.sh	-
 	#!/bin/sh
 
