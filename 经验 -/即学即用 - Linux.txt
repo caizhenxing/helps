@@ -8,7 +8,38 @@
 	tail -f xxx.log
 	cat xxx.log
 	top
+	chmod 775 xxx.log
+	chown
+	
 
+Shell	-
+	awk
+	sed
+	grep
+	cut
+	函数: /etc/init.d/functions
+	
+	用途：
+		自动化工具， 
+		监控你的Linux系统，
+		备份数据和创建快照，
+		创建邮件告警系统，
+		查找耗尽系统资源的进程，
+		查找是否所有的网络服务运行正常
+		
+	例子:
+		--------------------------------------
+		#!/bin/bash
+		#my first shell
+		ls -l .*
+		--------------------------------------
+		chmod 775 my_shell
+		./my_shell
+		
+		
+	
+
+	
 stop.sh	-
 	#!/bin/sh
 

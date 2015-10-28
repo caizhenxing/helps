@@ -18,3 +18,4 @@ Redis	-	它使用内存提供主存储支持,而仅使用硬盘做持久性的�
 RequireJS	-	模块化js
 Browerify	-	是一个node.js模块，主要用于改写现有的CommonJS模块，使得浏览器端也可以使用这些模块。
 Cloud9	-	一个在线运行代码云平台 https://c9.io/
+ASCILL	-	American Standard Code for Information Interchange， 美国标准信息交换码，  如：32(十进制) = 20(16进制) = space(键值) ，许多软件程序把 ASCII 表（又称作 ISO 8859-1）
