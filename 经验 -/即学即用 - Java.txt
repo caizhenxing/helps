@@ -19,6 +19,9 @@
 	interface
 	abstract class
 		
-
+常用api	-	先记住有些什么功能，用的时候再详细查看
+	package:
+		java awt - 图形界面
+		
 transient - 短暂的，不会被序列化持久化到磁盘里，防止敏感信息泄露
 java -jar test.jar	-	

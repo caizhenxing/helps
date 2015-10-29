@@ -1,6 +1,0 @@
-api	-	先知道可以做些什么功能，用的时候再详细查看
-	
-	java	-
-		package:
-			java awt - 图形界面
-			
