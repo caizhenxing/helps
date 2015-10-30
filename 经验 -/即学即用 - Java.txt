@@ -1,4 +1,5 @@
 常用手法	-	
+	由核心类向它依赖接口类展开去写
 	new IService(){ pulic void get(){}};
 	组合
 	多态
