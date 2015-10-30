@@ -6,6 +6,7 @@
 	泛型 public <T> T create(Class<T> clazz); class Factory<K,V>{} 
 	public abstract class Job{ public abstract void run(){}; public void log(){this.run();}}
 		public class MyJob extends Job{public void run(){};}
+	单例模式
 	
 	for{}
 	while{}
