@@ -17,6 +17,10 @@
 	interface
 	abstract class
 	
+	Object... arguments
+	HessianConnection connection = super.open(url);
+	task.setSearchService(this);
+	
 常用api	-	
 	String
 	List
@@ -29,6 +33,7 @@
 	注解
 	
 	charAt()
+	
 	
 		
 常用api	-	先记住有些什么功能，用的时候再详细查看
