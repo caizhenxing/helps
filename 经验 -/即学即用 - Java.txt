@@ -1,4 +1,22 @@
-常用	-	
+常用手法	-	
+	new IService(){ pulic void get(){}};
+	组合
+	多态
+	重载
+	泛型 public <T> T create(Class<T> clazz); class Factory<K,V>{} 
+	public abstract class Job{ public abstract void run(){}; public void log(){this.run();}}
+		public class MyJob extends Job{public void run(){};}
+	
+	for{}
+	while{}
+	if{}
+	switch{}
+	
+	enum
+	interface
+	abstract class
+	
+常用api	-	
 	String
 	List
 	Map
@@ -7,17 +25,10 @@
 	Thread
 	Runnable
 	FileUtils
-	
-	for{}
-	while{}
-	if{}
-	case{}
+	注解
 	
 	charAt()
 	
-	enum
-	interface
-	abstract class
 		
 常用api	-	先记住有些什么功能，用的时候再详细查看
 	package:
