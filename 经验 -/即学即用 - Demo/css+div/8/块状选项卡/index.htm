@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>块状选项卡</title>
+<style media="screen" type="text/css">
+* {
+    font-size:12px;
+}
+html, body {
+    margin:0;
+    text-align:center;
+    overflow:hidden;
+    height:100%;
+    width:100%;
+    padding-left:30px;
+    background:#999999;
+}
+ul {
+    list-style-type:none;
+    margin:0px;
+}
+.tab {
+    width:500px;
+    clear:both;
+    height: 200px;
+    margin: 20px 0 2px 0;
+}
+.tab_1 {
+    width:100%;
+    background:#f1b1de;
+    font-size:93%;
+    line-height:normal;
+
+}
+.tab_1 ul {
+    margin:0;
+    padding:10px 10px 0 35px;
+    list-style:none;
+     float:left;   
+    
+}
+.tab_1 li {
+    display:inline;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}
+.tab_1 a {
+    float:left;
+    background:url("images/1.gif") no-repeat left top;
+    margin:0;
+    padding:0 0 0 4px;
+    text-decoration:none;
+}
+.tab_1 a span {
+    float:left;
+    display:block;
+    background:url("images/2.gif") no-repeat right top;
+    padding:5px 15px 4px 6px;
+    color:#666;
+}
+div.content{
+    margin:0px;/*清除边界属性,dd默认有缩进格式*/
+    width:500px;
+    height:190px;
+    overflow:hidden;
+    border: 1px solid #CCCCCC;
+}
+.tab_1 a:hover span {
+    color:#FF9834;
+    display:block;
+    background-position:100% -42px;
+}
+.tab_1 a:hover {
+    background-position:0% -42px;
+}
+.tab_2 {
+    height:auto;
+    padding:20px;
+    clear:both;
+    text-align:left;
+}
+</style>
+</head>
+<body>
+<div class="tab">
+    <div class="tab_1">
+        <ul>
+            <li><a href="#a"><span>栏目公告</span></a></li>
+            <li><a href="#b"><span>新闻动态</span></a></li>
+            <li><a href="#c"><span>社会大观</span></a></li>
+            <li><a href="#d"><span>百态人生</span></a></li>
+            <li><a href="#e"><span>精品博文</span></a></li>
+            <li><a href="#f"><span>本站团购</span></a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="tab_2"  id="a">
+            <h3>栏目公告</h3>
+            <p>1.2011年第一季度优秀作者 06-10 ·《来稿精选》第四期推出。</p>
+            <p>2.动画片,动画梦工场...文集信息 标题:栏目公告 简介: 创建：2008-01-09。</p>
+            <p>3.栏目旨在为广大河南网友提供一个发表建议、反映社会各层面问题的公共网络平台。</p>
+            <p>4.VIP用户资费即日开始调整[gongxm][2009-07-23] 即日开始VIP栏目实现限制访问。</p>
+        </div>
+        <div class="tab_2" id="b">
+            <h3>新闻动态</h3>
+            <p>·南方五省区电力供应告急，紧张情况或持续</p>
+            <p>·二三线城市限购名单呼之欲出“金九银十”</p>
+            <p>·华电新疆公司亚欧博览会保电工作准备就绪</p>
+            <p>·住建部正研究相关政策使房地产"去投</p>
+        </div>
+        <div class="tab_2" id="c">
+            <h3>社会大观</h3>
+            <p>1.2011年第一季度优秀作者 06-10 ·《来稿精选》第四期推出。</p>
+            <p>2.动画片,动画梦工场...文集信息 标题:栏目公告 简介: 创建：2008-01-09。</p>
+            <p>3.栏目旨在为广大河南网友提供一个发表建议、反映社会各层面问题的公共网络平台。</p>
+            <p>4.VIP用户资费即日开始调整[gongxm][2009-07-23] 即日开始VIP栏目实现限制访问。</p>
+        </div>
+        <div class="tab_2" id="d">
+            <h3>百态人生</h3>
+            <p>1.男子欲爬行回家续：被送走后重现郑州 。</p>
+            <p>2.网络文学先驱“痞子蔡”沉寂10年重出江湖。</p>
+            <p>3.初三学生不服调查管教用板凳将女教师打晕。</p>
+            <p>4.重庆妈妈得病无钱治 姐妹俩上街卖头发(组图)。</p>
+        </div>
+        <div class="tab_2" id="e">
+            <h3>精品博文</h3>
+            <p>1.济缘算命,哪种八字适合嫁入豪门？,命理点评。</p>
+            <p>2.楼市新政引发海外购房热 国人恋房情结令人担忧。</p>
+            <p>3.佛教在线精品博文频道，汇集佛教界法师博客中的精品文章，为大家提供的平台。</p>
+            <p>4远离黑暗的提示不要让，情感乱了心智，在“假相、妄想”中“求不得”。</p>
+        </div>
+        <div class="tab_2" id="f">
+            <h3>本站团购</h3>
+            <p>1.世界知名品牌Swissgear专场！仅48元全国包邮。</p>
+            <p>2.上网一族必备！仅39.9元，原价228元香港RAKISH电脑防辐。</p>
+            <p>3.2011新款9726，第一团首发震撼全新上市，！99元全国包邮。</p>
+            <p>4.世界知名品牌Swissgear专场！仅48元全国包邮，即享原价1。</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>标准网页布局</title>
+</head>
+
+<body>
+
+
+<div class="top">
+<div class="topBlk">
+		<div style="display:none">
+		<!-- 同名邮箱 begin -->
+		<form action="http://263.sina.com/cgi-bin/mail/login.cgi" name="form_04" method="post" target="_blank">
+			<input type="hidden" name="u" value="" /><input name="psw" type="hidden"/><input type="hidden" name="l" value="http://263.sina.com/cgi-bin/mail/mail.cgi" />
+		</form>
+		<!-- 同名邮箱 end -->
+		</div>
+		<!-- 登陆 begin -->
+		
+		<!-- 显示 begin -->
+		<div class="tB02">
+			<form name="showLogin" method="post" action="http://login.sina.com.cn/hd/signin.php" onsubmit="return chkLogin()" target="_blank">
+			<fieldset class="loginFld">
+				<legend><span>登录</span></legend>
+				<div class="usernameFld">
+					<div class="usernameFldlabel"><label class="usernameFldTxt">登录名</label></div>
+					<div class="usernameFldinput"><input type="text" name="username" id="username" value="" onblur="chkLoginType(this.value)" autocomplete="off" /></div>
+				</div>
+				<div class="passwordFld">
+					<div class="passwordFldlabel"><label class="passwordFldTxt">密码</label></div>
+					<div class="passwordFldinput"><input name="password" id="password" type="password" onfocus="openLoginType()" /><input type="hidden" name="entry" value="null" /><input type="hidden" id="act" name="act" value="1"></div>
+				</div>
+				<div class="bottonFld"><input type="submit" id="bottonFldsubmit" value="登录" align="absmiddle"/></div>
+			</fieldset>
+			</form>
+			<script language="javascript" type="text/javascript">document.showLogin.entry.value = "space";</script>	
+		</div>
+		<!-- 显示 end -->
+	<!--  登录框提示层 开始   -->
+	<style type="text/css">
+	<!--
+	/* 登录提示相关样式*/
+	#userPosition {padding: 0;margin: 0;border: 0;position: absolute;z-index: 999;}
+	#sinaNote {position: absolute;z-index: 999999;width: auto;overflow: hidden;padding: 0;margin: 0;border: 1px solid #ccc;background: #ffffff;text-align:left;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=90); -moz-opacity:.9; opacity:0.9;}
+	#sinaNote li {font-size: 12px;list-style: none;margin: 0 1px;height: 20px;padding: 0 5px;clear: both;line-height: 20px;cursor: pointer;color: #666;}
+	#sinaNote li.note {text-align: left;color: #666;}
+	/* end登录提示相关样式*/
+	-->
+	</style>
+	   <script language="javascript" type="text/javascript" src="http://news.sina.com.cn/iframe/213/20080331/8.js"></script>
+       <script language="javascript" type="text/javascript" defer>
+			//只要复制过去改下下面参数就可以了 :)
+			function initUserName(){
+				passcardOBJ.init(
+					// FlashSoft 注意,最好这个input的autocomplete设定为off
+					
+					// 需要有下拉框的input对象
+					document.getElementById("username"),
+					{
+					// 鼠标经过字体颜色
+					overfcolor: "#666",
+					// 鼠标经过背景颜色
+					overbgcolor: "#d6edfb",
+					// 鼠标离开字体颜色
+					outfcolor: "#000000",
+					// 鼠标离开背景颜色
+					outbgcolor: ""
+					},
+					// 输入完成后,自动需要跳到的input对象[备选]
+					document.getElementById("password"));
+			}
+			initUserName();
+			
+        </script>
+       <script language="javascript" type="text/javascript" defer>
+			//避免ie中后退时沿用前页的utf8编码，如果是则刷新，刷新后就是gb2312了
+			try{
+				if(document.charset == 'utf-8'){
+						window.location.href = window.location.href; //only for refreshing when charset is utf-8
+				}
+			}catch(e){}
+        </script>
+	<!--  登录框提示层 结束  -->
+		<!-- 登陆 end -->
+		
+		<div class="tB03">
+			<ul>
+				<li><a href="https://login.sina.com.cn/cgi/register/reg_sso.php" target="_blank">注册通行证</a></li>
+				<li><a href="https://login.sina.com.cn/getpass.html" target="_blank">找回密码</a></li>
+				<li><a href="http://tech.sina.com.cn/focus/sinahelp.shtml" target="_blank">客服帮助</a></li>
+				<li><a href="http://mail.sina.net/" target="_blank">企业邮箱</a></li>
+			</ul>
+		</div>
+		
+		<div class="tB04">
+			<ul>
+				<li><a href="javascript:void(0);" id="setHomePage" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.sina.com.cn/');return(false);" style="behavior:url(#default#homepage);">设为主页</a></li>
+				<li><a href="http://news.sina.com.cn/guide/" target="_blank">网站地图</a></li>
+			</ul>
+		</div>
+		
+		<!-- 登录分类选择 begin -->
+		<div class="loginFldselect" id="loginFldselect">
+			<span id="loginFldselectdis" onclick="clickLoginSelect();">选择去向</span>
+			<ul id="loginFldselectop" style="display:none;">
+				<li><a href="javascript:void(0);" id="L_freemail" onclick="LoginSelect('freemail')">免费邮箱</a></li>
+				<li><a href="javascript:void(0);" id="L_vipmail" onclick="LoginSelect('vipmail')">VIP邮箱</a></li>
+				<li><a href="javascript:void(0);" id="L_2008mail" onclick="LoginSelect('2008mail')">2008邮箱</a></li>
+				<li><a href="javascript:void(0);" id="L_263mail" onclick="LoginSelect('263mail')">同名邮箱</a></li>
+				<li id="loginFldselectop_line"></li>
+				<li><a href="javascript:void(0);" onclick="LoginSelect('space')">空间</a></li>
+				<li><a href="javascript:void(0);" onclick="LoginSelect('blog')">博客</a></li>
+				<li><a href="javascript:void(0);" onclick="LoginSelect('vblog')">播客</a></li>
+				<li><a href="javascript:void(0);" onclick="LoginSelect('photo')">相册</a></li>
+				<li id="loginFldselectop_line"></li>
+				<li><a href="javascript:void(0);" onclick="LoginSelect('login')">会员中心</a></li>
+			</ul>
+		</div>
+		<!-- 登录分类选择 end -->
+		</div>
+</div>
+<div class="logonav">
+	
+	<!-- logo begin -->
+	<div class="logo">
+		<h1><span class="logoBlk"><img src="http://i3.sinaimg.cn/home/deco/2008/0325/sinahome_Logo.gif" width="117" height="42" alt="新浪网" /></span></h1>
+	</div>
+	<!-- logo end -->
+	
+	<!-- weather begin -->
+
+	<div class="weather">
+		<span class="weatherBlk"><iframe width="145" height="20" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="http://news.sina.com.cn/iframe/2008/weather/jump_new.html"></iframe></span>
+	</div>
+	<!-- weather end -->
+	
+	<!--NAV_BEGIN-->
+	<div class="nav">
+		<div class="nav_2">
+			<ul>
+				<li><a href="http://news.sina.com.cn/"><b>新闻</b></a></li>
+				<li><a href="http://mil.news.sina.com.cn/">军事</a></li>
+				<li><a href="http://news.sina.com.cn/society/">社会</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://finance.sina.com.cn/"><b>财经</b></a></li>
+				<li><a href="http://finance.sina.com.cn/stock/">股票</a></li>
+				<li><a href="http://finance.sina.com.cn/fund/">基金</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://tech.sina.com.cn/"><b>科技</b></a></li>
+				<li><a href="http://mobile.sina.com.cn/">手机</a></li>
+				<li><a href="http://tech.sina.com.cn/digital/">数码</a></li>
+			</ul>
+		</div>
+		<div class="nav_2">
+			<ul>
+				<li><a href="http://sports.sina.com.cn/"><b>体育</b></a></li>
+				<li><a href="http://f1.sina.com.cn/">&nbsp;F1&nbsp;</a></li>
+				<li><a href="http://torch.2008.sina.com.cn/">火炬</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://ent.sina.com.cn/"><b>娱乐</b></a></li>
+				<li><a href="http://ent.sina.com.cn/tv/">电视</a></li>
+				<li><a href="http://yue.sina.com.cn/">音乐</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://auto.sina.com.cn/"><b>汽车</b></a></li>
+				<li><a href="http://auto.sina.com.cn/car/">购车</a></li>
+				<li><a href="http://che.sina.com.cn/">搜车</a></li>
+			</ul>
+		</div>
+		<div class="nav_2">
+			<ul>
+				<li><a href="http://blog.sina.com.cn/"><b>博客</b></a></li>
+				<li><a href="http://blog.sina.com.cn/lm/top/rank/">名博</a></li>
+				<li><a href="http://blog.sina.com.cn/lm/rank/index.html">排行</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://video.sina.com.cn/"><b>视频</b></a></li>
+				<li><a href="http://you.video.sina.com.cn/">播客</a></li>
+				<li><a href="http://tv.sina.com.cn/">&nbsp;TV&nbsp;</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://house.sina.com.cn/"><b>房产</b></a></li>
+				<li><a href="http://jiaju.sina.com.cn/">家居</a></li>
+				<li><a href="http://tour.sina.com.cn/">旅游</a></li>
+			</ul>
+		</div>
+		<div class="nav_2">
+			<ul>
+				<li><a href="http://book.sina.com.cn/"><b>读书</b></a></li>
+				<li><a href="http://edu.sina.com.cn/">教育</a></li>
+				<li><a href="http://baby.sina.com.cn/">育儿</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://eladies.sina.com.cn/"><b>女性</b></a></li>
+				<li><a href="http://astro.sina.com.cn/">星座</a></li>
+				<li><a href="http://sina.kangq.com/">健康</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://music.sina.com.cn/"><b>乐库</b></a></li>
+				<li><a href="http://style.sina.com.cn/">尚品</a></li>
+				<li><a href="http://eat.sina.com.cn/">美食</a></li>
+			</ul>
+		</div>
+		
+		<div class="nav_2">
+			<ul>
+				<li><a href="http://space.sina.com.cn/"><b>空间</b></a></li>
+				<li><a href="http://uc.sina.com.cn/">&nbsp;UC&nbsp;</a></li>
+				<li><a href="http://mail.sina.com.cn/">邮箱</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://bbs.sina.com.cn/"><b>论坛</b></a></li>
+				<li><a href="http://q.sina.com.cn/">圈子</a></li>
+				<li><a href="http://photo.sina.com.cn/">相册</a></li>
+
+			</ul>
+			<ul>
+				<li><a href="http://sina.allyes.com/main/adfclick?db=sina&bid=80646,113214,113342&cid=0,0,0&sid=105302&advid=3866&camid=15178&show=ignore&url=http://sina.love21cn.com/st/?id=99"><b>交友</b></a></li>
+				<li><a href="http://games.sina.com.cn/">游戏</a></li>
+				<li style="width:24px; overflow:hidden;"><a href="http://utg.sina.com.cn/">UTG</a></li>
+			</ul>
+		</div>
+
+		
+		<div class="nav_2">
+			<ul>
+				<li><a href="http://city.sina.net/">城市</a></li>
+				<li><a href="http://gd.sina.com.cn/">广东</a></li>
+				<li><a href="http://sh.sina.com.cn/">上海</a></li>
+			</ul>
+			<ul>
+
+				<li><a href="http://www.sina.net/">企业</a></li>
+				<li><a href="http://classad.sina.com.cn/">分类</a></li>
+				<li><a href="http://mall.sina.com.cn/">商城</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://sms.sina.com.cn/">短信</a></li>
+				<li style="position:relative;width:24px;height:14px;"><a href="http://cl.sina.com.cn/"><img src="http://i1.sinaimg.cn/home/deco/2008/0329/sinahome_ws_037.gif" width="27" height="15" alt="" style="position:absolute;top:-2px;left:6px;" /></a></li>
+
+				<li><a href="http://mms.sina.com.cn/">彩信</a></li>
+			</ul>
+		</div>
+		
+		<div class="nav_3">
+			<ul>
+				<li><a href="http://gongyi.sina.com.cn/">公&nbsp;&nbsp;益</a></li>
+				<li><a href="http://mag.sina.com.cn/">杂志</a></li>
+
+				<li><a href="http://news.sina.com.cn/guide/">导航</a></li>
+			</ul>
+			<ul>
+				<li><a href="http://golf.sina.com.cn/">高尔夫</a></li>
+				<li><a href="http://weather.news.sina.com.cn/">天气</a></li>
+				<li><a href="http://iask.com/">爱问</a></li>
+			</ul>
+
+			<ul>
+				<li><a href="http://www.music.nokia.com.cn/">音悦汇</a></li>
+				<li><a href="http://2008.sina.com.cn/">奥运</a></li>
+				<li><a href="http://isee.sina.net/">爱答</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!--NAV_END-->
+	
+</div>
+
+
+
+
+</body>
+</html>

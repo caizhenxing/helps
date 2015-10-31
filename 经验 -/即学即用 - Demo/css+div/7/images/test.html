@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<style type="text/css">
+#fieldset {/* <定义表单基本属性> */
+    color:#6D8B1E;
+    font-size:12px;
+}
+#fieldset input {/* <定义输入表单控件基本属性> */
+    border:solid 1px #339900;
+    width:6em;
+}
+#fieldset dt {/* <定义标题属性> */
+    font-size:16px;
+    color:#333;
+    }
+#fieldset dd {/* <定义输入控件行高> */
+    line-height:1em;
+}
+#fieldset #submit {/* <定义提交按钮属性> */
+    text-indent:999px; /* 隐藏显示的value属性 */
+    border:0; /* 清除边框 */
+    width:53px; /* 定义宽，与背景图像要一致 */
+    height:19px; /* 定义高，与背景图像要一致 */
+    background:url(submit1.gif) no-repeat; /* 定义背景图像 */
+}
+#fieldset #reset {/* <定义重置按钮属性，具体说明与上面提交按钮相同> */
+    text-indent:999px;
+    border:0;
+    width:53px;
+    height:19px;
+    background:url(reset.gif) no-repeat;
+}
+
+</style>
+<title>上机练习</title>
+</head>
+<body>
+<form id="fieldset" action="../default.asp" method="post">
+    <dl>
+    <dt>注册表单</dt>
+    <dd> 姓名
+        <input id="name" name="name">
+        <input id="submit" type="submit" value="提交" name="submit">
+    <dd> 密码
+        <input id="password" name="password">
+        <input id="reset" type="reset" value="取消" name="reset">
+    </dd>
+    </dl>
+</form>
+
+
+</body>
+</html>

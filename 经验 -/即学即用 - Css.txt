@@ -3,10 +3,10 @@
 	clear: both;
 	position: absolute;
 	margin: 0px auto;// 水平居中
-	padding: 0px;
-	width: 50%;
+	padding: 0px | 10px 20px 30px 30px;
+	width: 400px | 50% | auto;
 	height: 1024px;
-	top: 20px;
+	top: 20px | -10px;
 	bottom: 10px;
 	color: red;
 	border: 1px solid red;
@@ -16,6 +16,7 @@
 	border-radius: 2px;
 	text-align: center;
 	display: block;
+	overflow: hidden;// 可巧妙用于tab，隐藏溢出的内容，替代display:none
 	overflow: visible | auto | hidden | scroll | inherit; // 内容超过指定宽高如何显示
 	vertical-align:middle;// 垂直居中, 不支持块级元素，如div，只有当块级别元素display:table-cell(单元格)才有效果
 	background-color: red;
@@ -24,6 +25,11 @@
 	border-collapse: collapse | separate | inherit ;// 合并边框为一个 | 边框分开 | 继承父类边框属性
 	background-image:url(image/eg_bg_02.gif);
 	background-repeat:no-repeat | repeat-x | repeat-y;// 背景重复
+	
+	background-position: 40% 60%;// 第一个值是水平位置，第二个值是垂直位置。左上角是 0% 0%。右下角是 100% 100%。
+	background-attachment: scroll | fixed;// fixed: 固定背景图片，不随对象滚动条移动而改变
+	
+	
 	
 	
 常用class命名	-	

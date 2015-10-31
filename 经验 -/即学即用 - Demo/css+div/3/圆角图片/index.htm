@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>圆角图片</title>
+<style type="text/css">
+body {
+    margin: 20px;
+    padding: 20px;
+}
+.a {
+    width: 150px;
+    height: 150px;
+    border: 1px solid gray;
+    -moz-border-radius: 10px;           /*仅Firefox支持，实现圆角效果*/
+    -webkit-border-radius: 10px;        /*仅Safari,Chrome支持，实现圆角效果*/
+    -khtml-border-radius: 10px;         /*仅Safari,Chrome支持，实现圆角效果*/
+    border-radius: 10px;        /*Firefox,Opera，Safari,Chrome支持，实现圆角效果*/
+}
+</style>
+</head>
+
+<body>
+<img class="a" src="images/1.jpg"/> 
+<img class="a" src="images/2.jpg"/> 
+<img class="a" src="images/3.jpg"/> 
+<img class="a" src="images/4.jpg"/>
+</body>
+</html>

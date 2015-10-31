@@ -1,0 +1,74 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 transitional//en" "http://www.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=gb2312" />
+<title>表单视觉改善－控件分组</title>
+
+
+</head>
+<body>
+
+<form id=fm-form action="" method=post>
+	<fieldset>
+	<legend>个人信息</legend>
+	<div class=fm-req>
+		<label for=fm-firstname>姓名</label>
+		<input id=fm-firstname name=fm-firstname>
+	</div>
+	</fieldset><br>
+	<fieldset>
+	<legend>地址</legend>
+	<div class=fm-opt>
+		<label for=fm-addr>详细地址:</label>
+		<input id=fm-addr name=fm-addr>
+	</div>
+	<div class=fm-opt>
+		<label for=fm-city>省市:</label>
+		<input id=fm-city name=fm-city>
+	</div>
+	<div class=fm-opt>
+		<label for=fm-state>国家:</label>
+		<select id=fm-state name=fm-state>
+			<option value=al>China</option>
+			<option value=ak>Japan</option>
+		</select>
+	</div>
+	<div class=fm-req>
+		<label for=fm-zipcode>邮编:</label>
+		<input id=fm-zipcode name=fm-zipcode>
+	</div>
+	</fieldset><br>
+	<fieldset>
+	<legend>联系信息</legend>
+	<div class=fm-req>
+		<label for=fm-telephone>电话:</label>
+		<input id=fm-telephone title="电话格式：xxx-xxx" name=fm-telephone>
+	</div>
+	<div class=fm-opt>
+		<label for=fm-fax>传真:</label>
+		<input id=fm-fax title="传真格式：xxx-xxx" name=fm-fax>
+	</div>
+	<div class=fm-opt>
+		<label for=fm-mobile>手机:</label>
+		<input id=fm-mobile name=fm-mobile>
+	</div>
+	<div class=fm-req>
+		<label for=fm-email>email:</label>
+		<input id=fm-email name=fm-email>
+	</div>
+	<div class=fm-opt>
+		<label for=fm-url>网址:</label>
+		<input id=fm-url name=fm-url>
+	</div>
+	<div class=fm-opt>
+		<label for=fm-comments>其他信息:</label>
+		<textarea id=fm-comments name=fm-comments rows=5 cols=10></textarea>
+	</div>
+	</fieldset>
+	<div class=fm-req id=fm-submit>
+		<input type=submit value=submit name=submit>
+	</div>
+	<br>
+</form>
+</body>
+</html>

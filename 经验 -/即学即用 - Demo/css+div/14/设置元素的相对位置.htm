@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<title></title>
+</head>
+<body>
+
+<style type="text/css">
+div {
+    width:200px; height:100px; border:solid 1px red; padding:50px; position:absolute; left:50px; top:50px;
+}
+</style>
+
+<div id="wrap">
+    <div id="sub">
+        <div id="box"></div>
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+var sub = document.getElementById("sub");
+offsetP(sub,{
+    x : 10, y : 100
+});
+
+
+//设置元素的相对位置，即相对于当前位置进行偏移
+//参数：e表示设置位置的元素，o表示一个对象，对象包含的属性x代表x轴偏移距离，属性y代表y轴偏移距离，不用附带单位，默认以像素为单位
+//返回值：无
+function offsetP(e, o){
+    (e.style.position) || (e.style.position = "absolute");	//如果元素静态显示，则对其进行绝对定位
+    e.style.left = getB(e).x + o.x + "px";	//设置x轴的距离
+    e.style.top = getB(e).y + o.y + "px";	//设置y轴的距离
+}
+
+function getB(e){
+    return {
+        "x" : (parseInt(getStyle(e, "left")) || 0) ,
+        "y" : (parseInt(getStyle(e, "top")) || 0) 
+    };
+}
+
+function getStyle(e, n)
+{
+    if(e.style[n])
+    {
+        return e.style[n];
+    }
+    else if(e.currentStyle)
+    {
+        return e.currentStyle[n];
+    }
+    else if(document.defaultView && document.defaultView.getComputedStyle)
+    {
+        n = n.replace(/([A-Z])/g, "-$1");
+        n = n.toLowerCase();
+        var s = document.defaultView.getComputedStyle(e, null);
+        if(s) return s.getPropertyValue(n);
+    }
+    else
+    return null;
+}
+
+</script>
+
+</body>
+
+</html>

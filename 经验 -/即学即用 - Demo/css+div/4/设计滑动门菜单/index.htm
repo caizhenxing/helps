@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>滑动门菜单</title>
+<style type="text/css">
+<!--
+.container {
+    width:500px;
+    margin-left:30px;
+}
+.menu {
+ width:100%  margin:0;
+    padding:0;
+    font-size:13px;
+    line-height:38px;
+    font-family: Arial, Courier, "Courier New", monospace;
+}
+.content {
+    width:500px;
+    height:500px;
+    background:#FBEBFC;
+    text-align:justify;
+    font-size:14px;
+    line-height:40px;
+    color:#2E4583;
+    margin-left:0;
+    padding:20px 20px;
+    float:left;
+}
+.menu ul {
+    margin:20px auto 0 0px;
+    padding:0;
+    list-style-type:none;
+    background:#fff;
+}
+.menu li {
+    float:left;
+    margin:0;
+    padding:0;
+    background:url(images/4.gif) no-repeat right top;
+}
+.menu li a {
+    display:block;
+    background:url(images/3.gif) no-repeat left top;
+    padding:0 15px;
+    font-size:15px;
+    color:#fff;
+    font-weight:800;
+    text-decoration:none;
+}
+.menu li a:hover {
+    color:#c00;
+}
+.menu li.first {
+    background:url(images/2.gif) no-repeat right top;
+}
+.menu li.first a {
+    background:url(images/1.gif) no-repeat left top;
+    color:#000;
+}
+.menu li.first a:hover {
+    color:#fc0;
+}
+-->
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="menu">
+        <ul>
+            <li class="first"><a href="#">首 页</a></li>
+            <li><a href="#">CSS教程</a></li>
+            <li ><a href="#">CSS实例</a></li>
+            <li><a href="#">CSS层与布局</a></li>
+            <li><a href="#">CSS特效</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <p> 什么是滑动门技术？究其本意，就是根据文本自适应大小，进行滑动。我们可以用背景图片来营造这样的现象，一个在左一个在右，把这两个图片想象成可以滑动的门，当文本较少的时候，两个图片重叠的就多些，当文本较多的时候就滑动开，重叠的所谓“滑动门”，就是两个嵌套的元素，各自使用一个背景图像，二者中间部分重叠，两端不重叠，这样，左右两端的花纹就可以都被显示出来，中间部分的宽度可以自动适应，因此宽度变化时，依然可以保证左右两端的图案不变。“滑动门”这个名称很形象地描述了这种方法的本质，两个图像就像两扇门，二者可以滑动，当宽度小的时候，就多重叠一些，宽度大的时候，就少重叠一些。
+            部分就少一些。</p>
+    </div>
+</div>
+</body>
+</html>

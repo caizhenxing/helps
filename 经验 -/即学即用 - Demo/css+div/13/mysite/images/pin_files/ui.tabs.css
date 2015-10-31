@@ -1,0 +1,124 @@
+
+@media Screen, Projection    
+{
+.ui-tabs-hide {
+	DISPLAY: none
+}
+    }
+.ui-tabs-nav {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 4px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.ui-tabs-nav:after {
+	DISPLAY: block; CLEAR: both
+}
+.ui-tabs-nav A {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; DISPLAY: block; PADDING-TOP: 0px
+}
+.ui-tabs-nav A SPAN {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; DISPLAY: block; PADDING-TOP: 0px
+}
+.ui-tabs-nav A {
+	TEXT-ALIGN: center; LINE-HEIGHT: 1.2; MARGIN: 1px 0px 0px; PADDING-LEFT: 0px; OUTLINE-WIDTH: 0px; WHITE-SPACE: nowrap; COLOR: #747879; FONT-SIZE: 12px; TEXT-DECORATION: none
+}
+.ui-tabs-nav .ui-tabs-selected A {
+	Z-INDEX: 2; POSITION: relative; MARGIN-TOP: 0px; COLOR: #ff0000; FONT-SIZE: 12px; TOP: 1px
+}
+.ui-tabs-nav A SPAN {
+	MIN-HEIGHT: 18px; PADDING-RIGHT: 0px; HEIGHT: 18px; PADDING-TOP: 6px
+}
+:unknown * > .ui-tabs-nav A SPAN {
+	WIDTH: auto; HEIGHT: auto
+}
+.ui-tabs-nav .ui-tabs-selected A SPAN {
+	PADDING-BOTTOM: 1px
+}
+.ui-tabs-nav .ui-tabs-selected A {
+	BACKGROUND-POSITION: 100% -150px
+}
+.ui-tabs-nav A:hover {
+	BACKGROUND-POSITION: 100% -150px
+}
+.ui-tabs-nav A:focus {
+	BACKGROUND-POSITION: 100% -150px
+}
+.ui-tabs-nav A:active {
+	BACKGROUND-POSITION: 100% -150px
+}
+.ui-tabs-nav A {
+	BACKGROUND-POSITION: 100% -100px
+}
+.ui-tabs-nav .ui-tabs-disabled A:hover {
+	BACKGROUND-POSITION: 100% -100px
+}
+.ui-tabs-nav .ui-tabs-disabled A:focus {
+	BACKGROUND-POSITION: 100% -100px
+}
+.ui-tabs-nav .ui-tabs-disabled A:active {
+	BACKGROUND-POSITION: 100% -100px
+}
+.ui-tabs-nav .ui-tabs-selected A SPAN {
+	BACKGROUND-POSITION: 0px -50px
+}
+.ui-tabs-nav A:hover SPAN {
+	BACKGROUND-POSITION: 0px -50px
+}
+.ui-tabs-nav A:focus SPAN {
+	BACKGROUND-POSITION: 0px -50px
+}
+.ui-tabs-nav A:active SPAN {
+	BACKGROUND-POSITION: 0px -50px
+}
+.ui-tabs-nav A SPAN {
+	BACKGROUND-POSITION: 0px 0px
+}
+.ui-tabs-nav .ui-tabs-disabled A:hover SPAN {
+	BACKGROUND-POSITION: 0px 0px
+}
+.ui-tabs-nav .ui-tabs-disabled A:focus SPAN {
+	BACKGROUND-POSITION: 0px 0px
+}
+.ui-tabs-nav .ui-tabs-disabled A:active SPAN {
+	BACKGROUND-POSITION: 0px 0px
+}
+.ui-tabs-nav .ui-tabs-selected A:link {
+	CURSOR: text
+}
+.ui-tabs-nav .ui-tabs-selected A:visited {
+	CURSOR: text
+}
+.ui-tabs-nav .ui-tabs-disabled A:link {
+	CURSOR: text
+}
+.ui-tabs-nav .ui-tabs-disabled A:visited {
+	CURSOR: text
+}
+.ui-tabs-nav A:hover {
+	CURSOR: pointer
+}
+.ui-tabs-nav A:focus {
+	CURSOR: pointer
+}
+.ui-tabs-nav A:active {
+	CURSOR: pointer
+}
+.ui-tabs-nav .ui-tabs-unselect A:hover {
+	CURSOR: pointer
+}
+.ui-tabs-nav .ui-tabs-unselect A:focus {
+	CURSOR: pointer
+}
+.ui-tabs-nav .ui-tabs-unselect A:active {
+	CURSOR: pointer
+}
+.ui-tabs-disabled {
+	FILTER: alpha(opacity=40); opacity: .4
+}
+.ui-tabs-loading EM {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; BACKGROUND: url(../../%E5%8D%8A%E6%9C%88%E8%B0%88%E7%BD%91%20-%20%E4%B8%AD%E5%9B%BD%E6%9C%80%E5%85%B7%E5%BD%B1%E5%93%8D%E5%8A%9B%E6%97%B6%E6%94%BF%E6%96%B0%E9%97%BB%E8%AF%84%E8%AE%BA%E4%B8%93%E4%B8%9A%E7%BD%91_files/pin_files/loading.gif) no-repeat 0px 50%; PADDING-TOP: 0px
+}
+* HTML .ui-tabs-nav {
+	DISPLAY: inline-block
+}
+*:first-child + HTML .ui-tabs-nav {
+	DISPLAY: inline-block
+}

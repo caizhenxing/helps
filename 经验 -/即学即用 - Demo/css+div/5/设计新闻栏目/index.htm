@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<title>ol-ul应用</title>
+<style>
+body {	/*网页基本属性*/
+    font: 13px "黑体";	/*字体样式*/
+    background-color: #99CCFF;
+}
+p {	/*新闻栏目的文本样式*/
+    margin: 5px 0 0 5px; 	/*新闻栏目文字上下补白*/
+    color: #3333FF;
+    font-size: 15px;
+    font-weight: bold;
+}
+p span { 	/*文字“more…”的显示样式*/
+    color: #FF0000;
+    float: right;	/*右对齐*/
+}
+div {								/*每一个新闻栏目块的样式*/
+    line-height: 16pt;  			/*行间距*/
+    width: 400px;					/*块的宽度*/
+    margin: 10px 0 0 10px;			/*各个新闻块之间距离*/
+}
+.part1 {							/*第一个栏目的样式*/ border: 5px #FFcc00 dotted;		/*边框样式*/ }
+.part2 {							/*第二个栏目的样式*/ border: 2px #FF0000 dashed; }
+.part3 {							/*第三个栏目的样式*/ border: 2px #ff33FF solid; }
+.part1 ul {							/*第一个新闻块的列表样式*/
+    margin-left: 40px;				/*文字左侧离边框的距离*/
+    list-style-type: upper-alpha;		/*项目符号是大写字母*/
+}
+.part2 ol {							/*第二个新闻块的列表样式*/
+    margin-left: 40px;
+    list-style-type: upper-roman;		/*项目符号是大写罗马字母*/
+}
+.part3 ul {							/*第三个新闻块的列表样式*/
+    margin-left: 40px;
+    list-style-type: circle;			/*项目符号是空心圆*/
+}
+li { /*li标签样式，也就是新闻标题样式*/ margin: 5px 0 5px 0;		/*每条新闻标题之间间隔*/ }
+a { /*链接样式*/
+    text-decoration: none;		/*不显示下划线*/
+    color: #000;
+}
+</style>
+</head><body>
+<div class="part1">
+    <p>军事新闻<span>more...</span></p>
+    <ul>
+        <li><a href="#">解放军反航母导弹部署广东 射程达2700公里。</a> </li>
+        <li><a href="#"> 日本记者南沙回来很感慨：终于领略中国的强大。</a></li>
+        <li><a href="#">解放军承认以往过分发展文化形象 今后要硬实力。</a> </li>
+        <li><a href="#">外媒：解放军在巴基斯坦建基地是“死路一条”。</a></li>
+    </ul>
+</div>
+<div class="part2">
+    <p>财经资讯<span>more...</span></p>
+    <ol>
+        <li><a href="#">银行股搭擂台 史玉柱增持PK王亚伟减持。</a> </li>
+        <li> <a href="#">研报滑稽秀接连登场 券商高管揭秘四大主因。 </a></li>
+        <li><a href="#">基金中报重仓股揭晓 谁是长牛股独门股。 </a></li>
+        <li> <a href="#">基金二季报揭秘:增持食品饮料、地产、医药生物。</a></li>
+    </ol>
+</div>
+<div class="part3">
+    <p>娱乐资讯<span>more...</span></p>
+    <ul>
+        <li><a href="#">女歌手艾米-怀恩豪斯家中暴毙，年仅27岁。</a> </li>
+        <li><a href="#"> 李敖不服老：我是一个标杆 比儿子更“坏”。 </a></li>
+        <li><a href="#">苏珊大妈自曝频爽约隐情：不敢坐飞机的胆小鬼。</a> </li>
+        <li><a href="#"> 斯皮尔伯格确认拍摄《侏罗纪4》 两三年后问世。</a></li>
+    </ul>
+</div>
+</body>
+</html>

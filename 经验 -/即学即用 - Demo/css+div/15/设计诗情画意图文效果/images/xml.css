@@ -1,0 +1,34 @@
+poem {
+    margin:0px;
+    background-image:url(06.jpg);
+}
+title {
+    position:absolute;
+    left:80px;
+    top:20px;
+    font-size:26px;
+    color:#FFF;    
+    font-weight:bold;
+}
+author {
+    position:absolute;
+    left:100px;
+    top:60px;
+    font-size:14px;
+    color:#0033FF;    
+}
+wen {
+    position:absolute;
+    left:80px;
+    top:90px;
+    width:620px;
+    height:350px;
+    background:url(author.png) bottom right no-repeat ;    
+}
+li {
+    display:block;
+    color:#000;
+    font-size:20px;
+    font-weight:bold;    
+    margin:6px;
+}
