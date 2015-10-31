@@ -1,3 +1,7 @@
+常用手法	-	
+	<a href="#tab1">;// 指向tab内容
+	<a><img/><span></span></a>
+
 常用html标签	-	
 	<div>
 	<span>
@@ -6,6 +10,7 @@
 	<h1>,<h2>,<h3>,<h4>,<h5>,<h6>
 	<a>
 	<img>
+	
 	<dl><dt></dt><dd></dd></dl> 定义列表
 	
 内容模型	-	

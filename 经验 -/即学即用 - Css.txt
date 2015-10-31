@@ -1,7 +1,14 @@
+常用手法	-	
+	overflow:hidden;// 在tab中替代 display: none
+	
 常用css属性	-	
 	float: left;
 	clear: both;
-	position: absolute;
+	position: 
+			absolute:  相对于除static以外的最近父元素位置
+			relative: 相对于自身现在的位置移位。如："left:20" 会向元素的 LEFT 位置添加 20 像素。
+			fixed: 相对于浏览器固定定位，不会随滚动条滚动而变动位置
+			static: 默认值
 	margin: 0px auto;// 水平居中
 	padding: 0px | 10px 20px 30px 30px;
 	width: 400px | 50% | auto;
@@ -28,7 +35,7 @@
 	
 	background-position: 40% 60%;// 第一个值是水平位置，第二个值是垂直位置。左上角是 0% 0%。右下角是 100% 100%。
 	background-attachment: scroll | fixed;// fixed: 固定背景图片，不随对象滚动条移动而改变
-	
+	a:hover{}
 	
 	
 	
@@ -89,6 +96,7 @@
 	background-position: 40% 60%;// 第一个值是水平位置，第二个值是垂直位置。左上角是 0% 0%。右下角是 100% 100%。
 	background-attachment: scroll | fixed;// fixed: 固定背景图片，不随对象滚动条移动而改变
 	background: #eeeeee url(bg.png) repeat-x 10px 5px fixed;// background-color background-image background-repeat background-position background-attachment
+	letter-spacing: 2px;// 字间距
 }
 
 p{
