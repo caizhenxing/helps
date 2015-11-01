@@ -10,6 +10,15 @@
 	<h1>,<h2>,<h3>,<h4>,<h5>,<h6>
 	<a>
 	<img>
+	<fieldset><legend>
+	<label>
+	
+	<form>
+	<input checked disabled readonly> text,button,hidden,checkbox,radio,submit,password,file,reset,image
+	<button>
+	<select multiple size> <option selected>
+	<textarea placeholder cols rows>
+	
 	
 	<dl><dt></dt><dd></dd></dl> 定义列表
 	
