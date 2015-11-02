@@ -1,3 +1,51 @@
+常用架构	-	
+
+	Linux	-	
+
+	Nginx	-	反向代理服务器
+	Apache	-	
+	Tomcat	-	集群
+	Jetty	-	
+	
+	Gearman	-	分布式任务处理系统
+	
+	Mysql	-	单主多备，读写分离，读写权重
+	Mongodb	-	
+	
+	Nodejs	-	
+	RequireJS	-	
+	jQuery	-	
+	ExtJs	-	
+	Css + Div	-	
+	Html	-	
+	
+	SpringMVC	-
+	SSH	-	
+	S2SH	-	
+	SSI	-	
+	
+	Zookeeper	-	分布式系统一致性管理
+	ActiveMQ	-	
+	Restfull	-
+	Hessian(RPC)	-	
+	WebService	-	
+	
+	EhCache	-	 是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider。 Ehcache是一种广泛使用的开源Java分布式缓存。
+	Redis	-	它使用内存提供主存储支持,而仅使用硬盘做持久性的存储;它的数据模型非常独特,用的是单线程。
+	
+	Svn	-	单主多备
+	Git/gitlib/github/jgit/gitblit	- 代码托管
+	
+	Maven	-	代码管理
+	
+	项目管理系统	-	
+	缺陷管理系统	-	
+	
+	mfs	-	一个具有容错性的网络分布式文件系统。它把数据分散存放在多个物理服务器上，而呈现给用户的则是一个统一的资源。
+	ceph	-	一个 Linux PB 级分布式文件系统
+	
+	Jenkins	-	快速搭建持续集成环境
+
 Bugfix	-	
 	-	找日志，看懂错误日志猜想各种可能性，搜资料后测试解决
 	-	多线程独立彻底解决

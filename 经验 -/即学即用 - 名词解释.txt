@@ -20,3 +20,15 @@ Browerify	-	是一个node.js模块，主要用于改写现有的CommonJS模块�
 Cloud9	-	一个在线运行代码云平台 https://c9.io/
 ASCILL	-	American Standard Code for Information Interchange， 美国标准信息交换码，  如：32(十进制) = 20(16进制) = space(键值) ，许多软件程序把 ASCII 表（又称作 ISO 8859-1）
 SoapUI	-	soapUI是一个开源测试工具，通过soap/http来检查、调用、实现Web Service的功能/负载/符合性测试
+
+Blackduck Protext	-	商业开源协议扫描
+Palamida	-	商业开源协议扫描
+Jninka	-	免费的开源协议扫描
+Coverity	-	代码质量扫描
+CPD	-	相识度扫描
+Gearman	- 分布式任务处理系统
+Doxygen	- 类似javadoc
+
+
+	
+	
