@@ -1,4 +1,5 @@
 常用手法	-	
+	从外围往里面写样式
 	overflow:hidden;// 在tab中替代 display: none
 	margin:0 auto; width:500px;//居中对齐
 	line-height|width: 2em;// 2em表示2倍font-size
@@ -13,6 +14,7 @@
 	input[type=submit],input[type=reset]{} //属性匹配
 	<a>或<span>来设计标签
 	
+	background-position:0 -14px;// 一张图片中有多个图片，通过改变背景位置来设置它的背景，减少服务器http请求次数下载图片
 	抄袭网上好的设计
 	
 	
@@ -40,9 +42,11 @@
 	display: block;
 	overflow: hidden;// 可巧妙用于tab，隐藏溢出的内容，替代display:none
 	overflow: visible | auto | hidden | scroll | inherit; // 内容超过指定宽高如何显示
+	z-index: 1000;
 	vertical-align:middle;// 垂直居中, 不支持块级元素，如div，只有当块级别元素display:table-cell(单元格)才有效果
 	background-color: red;
 	background: red|url(images/bg.jpg);
+    background: url(images/email.png) #eee no-repeat right top; | url(images/email.png) #eee no-repeat 0px 10px;
 	list-style: none;// ul li去掉点
 	border-collapse: collapse | separate | inherit ;// 合并边框为一个 | 边框分开 | 继承父类边框属性
 	background-image:url(image/eg_bg_02.gif);
@@ -51,7 +55,31 @@
 	background-position: 40% 60%;// 第一个值是水平位置，第二个值是垂直位置。左上角是 0% 0%。右下角是 100% 100%。
 	background-attachment: scroll | fixed;// fixed: 固定背景图片，不随对象滚动条移动而改变
 	a:hover{}
+	
+	
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);// 阴影效果
 	text-shadow: 0px 2px 0px #f2f2f2;// 文本阴影效果
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a5b8da), to(#7089b3));// 背景色线性渐变
+	background-clip:content-box;// 规定背景的绘制区域
+	
+	a:link{}
+	a:visited{}
+	a:hover{}
+	a:active{}
+	p:before{content:"台词："}// p标签前面加"台词："
+	p:after{content:"台词："}
+	input:focus{}
+	:first-child{}// 第一个子对象
+	:first{}// 第一页样式(仅@page)
+	
+	a[class^="My"]{color:red}// class值开头为My的元素
+	a[href^="mailto:"] {// href为mailto:开头的右上角加上email图片
+	  background: url(images/email.png) #eee no-repeat right top;
+	  padding-right: 15px;
+	}
+	
+	text-indent: 2em;//首行缩进
+	cursor:pointer;
 	
 常用选择器	-	
 	.class1, .class2{// class="class1" 和 class="class2" 并列（中间逗号）
@@ -140,6 +168,9 @@
 	border-collapse: collapse | separate | inherit ;// 合并边框为一个 | 边框分开 | 继承父类边框属性
 	display: table | inline;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);// 阴影效果
+	-moz-box-shadow: inset 0 1px 0 0 #aec3e5;// 阴影效果
+    -webkit-box-shadow: inset 0 1px 0 0 #aec3e5;// 阴影效果
+    
 	border-radius: 4px | 50%; // 圆角
 	
 	outline:none | solid | ridge;// 元素轮廓，无轮廓 | 实线轮廓 | 3D凸槽轮廓

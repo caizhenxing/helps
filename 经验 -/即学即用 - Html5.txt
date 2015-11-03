@@ -1,6 +1,7 @@
 常用手法	-	
 	<a href="#tab1">;// 指向tab内容
 	<a><img/><span></span></a>
+	<a href="#top"></a> //锚
 
 常用html标签	-	
 	<div>
