@@ -1,6 +1,5 @@
 常用手法	-	
 	由核心类向它依赖的接口和类展开去写
-	分而治之
 	new IService(){ pulic void get(){}};
 	组合
 	多态
@@ -9,7 +8,8 @@
 	继承 public abstract class Job{ public abstract void run(){}; public void log(){this.run();}}
 		   public class MyJob extends Job{public void run(){};}
 	单例模式
-	
+	异步回调
+	分而治之
 	
 	for{}
 	while{}
