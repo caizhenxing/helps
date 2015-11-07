@@ -1,4 +1,5 @@
-常用手法	-	
+常用手法	-
+	分块和块嵌套
 	从外围往里面写样式
 	overflow:hidden;// 在tab中替代 display: none
 	margin:0 auto; width:500px;//居中对齐
@@ -13,6 +14,7 @@
 	input:focus{background: red}; //css伪类控制改变样式; 
 	input[type=submit],input[type=reset]{} //属性匹配
 	<a>或<span>来设计标签
+	负边距：负边距+定位：水平垂直居中
 	
 	background-position:0 -14px;// 一张图片中有多个图片，通过改变背景位置来设置它的背景，减少服务器http请求次数下载图片
 	抄袭网上好的设计
