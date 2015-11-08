@@ -1,6 +1,6 @@
 lekkio		-	主动求知欲
 diego		-	积累基础
-lucifercao	-	看书求知
+lucifercao	-	看书
 flexli		-	有亮点
 sunney		-	大胆尝试
-koby		-	学习开源代码理念
+koby		-	考虑全面
