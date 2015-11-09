@@ -4,3 +4,4 @@ lucifercao	-	看书
 flexli		-	有亮点
 sunney		-	大胆尝试
 koby		-	考虑全面
+jimmy	-	熟悉
