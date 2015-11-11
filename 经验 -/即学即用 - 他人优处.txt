@@ -1,10 +1,11 @@
-lekkio		-	主动求知欲
-diego		-	积累基础
-lucifercao	-	看书
-flexli		-	有亮点
-sunney		-	大胆尝试
-koby		-	考虑全面
-jimmy	-	熟悉
+lekkio			-	主动求知欲
+diego			-	积累基础
+lucifercao		-	看书
+flexli				-	有亮点
+sunney			-	大胆尝试
+koby				-	考虑全面
+jimmy			-	熟悉
+carlcyang		-	这样做的坏处是什么，好处是什么
 
 
 ------------------------------------------
