@@ -52,13 +52,19 @@
 	AtomicLong
 	Charset
 	Arrays
-	InputStream
-	OutputStream
-	BufferedReader
-	ThreadFactory
-	SecurityManager
-	System
+	java.io.InputStream
+	java.io.OutputStream
+	java.io.BufferedReader
+	java.util.concurrent.ThreadFactory
+	java.lang.SecurityManager
+	java.lang.System
 	ServerSocket
+	java.net.URL
+	java.io.File
+	java.io.StringWriter
+	java.util.Collections
+	org.w3c.dom.Document
+	
 	
 		
 常用api	-	先记住有些什么功能，用的时候再详细查看
