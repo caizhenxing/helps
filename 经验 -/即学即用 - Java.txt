@@ -23,6 +23,7 @@
 	Object... arguments
 	HessianConnection connection = super.open(url);
 	task.setSearchService(this);
+	private boolean isRunning = false;
 	
 ≥£”√api	-	
 	String
