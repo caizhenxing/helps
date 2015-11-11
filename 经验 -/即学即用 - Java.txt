@@ -4,7 +4,7 @@
 	组合
 	多态
 	重载
-	泛型 public <T> T create(Class<T> clazz); class Factory<K,V>{} 
+	泛型 public <T> T create(Class<T> clazz); class Factory<K,V>{} 	 public static <X> List<X> join(X[]... elements) {}
 	继承 public abstract class Job{ public abstract void run(){}; public void log(){this.run();}}
 		   public class MyJob extends Job{public void run(){};}
 	单例模式
@@ -25,6 +25,8 @@
 	task.setSearchService(this);
 	private boolean isRunning = false;
 	
+	public void handleRequest(){validate(); super.handleRequest();}
+	
 常用api	-	
 	String
 	List
@@ -35,6 +37,7 @@
 	Runnable
 	FileUtils
 	注解
+	private static ThreadLocal<MessageDigest> MD = new ThreadLocal<MessageDigest>();// 所谓ThreadLocal，简单一点想，就是一个全局的Map，Map的key是线程对象，value是你要保存的对象， 进入某个线程后，就可以从map中取得之前存储的相应线程关联的对象
 	
 	charAt()
 	
@@ -43,6 +46,15 @@
 常用api	-	先记住有些什么功能，用的时候再详细查看
 	package:
 		java awt - 图形界面
-		
+	
+进制转换：
+	16进制0x： 0-10-a-f, a相当于10进制的10，f相当于十进制的15
+	8进制o：  0-8
+	2进制：  0-1
+	10进制： 0-10
+	
+	16进制转10进制：1f = 1*16+15 = 31
+	
+	
 transient - 短暂的，不会被序列化持久化到磁盘里，防止敏感信息泄露
 java -jar test.jar	-	

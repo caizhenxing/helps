@@ -66,6 +66,23 @@ java	-
 	final Lock lock = new ReentrantLock();//锁对象  
 	final Condition notFull  = lock.newCondition();//写线程条件   
 	
+	******************************************************************************************************************
+	private static final String C64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="; // default base64.
+	private static final char[] BASE16 = { '0', '1', '2', '3', '4', '5', '6','7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' }, BASE64 = C64.toCharArray();
+	
+	private static ThreadLocal<MessageDigest> MD = new ThreadLocal<MessageDigest>();// 所谓ThreadLocal，简单一点想，就是一个全局的Map，Map的key是线程对象，value是你要保存的对象， 进入某个线程后，就可以从map中取得之前存储的相应线程关联的对象
+	private static MessageDigest getMessageDigest() {
+		MessageDigest ret = MD.get();
+		if (ret == null) {
+			try {
+				ret = MessageDigest.getInstance("MD5");
+				MD.set(ret);
+			} catch (NoSuchAlgorithmException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return ret;
+	}
 	
 	
 css	-

@@ -1,3 +1,7 @@
+1. 熟悉常用手法
+2. 熟悉API，工具
+3. 熟悉实现思路
+
 常用架构	-	
 
 	Linux	-	
@@ -37,6 +41,7 @@
 	Git/gitlib/github/jgit/gitblit	- 代码托管
 	
 	Maven	-	代码管理
+	Ant
 	
 	项目管理系统	-	
 	缺陷管理系统	-	
@@ -45,6 +50,10 @@
 	ceph	-	一个 Linux PB 级分布式文件系统
 	
 	Jenkins	-	快速搭建持续集成环境
+	
+常用技术	-	
+		restfull/hessian
+		
 
 Bugfix	-	
 	-	找日志，看懂错误日志猜想各种可能性，搜资料后测试解决
