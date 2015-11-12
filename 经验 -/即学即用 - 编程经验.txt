@@ -53,9 +53,13 @@
 	
 常用技术	-	
 		restfull/hessian
-		token/apikey 授权认证
-		统一认证登陆： 用户访问A系统，没有登陆，将会跳到统一B系统登陆页面?url=http://code.oa.com，用户输入用户名密码后，B系统校验通过后，跳到A系统http://code.oa.com?ticket=加密字符串，A系统拿到ticket字符串后再向B系统校验，校验成功会返回用户名，用户登陆A系统成功
-
+		token/apikey 授权认证(OAuth)
+		统一认证登陆	-	用户访问A系统，没有登陆，将会跳到统一B系统登陆页面?url=http://code.oa.com，用户输入用户名密码后，B系统校验通过后，跳到A系统http://code.oa.com?ticket=加密字符串，A系统拿到ticket字符串后再向B系统校验，校验成功会返回用户名，用户登陆A系统成功
+		鉴权	-	Spring Security, Apache Shiro
+		提供默认实现，并允许开发人员提供自己的实现
+		LDAP	-	很多公司都使用 LDAP服务器来保存员工的相关信息，内部的 IT 系统都需要与 LDAP 服务器做集成来进行用户认证与访问授权
+		集成进来	-	
+		
 Bugfix	-	
 	-	找日志，看懂错误日志猜想各种可能性，搜资料后测试解决
 	-	多线程独立彻底解决
