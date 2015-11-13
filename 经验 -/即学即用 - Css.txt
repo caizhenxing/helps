@@ -1,5 +1,5 @@
 常用手法	-
-	分块和块嵌套
+	分块和块嵌套，对齐
 	从外围往里面写样式
 	overflow:hidden;// 在tab中替代 display: none
 	margin:0 auto; width:500px;//居中对齐
