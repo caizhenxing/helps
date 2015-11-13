@@ -16,7 +16,7 @@
 	sudo chown -R svnadm:users mysql/
 	scp svnadm@10.12.153.163:/data/home/carlcyang/ ./
 	rsync -avz  svnadm@10.6.19.149:/usr/local/mysql/ /usr/local/mysql
-	
+	uptime
 	
 	env/printenv	-	查看当前shell所有系统变量
 	echo
