@@ -17,6 +17,17 @@
 	scp svnadm@10.12.153.163:/data/home/carlcyang/ ./
 	rsync -avz  svnadm@10.6.19.149:/usr/local/mysql/ /usr/local/mysql
 	
+	
+	env/printenv	-	查看当前shell所有系统变量
+	echo
+	export	- export JAVA_HOME=/usr/local/java	将变量指定给后续的命令执行环境(如子shell)
+	bash	-	创建一个子Shell
+	exit
+	echo $$	-	后台运行的最后一个进程的进程ID号
+	
+	bash test.sh	-	执行test.sh脚本
+	./test.sh	-	执行test.sh脚本
+	sh test.sh	-	执行test.sh脚本
 
 常用快捷键	-	
 	ctrl+w： 删除光标位置前的单词
@@ -107,20 +118,64 @@ stop.sh	-
 	
 sleep 2	-	
 
+ubunton	-	
+	桌面切换到命令窗口: ctrl+alt+F2
+	命令窗口切换到桌面: ctrl+alt+F7
 
 sudo 授权管理员权限 	-	
 
 whereis nginx - 
 
-scp	-	
+scp	-	远程同步
 	scp svnadm@10.12.121.121:/data/home/carlcyang ./
+
+rsync	-	远程同步
+	rsync -avz  svnadm@10.6.19.149:/usr/local/mysql/ /usr/local/mysql
 
 ls	-	
 	ls | xargs -i du -hs {}
 
+wget	-	从网络上下载文件
+	wget http://baidu.com
+	
 curl	-	查看或下载网页信息
 	curl -u username:password https://testsite/test.html
 	-x: -x 123.45.67.89:1080	代理
 	-o: -o test.html	下载到本地
 	-O: -O 下载到本地，有默认文件名
 	正则: curl -O  https://testsite/[100-200].html 下载100.html到200.html文件
+	
+变量	-	系统变量(环境变量)和自定义变量(本地变量或Shell变量)
+	系统变量： BASH_VERSION, DISPLAY, EDITOR, HISTFILE, HISTFILESIZE, HISTSIZE, HOME, HOSTNAME, IFS, PATH, PSL, PWD, SHELL, TERM, TMOUT
+	变量定义： username="carlcyang" 或 username=carlcyang 或 username=$(carlcyang) 或 let sum=2+1  let sum=$sum+1
+			  echo -n "enter you name:"; read username; echo $username
+			  export JAVA_HOME=/usr/local/java	将变量指定给后续的命令执行环境(如子shell)
+	变量打印：echo $username 或 printf $username
+	变量引用：echo $username 或 echo "$username"	 区别如：username=carlcyang lily;  COMMAND $username #COMMAND带有两个参数; COMMAND "$username"带有一个参数
+	变量删除：unset username
+	变量是否存在：echo ${username?Error: not defined.} 或 echo ${username:?Error: not defined.} 区别： :?表示如果username等于空也抛出Error: not defined.
+	
+	
+内置变量	-	
+	$# 传递到脚本的参数个数
+	$* 以一个单字符串显示所有向脚本传递的参数，与位置变量不同，此选项参数可超过9个
+	$$ 脚本运行的当前进程ID号
+	$! 后台运行的最后一个进程的进程ID号
+	$@ 与$#相同，但是使用时加引号，并在引号中返回每个参数
+	$- 显示shell使用的当前选项，与set命令功能相同
+	$? 显示最后命令的退出状态。0表示没有错误，其它任何值表明有错误
+	$0 Shell本身的文件名
+	$1～$n 添加到Shell的各参数值。$1是第1参数、$2是第2参数...
+	
+for -	
+	LIST="one two three"
+	for var in $LIST #将变量LIST的值分为了3个参数传给了for循环
+	for var in "$LIST" #将变量LIST的值作为一个整体传入for循环
+	do	
+		echo "$var"
+	done
+	
+echo printf区别	-	printf可以格式化打印 printf "%s\n" "carlcyang"
+
+
+	
