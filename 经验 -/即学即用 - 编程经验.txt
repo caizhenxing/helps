@@ -16,8 +16,7 @@
 	Mysql	-	单主多备，读写分离，读写权重
 	Mongodb	-	
 	Hbase	-	
-	Hadoop	-	l
-	OL|O|O)
+	Hadoop	-
 	
 	Nodejs	-	
 	RequireJS	-	
@@ -43,32 +42,55 @@
 	Svn	-	单主多备
 	Git/gitlib/github/jgit/gitblit	- 代码托管
 	
-	Maven	-	代码管理
-	Ant
+	Lucene	-	
+	Elasticsearch	-	
 	
-	项目管理系统	-	
-	缺陷管理系统	-	
+	Maven	-	代码管理
+	Ant	-
+	
+	项目管理系统	-	tapd, 青铜器
+	缺陷管理系统	-	tapd, 青铜器
 	
 	mfs	-	一个具有容错性的网络分布式文件系统。它把数据分散存放在多个物理服务器上，而呈现给用户的则是一个统一的资源。
 	ceph	-	一个 Linux PB 级分布式文件系统
 	
 	Jenkins	-	快速搭建持续集成环境
-	
+
+常用架构整合	-	
+	code平台	-	
+		前端： jquery, css, html, requirejs
+		后端： spring mvc, zookeeper, activemq, restfull/hessian
+		容器： nginx, apache, tomcat
+		数据库： mysql, oracle, mongodb
+		服务器： linux
+		负载均衡
+		code_web, code_proj, svnadmin, svnagent, svnserver
+	tgit	-	
+		web
+		manager	集群
+		tgit server	集群
+		
 常用技术	-	
-		restfull/hessian
-		token/apikey 授权认证(OAuth)
-		统一认证登陆	-	用户访问A系统，没有登陆，将会跳到统一B系统登陆页面?url=http://code.oa.com，用户输入用户名密码后，B系统校验通过后，跳到A系统http://code.oa.com?ticket=加密字符串，A系统拿到ticket字符串后再向B系统校验，校验成功会返回用户名，用户登陆A系统成功
-		鉴权	-	Spring Security, Apache Shiro
-		提供默认实现，并允许开发人员提供自己的实现
-		LDAP	-	很多公司都使用 LDAP服务器来保存员工的相关信息，内部的 IT 系统都需要与 LDAP 服务器做集成来进行用户认证与访问授权
-		集成进来	-	
-		spring security	- 用户验证和授权，访问控制列表(ACL)
+	restfull/hessian	-	
+	token/apikey -	授权认证(OAuth)
+	统一认证登陆	-	用户访问A系统，没有登陆，将会跳到统一B系统登陆页面?url=http://code.oa.com，用户输入用户名密码后，B系统校验通过后，跳到A系统http://code.oa.com?ticket=加密字符串，A系统拿到ticket字符串后再向B系统校验，校验成功会返回用户名，用户登陆A系统成功
+	鉴权	-	Spring Security, Apache Shiro
+	提供接口，其他类引用接口(1.通过方法参数，2.通过作为成员)执行接口的方法，提供默认实现，并允许开发人员提供自己的实现
+	LDAP	-	很多公司都使用 LDAP服务器来保存员工的相关信息，内部的 IT 系统都需要与 LDAP 服务器做集成来进行用户认证与访问授权
+	集成进来	-	
+	可配置编程	-	
+	spring security	- 用户验证和授权，访问控制列表(ACL)
+	eclipse远程调试
+
+常用画图	-	
+	架构图
+	流程图
+	时序图
+	
 		
 Bugfix	-	
-	-	找日志，看懂错误日志猜想各种可能性，搜资料后测试解决
+	-	找日志，看懂错误日志猜想推理判断各种可能性，搜资料后测试解决
 	-	多线程独立彻底解决
-	-	eclipse远程调试
-	-	通过已知线索推理猜想查资料解决问题
 	
 用工具	-	
 	-	勇敢试错新工具新功能
