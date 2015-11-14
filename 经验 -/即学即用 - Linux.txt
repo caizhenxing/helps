@@ -1,10 +1,11 @@
 常用手法	-	
-	
+	嵌套
+	管道命令
 
 常用命令	-	
 	ssh root@xx.xx.xx.xx
 	cd /xxx
-	ls
+	ls/ll	-	ls -t #按时间排序 ls -aF --color=always #列出所有文件包括隐藏文件，并附加指示符和颜色标识
 	rm
 	mv
 	vim xxx.log
@@ -28,7 +29,32 @@
 	bash test.sh	-	执行test.sh脚本
 	./test.sh	-	执行test.sh脚本
 	sh test.sh	-	执行test.sh脚本
-
+	history	-	显示历史命令ctrl+r搜索，方向键上下切换
+	!!	-	重复执行上一条命令
+	!up/10	-	回调历史命令以up开头的命令，或者历史命令id为10的命令
+	
+	upset	-	upset JAVA_HOME 删除变量
+	
+	{}	- 从左至右扩展	echo a{b,c,d}e 输出： abe, ace, ade ; echo {a..z} 输出：a~z ; echo {0..10} 输出:0~10 ; echo {0,1}{a,b} 输出:0a 0b 1a 1b ; echo {a,b{1..3},c} 输出：a b1 b2 b3 c
+	| -	管道命令
+	~	-	Home目录
+	~carlcyang	-	carlcyang的Home目录
+	mkdir	-	创建目录: mkdir ~/{dir1,dir2,dir3} #在home下创建dir1,dir2,dir3三个目录
+	--help -	命令帮助 mkdir --help
+	\	-	转义	\n
+	sudo	-	授权执行命令
+	
+	pwd	-	显示当前所在目录
+	*/?/[...]	-	文件名扩展 通配符 	ls /etc/*.conf #显示所有已.conf结尾的文件; ls image?.jpg #显示image1.jpg,image2.jpg; ls/etc/[ab]*.conf #显示a.conf,b.conf
+	$(uptime)/'uptime'	-	命令替换：用命令的输出替换命令本身
+	
+	alias	-	创建别名		alias test='ls -l'; test		alias ..='cd ..'	
+	unlias	-	删除别名		unalias test	unalias -a #删除所有别名
+	head	-	ls -t | head -2 #当前目录按时间排序取前2个文件
+	find	-	find . -type f - exec ls -s {} \; | sort -n -r | head -5 #找出当前目录下, 5个最大的文件
+	
+	df -h -	磁盘空间使用情况
+	
 常用快捷键	-	
 	ctrl+w： 删除光标位置前的单词
 	ctrl+u： 清空行
@@ -177,5 +203,38 @@ for -
 	
 echo printf区别	-	printf可以格式化打印 printf "%s\n" "carlcyang"
 
+回调命令历史	-	Bash将历史命令保存在缓冲区或默认文件~/.bash_history
+	history	-	显示历史命令ctrl+r搜索，方向键上下切换
+	!!	-	重复执行上一条命令
+	!up/10	-	回调历史命令以up开头的命令，或者历史命令id为10的命令
+	
+文件说明	-	
+		/etc/profile	-	用户在运行级别3登录是系统时首先运行
+		/etc/profile.d	-	在/etc/profile运行时，调用该目录下的一些脚本
+		$HOME/.bash_profile, $HOME/.bash_login, $HOME/.profile -	在/etc/profile运行后，第一个存在的被运行
+		$HOME/.bashrc	-	上述脚本中的一个运行后即调用此脚本
+		/etc/bashrc 或 /etc/bash.bashrc	-	由$HOME/.bashrc调用运行
+扩展{}	-	
+	echo a{b,c,d}e 输出： abe, ace, ade
+	echo {a..z} 输出：a~z
+	echo {0..10} 输出:0~10
+	echo {0,1}{a,b} 输出:0a 0b 1a 1b
+	echo {a,b{1..3},c} 输出：a b1 b2 b3 c
+	echo {<START>..<END>..<INCR>} echo {1..10..2} 输出：1 3 5 7 9 ; echo {10..1..-2} 输出：10 8 6 4 2; echo {a..h..3} 输出：a d g
+	echo {0001..10..3} 输出：0001 004 007 0010; 不足4位前面补零
+
+文件名扩展 通配符	-	
+		* - 匹配任何字符串，包括空字符串	ls /etc/*.conf
+		? - 匹配任意单个字符串	ls image?.jpg #显示image1.jpg,image2.jpg
+		[...] - 匹配方括号内的任意字符	ls/etc/[ab]*.conf #显示a.conf,b.conf
+	
+波浪号~	-	
+	echo ~ 当前用户的Home目录
+	echo ~carlcyang carclyang的Home目录
+	echo ~+ 等同于 echo $PWD
+	echo ~- 等同于 echo $OLDPWD
+
+
+	
 
 	

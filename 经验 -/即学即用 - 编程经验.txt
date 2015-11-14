@@ -15,6 +15,9 @@
 	
 	Mysql	-	单主多备，读写分离，读写权重
 	Mongodb	-	
+	Hbase	-	
+	Hadoop	-	l
+	OL|O|O)
 	
 	Nodejs	-	
 	RequireJS	-	
