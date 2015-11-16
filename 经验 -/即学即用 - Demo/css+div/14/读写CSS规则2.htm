@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+
+<style type="text/css">
+#box { color:green; }
+.red { color:red; }
+.blue { color:blue; }
+</style>
+<p class="blue">原为蓝色字体，现在显示为浅灰色。</p>
+<script language="javascript" type="text/javascript">
+var cssRules = document.styleSheets[0].cssRules || document.styleSheets[0].rules;
+cssRules[2].style.color="#999";							//动态设置样式表中指定属性的值
+alert(cssRules[2].style.color);								//弹出显示指定属性值
+</script>
+
+</body>
+</html>

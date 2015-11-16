@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>表单字体样式</title>
+<style type="text/css">
+
+#form1 #bold {
+	font-weight: bold; 
+	font-size: 14px;
+	font-family:"宋体";
+	 }
+
+#form1 #blue {
+	font-size: 14px; 
+	color: #0000ff;
+ }
+
+#form1 select {
+	font-size: 13px; 
+	color: #ff0000; 
+	font-family: verdana,arial;
+ }
+#form1 textarea {
+
+	font-size: 14px; 
+	color: #000099; 
+	text-decoration: underline;	
+	font-family: verdana, arial; 
+
+}	 
+
+#form1 #submit {
+	font-size: 16px; 
+	color:green;
+	font-family:"方正姚体";
+}	
+	 
+	 
+</style>
+
+
+
+</head>
+<body>
+
+
+<form name="form1" action="#" method="post" id="form1">
+		<input maxlength="10" size="10" value="加粗" name="bold" id="bold"m>
+		<input type="password" maxlength="12" size="8" name="blue" id="blue">
+		<br>
+		<select name="select" size="1">
+				<option value="2" selected>sina.com</option>
+				<option value="1">sohu.com</option>
+		</select>
+		<br>
+		<textarea name="txtarea" rows="5" cols="30" align="right">下划线样式</textarea>
+		<br>
+		<input type="submit" value="提交" name="submit" id="submit">
+		<input type="reset" value="清除" name="reset">
+</form>
+
+</body>
+</html>

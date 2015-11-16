@@ -1,0 +1,18 @@
+.waik {
+	Z-INDEX: 1000; BORDER-BOTTOM: #898989 1px solid; WIDTH: 441px; DISPLAY: none; BACKGROUND: #ffffff
+}
+.biaoti {
+	TEXT-ALIGN: center; LINE-HEIGHT: 27px; WIDTH: 441px; BACKGROUND: url(shezhibg.gif) no-repeat; HEIGHT: 27px; PADDING-TOP: 8px
+}
+.xuanze {
+	BORDER-LEFT: #898989 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 30px; WIDTH: 409px; BACKGROUND: #ffffff; BORDER-RIGHT: #898989 1px solid; PADDING-TOP: 10px
+}
+.xuanze UL {
+	WIDTH: 439px
+}
+.xuanze UL LI {
+	TEXT-ALIGN: left; PADDING-LEFT: 10px; WIDTH: 135px; FLOAT: left
+}
+.caozuo {
+	BORDER-BOTTOM: #898989 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #898989 1px solid; WIDTH: 439px; BACKGROUND: #ffffff; HEIGHT: 35px; BORDER-RIGHT: #898989 1px solid; PADDING-TOP: 5px
+}

@@ -1,0 +1,1349 @@
+常用	-
+	select * from
+	insert into
+	update set
+	delete from
+	group by having
+	order by xxx desc
+	left join ... on
+	inner join ... on
+	right join ... on
+	group_concat()
+	concat()
+	distinct
+	like
+	set @ranking = 0
+	@ranking := @ranking + 1
+	replace(xxx, oldchar, newchar)
+	date_format(xxx, '%Y-%m-%d') 
+	union
+	
+	
+规范	-	
+	表名： 驼峰命名法
+	字段：大写，单词间用下划线连接
+	
+alter	-	
+	alter table CovStatus ADD last_time timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tencent.code.svn.task.cov.dao.CoverityDataDao">
+	<sql id="selectBugProjectSql">
+		select 
+		    p.id,
+		    p.ip,
+		    ifnull(i.proj_name_cn, i.proj_name) proj_name,
+		    i.proj_name name,
+		    p.logo_url,
+		    p.description,
+		    date_format(p.last_time, '%Y-%m-%d %H:%i:%S') last_time,
+		    p.first_time
+		   
+	</sql>
+	
+	<select id="getProjects" statementType="STATEMENT" resultMap="projectsBriefResult">
+		set @ranking = 0;
+		select t.*, t2.stream_name, t2.svn_url, t2.svn_revision from (
+			<include refid="selectBugProjectSql"/>
+				,
+			 	i.`owner`,
+			    i.owner_members,
+			    i.bug_total_count,
+			    format(i.bug_rate, 3) bug_rate,
+			    case when owner_members like '%;everyone;%' or owner = '${user}' or LOCATE('${user}', owner_members) > 0 or LOCATE('${user}', owner_members_r) > 0 
+			    	 then 'true' else 'false' end access,
+			    r.ranking ranking
+			from
+			    CovProj p
+			        left join
+			    CovProjInfo i ON p.ip = i.ip
+			        and p.proj_name = i.proj_name
+			        left join
+		        (select @ranking := @ranking + 1 ranking,ip,proj_name,i.bug_rate from (select ip,proj_name,i.bug_rate from CovProjInfo i where i.is_valid = 1 and i.bug_rate is not null group by ip,proj_name,bug_rate order by bug_rate asc) i) r 
+			    	on p.ip = r.ip and p.proj_name = r.proj_name
+			where 1=1 and i.is_valid = 1 and i.bug_rate is not null
+			
+			<if test="key != null and key != ''">
+				and p.proj_name like '${key}%'
+			</if>
+			<if test="user != null and user != ''">
+				and (i.owner_members like '%;everyone;%' or (i.`owner` = '${user}' or i.owner_members like '%;${user};%' or i.owner_members_r like '%;${user};%')) 
+			</if>
+			<if test="projType != null and projType != ''">
+				and p.proj_type = '${projType}'
+			</if>
+			group by p.ip, p.proj_name
+		) t
+		left join 
+			(select ip, proj_name, group_concat(distinct stream_name) stream_name, group_concat(distinct svn_revision) svn_revision, group_concat(distinct svn_url) svn_url from CovRep r
+				 where 1=1
+					 <if test="key != null and key != ''">
+				  		and r.proj_name like '${key}%'
+					 </if>
+				 group by ip, proj_name
+		    ) 
+		  t2
+		on t.ip = t2.ip and t.name = t2.proj_name 
+			where 1=1
+			<if test="key != null and key != ''">
+	  			and t2.proj_name like '${key}%'
+			</if>
+			
+			<if test="orderby != null and desc !=null and orderby != '' and desc != ''">
+				order by ${orderby} ${desc}
+			</if>
+			
+			<if test="page > 0 and size != null">
+				limit ${page}, ${size}
+			</if>
+	</select>
+	
+	<select id="getProject" resultMap="projectsBriefResult">
+		set @ranking = 0;
+		select t.*, t2.stream_name, t2.svn_url, t2.svn_revision from (
+			<include refid="selectBugProjectSql"/>
+				,
+			 	i.`owner`,
+			    i.owner_members,
+			    i.bug_total_count,
+			    format(i.bug_rate, 3) bug_rate,
+			    r.ranking ranking
+			from
+			    CovProj p
+			        left join
+			    CovProjInfo i ON p.ip = i.ip
+			        and p.proj_name = i.proj_name
+			        left join
+			    (select @ranking := @ranking + 1 ranking,ip,proj_name,i.bug_rate from (select ip,proj_name,i.bug_rate from CovProjInfo i where i.is_valid = 1 and i.bug_rate is not null group by ip,proj_name,bug_rate order by bug_rate asc) i) r 
+			    	on p.ip = r.ip and p.proj_name = r.proj_name    
+			where i.ip = #{ip} and i.stream_name = #{streamName} and i.is_valid = 1 and i.bug_rate is not null
+		) t
+		left join 
+			(select ip, proj_name, group_concat(distinct stream_name) stream_name, group_concat(distinct svn_revision) svn_revision, group_concat(distinct svn_url) svn_url from CovRep r group by ip, proj_name) 
+		  t2
+		on t.ip = t2.ip and t.name = t2.proj_name 
+	</select>
+	
+	<select id="getOwnerList" parameterType="Map" resultType="BugOwner">
+		select h.owner,h.status,count(*) count from CovHeader h, CovChecker c
+		<where>
+			<if test="ip != null">
+				h.ip = #{ip}
+			</if>
+			<if test="streamName != null">
+				and h.stream_name in
+				<foreach collection="streamName" index="index" item="stn" open="(" close=")" separator=",">#{stn}</foreach>
+			</if>
+		    and h.checker = c.checker_name and c.impact != 'Low'
+		</where>
+		group by h.owner,h.status
+	</select>
+	
+	<select id="getBugList" resultMap="bugHeaderResult">
+		select id, ip, stream_name, cid, type, impact, status, owner, file, count, checker
+			from CovHeader h
+		where h.ip = #{ip}
+        	and h.stream_name in
+	        <foreach collection="streamName" index="index" item="stn" open="(" close=")" separator=",">
+	        	#{stn}
+	        </foreach>
+		
+		<if test="impact != null and impact != ''">
+			and h.impact = #{impact}
+		</if>
+		
+		<if test="status != null and status != ''">
+			and h.status = #{status}
+		</if>
+		
+		<if test="user != null and user != ''">
+			and h.owner =#{user}
+		</if>
+		
+		<if test="page != null and size != null">
+			limit ${page}, ${size}
+		</if>
+	</select>
+	
+	<select id="getBugDetailList" resultMap="bugDetailsResult">
+		select id, ip, stream_name, cid, event_group, event_step, event_line, event_tag, event_desc, event_kind, event_set, file_path, owner, d_id
+			from CovDetails
+		where ip = #{ip} 
+			and stream_name in
+	        <foreach collection="streamName" index="index" item="stn" open="(" close=")" separator=",">
+	        	#{stn}
+	        </foreach>
+		 and cid = #{cid} and file_path = #{path}
+	</select>
+	
+	<select id="getBugTree" resultType="BugTree">
+		select 
+		    IF(h.local_path is null, pkg, replace(p2.pkg,h.local_path,'')) pkg, 
+		    group_concat(h.file) fileNameStr, group_concat(h.bugCount) bugCountStr, group_concat(h.svn_file) svnFile, group_concat(h.svn_file_valid) svnFileValid,group_concat(h.file_md5) fileMD5
+		from
+		    (select 
+		        pkg
+		    from
+		        (select distinct substring_index(h.file, '/', length(h.file) - length(replace(h.file, '/', ''))) pkg 
+		         from CovHeader h, CovChecker c
+		         where		         
+		    		<if test="ip != null and ip != ''">
+		    			h.ip = #{ip}
+		    		</if>
+		    		
+		         	<if test="streamName != null">
+			        	and h.stream_name in
+			       		<foreach collection="streamName" index="index" item="stn" open="(" close=")" separator=",">
+			        		#{stn}
+			        	</foreach>
+		    		</if>
+		    	
+		    		and h.checker = c.checker_name and c.impact != 'Low'
+		    	
+		    		<if test="status != null">
+		    			and h.status in
+			        	<foreach collection="status" index="index" item="sta" open="(" close=")" separator=",">
+			        		#{sta}
+			        	</foreach>
+		    		</if>
+		    	
+		    		<if test="user != null and user != ''">
+		    			and h.owner = #{user}
+		    		</if>
+		    	
+		    		<if test="path != null and path != ''">
+		    			and substring_index(h.file, '/', -1) like #{path}
+		    		</if>
+		    		
+		    		<if test="startDate != null and startDate != ''">
+						and h.first_detected <![CDATA[ >= ]]> #{startDate}
+					</if>
+				
+					<if test="endDate != null and endDate != ''">
+						and h.first_detected <![CDATA[ < ]]> #{endDate}
+					</if>
+		    	
+		    	) p		    	
+	   		) p2
+		        left join
+		    (select 
+		        h.file, count(distinct h.cid) bugCount, d.svn_file, d.svn_file_valid,d.file_md5,r.local_path
+		    from
+		        CovHeader h, CovDetails d, CovRep r, CovChecker c
+			where		    	
+		    	<if test="ip != null and ip != ''">
+		    		h.ip = #{ip}
+		    	</if>
+		    	
+				<if test="streamName != null">
+			        and h.stream_name in
+			        <foreach collection="streamName" index="index" item="stn" open="(" close=")" separator=",">
+			        	#{stn}
+			        </foreach>
+		    	</if>
+		    	
+		    	and h.checker = c.checker_name and c.impact != 'Low'
+
+		    	<if test="status != null">
+		    		and h.status in
+			        <foreach collection="status" index="index" item="sta" open="(" close=")" separator=",">
+			        	#{sta}
+			        </foreach>
+		    	</if>
+
+		    	<if test="user != null and user != ''">
+		    		and h.owner = #{user}
+		    	</if>
+		    	
+		    	<if test="path != null and path != ''">
+		    		and substring_index(h.file, '/', -1) like #{path}
+		    	</if>
+		    	
+		    	<if test="startDate != null and startDate != ''">
+					and h.first_detected <![CDATA[ >= ]]> #{startDate}
+				</if>
+				
+				<if test="endDate != null and endDate != ''">
+					and h.first_detected <![CDATA[ < ]]> #{endDate}
+				</if>
+				
+				and h.ip = d.ip and h.stream_name = d.stream_name and h.cid = d.cid and h.file = d.file_path
+				and h.ip = r.ip and h.stream_name = r.stream_name
+			group by h.file	    	
+		    ) h ON LOCATE(p2.pkg, h.file) > 0
+		        and instr(replace(h.file, concat(p2.pkg, '/'), ''), '/') = 0
+		group by p2.pkg having bugCountStr is not null
+		order by p2.pkg
+				
+	</select>
+	
+	<select id="getFileStreamName" resultType="String">
+		select stream_name from CovHeader h
+		where h.ip = #{ip}
+        	and h.stream_name in
+	        <foreach collection="streamName" index="index" item="stn" open="(" close=")" separator=",">
+	        	#{stn}
+	        </foreach>
+	        and h.file = #{path}
+	    order by LAST_SNAPSHOT desc
+	    limit 1
+	</select>
+	
+	<resultMap type="BugProject" id="projectsBriefResult">
+		<id column="id" property="id"/>
+		<result column="ip" property="ip"/>
+		<result column="proj_name" property="name"/>
+		<result column="description" property="desc"/>
+		<result column="last_time" property="lastScanTime"/>
+		<result column="logo_url" property="logo"/>
+		<result column="bug_total_count" property="bugCount"/>
+		<result column="bug_rate" property="bugRate"/>
+		<result column="access" property="access"/>
+		<result column="owner_members" property="ownerMembers"/>
+		<result column="owner" property="owner"/>
+		<result column="stream_name" property="streamName"/>
+		<result column="svn_url" property="svnUrl"/>
+		<result column="svn_revision" property="svnRevision"/>
+		<result column="ranking" property="ranking"/>
+	</resultMap>
+	
+	<resultMap type="BugHeader" id="bugHeaderResult">
+		<id column="id" property="id"/>
+		<result column="type" property="type"/>
+		<result column="stream_name" property="streamName"/>
+		<result column="ip" property="ip"/>
+		<result column="impact"  property="impact"/>
+		<result column="status" property="status"/>
+		<result column="owner" property="owner"/>
+		<result column="count" property="count"/>
+		<result column="path" property="file"/>
+		<result column="rev" property="rev"/>
+		<result column="checker" property="checker"/>
+		<result column="cid" property="cid"/>
+	</resultMap>
+	
+	<resultMap type="BugDetails" id="bugDetailsResult">
+		<id column="id" property="id"/>
+		<result column="ip" property="ip"/>
+		<result column="stream_name" property="streamName"/>
+		<result column="cid" property="cid"/>
+		<result column="event_step" property="step"/>
+		<result column="event_line" property="line"/>
+		<result column="event_tag" property="tag"/>
+		<result column="event_desc" property="desc"/>
+		<result column="event_kind" property="kind"/>
+		<result column="event_set" property="set"/>
+		<result column="file_path" property="path"/>
+		<result column="owner" property="owner"/>
+		<result column="d_id" property="dId"/>
+		<result column="event_group" property="group"/>
+	</resultMap>
+	
+	<update id="updateTableValue" statementType="STATEMENT">
+		update ${tableName}
+			<set>
+				${key} = '${value}'
+			</set>
+		where cid = ${cid}
+	</update>
+	
+	<select id="getProjHealthDegree" resultType="java.lang.String">
+		select 
+		    sum(bug_rate) / count(1) bugRate
+		from
+		    CovProjInfo i
+		where
+		    i.ip = #{ip}
+		        and i.proj_name = #{projId}
+		group by ip , proj_name
+	</select>
+	
+	<select id="getProjRanking" resultType="ReportProjRanking">
+		set @i=0;
+		set @j= (select count(1) + 1 from CovProjInfo i where bug_rate is not null and i.is_valid = 1 and i.bug_rate is not null);
+		select t3.*,p.description `desc`, date_format(p.last_time, '%Y-%m-%d %H:%i:%S') lastScanTime, p.id, case when owner = #{userName} or LOCATE(#{userName}, ownerMembers) > 0 or LOCATE(#{userName}, ownerMembersR) > 0 then 'true' else 'false' end access from (
+			select 
+			   *
+			from
+			    (
+				select r.*, @i:=@i + 1 ranking from (
+					select 
+						i.ip, ifnull(i.proj_name_cn, i.proj_name) name, i.proj_name,i.stream_name streamName, i.owner owner, i.owner_members ownerMembers, i.owner_members_r ownerMembersR, p.logo_url logo, format(i.bug_rate,3) bugRate, i.bug_total_count bugCount 
+					from
+						CovProj p,  (select min(bug_rate) bug_rate, ip,min(ifnull(proj_name_cn, proj_name)) proj_name_cn,proj_name,group_concat(distinct stream_name) stream_name,group_concat(distinct owner) owner,group_concat(distinct owner_members) owner_members,group_concat(distinct owner_members_r) owner_members_r,max(bug_total_count) bug_total_count  from CovProjInfo i where i.is_valid = 1 and i.bug_rate > 0 group by ip,proj_name) i
+					where
+						p.ip = i.ip and p.proj_name = i.proj_name
+					order by i.bug_rate asc
+					limit 0 , #{size}) r
+				) t 
+			union select 
+			    *
+			from (
+				select r2.*, @j:=@j - 1 ranking from (
+					select 
+						i.ip, ifnull(i.proj_name_cn, i.proj_name) name, i.proj_name,i.stream_name streamName, i.owner owner, i.owner_members ownerMembers, i.owner_members_r ownerMembersR, p.logo_url logo, format(i.bug_rate,3) bugRate,  i.bug_total_count bugCount
+					from
+						CovProj p,  (select min(bug_rate) bug_rate, ip,min(ifnull(proj_name_cn, proj_name)) proj_name_cn,proj_name,group_concat(distinct stream_name) stream_name,group_concat(distinct owner) owner,group_concat(distinct owner_members) owner_members,group_concat(distinct owner_members_r) owner_members_r,max(bug_total_count) bug_total_count from CovProjInfo i where i.is_valid = 1 and i.bug_rate > 0 group by ip,proj_name) i
+					where
+						p.ip = i.ip and p.proj_name = i.proj_name
+					order by i.bug_rate desc
+					limit 0 ,  #{size}) r2
+			) t2
+		) t3 left join  CovProj p on p.ip = t3.ip and p.proj_name = t3.proj_name
+	</select>
+	
+	<select id="getBugDetailList2" resultMap="reportBugFileMap" >
+		select 
+		    h.id id,
+		    c.type type,
+			c.impact impact,
+			h.status status,
+		    h.owner owner,
+		    h.count count,
+		    h.file file,
+		    h.cid cid,
+		    h.stream_name streamName,
+		    h.ip ip,
+		    d.event_group eventGroup,
+		    d.event_step eventStep,
+		    d.event_line eventLine,
+		    d.event_tag eventTag,
+		    d.event_desc eventDesc,
+		    d.event_kind eventKind,
+		    d.event_set eventSet,
+		    d.owner eventOwner
+		FROM
+			CovHeader h, CovChecker c, CovDetails d
+		where
+			h.ip = #{ip}
+			and h.stream_name in 
+				<foreach collection="streamName" index="index" item="stn" open="(" close=")" separator=",">#{stn}</foreach>
+			and h.file = #{path}
+			<if test="startDate != null and startDate != ''">
+				and h.first_detected <![CDATA[ >= ]]> #{startDate}
+			</if>				
+			<if test="endDate != null and endDate != ''">
+				and h.first_detected <![CDATA[ < ]]>#{endDate}
+			</if>
+			and h.checker = c.checker_name and c.impact != 'Low'		    
+			and h.ip = d.ip and h.stream_name = d.stream_name and h.cid = d.cid and h.file = d.file_path
+		group by h.ip, h.cid, d.event_group, d.event_step
+	</select>
+	
+	<resultMap type="ReportBugFile" id="reportBugFileMap">
+		<result column="id" property="id"/>
+		<result column="type" property="type"/>
+		<result column="impact" property="impact"/>
+		<result column="status" property="status"/>
+		<result column="owner" property="owner"/>
+		<result column="count" property="count"/>
+		<result column="file" property="file"/>
+		<result column="cid" property="cid"/>
+		<result column="eventGroup" property="eventGroup"/>
+		<result column="eventStep" property="eventStep"/>
+		<result column="eventLine" property="eventLine"/>
+		<result column="eventTag" property="eventTag"/>
+		<result column="eventDesc" property="eventDesc"/>
+		<result column="eventKind" property="eventKind"/>
+		<result column="eventOwner" property="eventOwner"/>
+	</resultMap>
+	
+	<select id="getCovProjInfoOfPermission" resultType="java.lang.Integer">
+		select 
+		    count(1) ct
+		from
+		    CovProjInfo
+		where
+		    ip = #{ip}
+		    and stream_name in (${streamName})
+		    and (owner_members like '%;everyone;%'
+		    or owner = '${userName}'
+		    or owner_members like '%;${userName};%'
+		    or owner_members_r like '%;${userName};%');
+	</select>
+	
+	
+	<select id="getCovHeaders" resultType="CovSvnUrlMapper">
+		select distinct h.ip, h.stream_name streamName,h.file localFile,r.svn_url svnFile 
+			from CovHeader h left join CovRep r on h.ip = r.ip and h.stream_name = r.stream_name
+				where r.local_path is null and r.svn_url is not null 
+				<!-- 
+					and h.owner is not null
+				 -->
+				<if test="ip != null and ip != ''">
+					and h.ip = #{ip}
+				</if>
+				<if test="streamName != null and streamName != ''">
+					and h.stream_name = #{streamName}
+				</if>
+	</select>
+	
+	<select id="getCovRepStreams" resultType="CovSvnUrlMapper">
+		select distinct stream_name streamName from CovRep r where r.ip = #{ip} and r.local_path is null and r.svn_url is not null
+	</select>
+	
+	<update id="updateLocalPath" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovRep
+				<set>
+					local_path = #{item.localPath}, local_time = now()
+				</set>
+			where ip = #{item.ip} and stream_name = #{item.streamName} and svn_url = #{item.svnFile} and local_path is null
+		</foreach>
+	</update>
+	
+	<select id="getCovSvnParamList" resultType="CovSvnParam">
+			select distinct 
+			    d.ip ip,
+			    d.stream_name streamName,
+				d.svn_file svnFile,
+				d.svn_revision svnRevision,
+			    d.file_path filePath,
+			    d.file_md5 fileMd5,
+			    substring_index(d.file_path, '/', - 1) fileName,
+			    replace(substring_index(d.file_path, '/', - 2), concat('/', substring_index(d.file_path, '/', - 1)), '') parentName,
+				t.last_time lastTime,
+				concat(UNIX_TIMESTAMP(t.last_time),'000') date,
+				t.proj_name projName
+			from
+			    CovDetails d inner join (select distinct r.stream_name, r.ip, r.svn_url, p.last_snapshot_time last_time,p.proj_name 
+						from CovRep r left join  CovProjInfo p on r.ip = p.ip and r.proj_name = p.proj_name and r.stream_name = p.stream_name where r.svn_url is null) t
+			 on d.ip = t.ip and d.stream_name = t.stream_name
+			where owner is null and t.svn_url is null
+		
+		<if test="ip != null and ip != ''">
+			and d.ip = #{ip}
+		</if>
+		<if test="projName != null and projName != ''">
+			and t.proj_name = #{projName}
+		</if>
+		<if test="streamName != null and streamName != ''">
+			and d.stream_name = #{streamName}
+		</if>
+		
+	</select>
+	<select id="getCovReps" resultType="CovRep">
+		select distinct ip,proj_name projName, stream_name streamName 
+			from CovRep where 1=1
+		
+		<if test="ip != null and ip != ''">
+			and ip = #{ip}
+		</if>
+		<if test="projName != null and projName != ''">
+			and proj_name = #{projName}
+		</if>
+		<if test="streamName != null and streamName != ''">
+			and stream_name = #{streamName}
+		</if>
+		
+	</select>
+	
+	<update id="updateCovProjLastTime">
+		update CovProj p,
+		    CovProjInfo i 
+		set 
+		    p.last_time = i.last_snapshot_time
+		where
+		    p.ip = i.ip
+		        and p.proj_name = i.proj_name
+		        and i.last_snapshot_time is not null
+	</update>
+	
+	<select id="getOwnerByCovStream" resultType="OpenApiCovHeader">
+		select ip ip, stream_name streamName, cid, owner,file from CovHeader where stream_name = #{streamName} group by cid, owner,file, stream_name, ip;
+	</select>
+	
+	<select id="getGarbageStreams" resultType="GarbageStream">
+		select i.stream_name streamName, i.ip ip, i.proj_name projName
+			from CovProjInfo i 
+				right join (
+					select stream_name, ip 
+						from CovProjInfo i 
+						where 1=1 
+							and i.is_valid = 1
+						<if test="ip != null and ip != ''">
+							and i.ip = #{ip}
+						</if>
+						<if test="projName != null and projName != ''">
+							and i.proj_name = #{projName}
+						</if>
+						<if test="streamName != null and streamName != ''">
+							and i.stream_name = #{streamName}
+						</if>
+						group by stream_name, ip having count(1) > 1
+					) i2
+				 on i.ip = i2.ip and i.stream_name = i2.stream_name 
+	</select>
+	
+	<update id="updateCovProjInfoInvalidStatus">
+		<foreach collection="list" item="item" index="index" separator=";">
+			update CovProjInfo set is_valid = 0 where ip = #{item.ip} and proj_name = #{item.projName} and stream_name = #{item.streamName}
+		</foreach>
+	</update>
+	
+	<select id="getBugsByDate" parameterType="Map" resultType="BugOfDate">
+		select date, group_concat(owner order by owner) owner, group_concat(bugCount order by owner) bugCount from (
+				select 
+				    count(distinct cid) bugCount,
+				    ip ip,
+				    ifnull(owner,'Unassigned') owner,
+				    date_format(first_detected, '%Y-%m-%d') date
+				from
+				    CovHeader h, CovChecker c
+				where 1= 1
+				<if test="ip != null and ip != ''">
+					and h.ip = #{ip}
+				</if>
+						
+				<if test="streamName != null">
+					and h.stream_name in 
+					<foreach collection="streamName" item="item" index="index" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				
+				<if test="startDate != null and startDate != ''">
+					and h.first_detected <![CDATA[ >= ]]> #{startDate}
+				</if>
+				
+				<if test="endDate != null and endDate != ''">
+					and h.first_detected <![CDATA[ < ]]>#{endDate}
+				</if>
+					and h.checker = c.checker_name and c.impact != 'Low'
+				
+				group by ip , ifnull(owner,'Unassigned') , date_format(first_detected, '%Y-%m-%d') 
+			) t group by date desc
+	</select>
+	
+	
+	<select id="getBugDateList" parameterType="Map" resultType="BugDate">
+		select 
+		    year, group_concat(month order by month desc) month
+		from
+		    (select 
+		        date_format(first_detected, '%Y') year,
+		            convert(date_format(first_detected, '%c'), decimal) month
+		    from
+		        CovHeader h, CovChecker c
+		    where 1=1
+		     <if test="ip != null and ip != ''">
+				and h.ip = #{ip}
+			</if>
+				
+			<if test="streamName != null">
+				and h.stream_name in 
+				<foreach collection="streamName" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>			
+		    	and h.checker = c.checker_name and c.impact != 'Low'
+		    group by date_format(first_detected, '%Y') , date_format(first_detected, '%c')
+		    ) t
+		group by year order by year desc
+	</select>
+	
+	<delete id="deleteRepeatCovProjInfo">
+			delete from CovProjInfo 
+			where
+			    id not in (select 
+			        id
+			    from
+			        (select 
+			            min(id) id
+			        from
+			            CovProjInfo
+			        group by ip , proj_name , stream_name) t)
+			    or stream_name is null;
+	</delete>
+	
+	<select id="getOverViewByProj" resultType="CovProjOverview">
+		<![CDATA[
+			select 'SvnPath' k, group_concat(distinct svn_url) v from CovRep where  ip = #{ip} and stream_name = #{streamName} group by proj_name 
+			union
+			select 'BugCount|UnRepairedBugCount|TAPDCount|IgnoredCount' k,concat(count(distinct cid),',', sum(case when status in ('New', 'Processing') then 1 else 0 end),',', sum(case when status = 'TAPD' then 1 else 0 end), ',',sum(case when status = 'Ignored' then 1 else 0 end)) v  from CovHeader  h, CovChecker c   where  h.checker = c.checker_name and c.impact in ( 'High','Medium') and  ip = #{ip} and stream_name = #{streamName}
+			union
+			select 'ScanDate' k, last_snapshot_time last_time from CovProjInfo where  ip = #{ip} and stream_name = #{streamName} limit 1
+			union
+			select 'BugRate|CodeLine|Health' k, concat(format(max(bug_rate),3),',', max(total_line_count),',', case when max(bug_rate) = null then '' when max(bug_rate) <= 0.32 then 'S' when max(bug_rate) <= 0.92 then 'A+' when max(bug_rate) <= 2.39 then 'A' when max(bug_rate)<=5.52 then 'B+' when max(bug_rate) <= 11.95 then 'B' else 'C' end) v from CovProjInfo where  ip = #{ip} and stream_name = #{streamName}  group by stream_name
+			union
+			select 'Ranking' k, v from CovProjInfo  left join  (
+				select count(1) as v from CovProjInfo where bug_rate <= (select max(bug_rate) from CovProjInfo where  ip = #{ip} and stream_name = #{streamName}) and bug_rate is not null) t on 1=1
+			where  ip = #{ip} and stream_name = #{streamName}
+			union
+			select 'OwnerView'k,concat(group_concat(concat('!', url, '~', owner,'~', v))) v from(
+			select  concat('http://code.oa.com/v2/scan/bugix/workspace/',#{ip},'/',#{streamName},'?owner=',owner) url, owner, concat(count(distinct cid),'~', sum(case when status in ('New', 'Processing') then 1 else 0 end),'~', sum(case when status = 'TAPD' then 1 else 0 end), '~',sum(case when status = 'Ignored' then 1 else 0 end)) v from CovHeader  h, CovChecker c   where  h.checker = c.checker_name and c.impact in ( 'High','Medium') and  ip = #{ip} and stream_name = #{streamName}  group by owner) t
+		  ]]>
+	</select>
+	
+	<select id="getUser" parameterType="CovUser" resultType="CovUser">
+		select * from CovUser
+		where name = #{name}
+			<if test="needMsg !=null">
+				and needMsg = #{needMsg}
+			</if>
+			<if test="needProj !=null">
+				and needProj = #{needProj}
+			</if>
+			<if test="isActive !=null">
+				and isActive = #{isActive}
+			</if>
+	</select>
+	
+	<select id="getMsgUsers" resultType="CovUser">
+		select * from CovUser where needMsg = true and isActive = true
+	</select>
+	
+	<select id="getNoProjUsers" resultType="CovUser">
+		select * from CovUser where needProj = false
+	</select>
+	
+	<insert id="insertUser" parameterType="Map">
+		insert into CovUser (name, isActive)
+			values (#{name},#{isActive})
+		on duplicate key
+		update isActive = #{isActive}, lastUpdateTime = now()
+	</insert>
+	
+	<update id="updateUser" parameterType="CovUser" flushCache="true">
+		update CovUser
+		<set>			
+			<if test="needMsg !=null">
+				needMsg = #{needMsg},
+			</if>
+			<if test="needProj !=null">
+				needProj = #{needProj},
+			</if>
+			<if test="isActive !=null">
+				isActive = #{isActive},
+			</if>
+				lastUpdateTime = now()
+		</set>
+		where name = #{name}
+	</update>
+	
+	<update id="updateMsgUsers" flushCache="true">
+		set sql_safe_updates = 0;
+		update CovUser set isActive = false, lastUpdateTime = now() where needMsg = true and isActive = true;
+	</update>
+	
+	<insert id="insertFeed" parameterType="CovFeed">
+		insert into CovFeed (uri,ip,user,arg) values (#{uri},#{ip},#{user},#{arg})
+	</insert>
+	
+	<select id="getMailInfoByPerson" resultType="CovProjOverview">
+	<![CDATA[ 
+		select c.impact k, count(1) v from CovHeader h
+		  left join CovChecker c on h.checker = c.checker_name 
+		where owner = #{user}  and first_detected  and c.impact in ( 'High','Medium') group by c.impact
+		union
+			select concat('CurMonth_',date_format(date_sub(#{startDate}, interval 0 month),'%m')), count(1) from CovHeader h
+				 left join CovChecker c on h.checker = c.checker_name 
+			 where owner = #{user}  and c.impact in ( 'High','Medium')
+			 and first_detected >= concat(date_format(date_sub(#{startDate}, interval 0 month),'%Y-%m'),'-01')
+			 and first_detected < concat(date_format(date_sub(#{startDate}, interval -1 month),'%Y-%m'),'-01')
+		union
+			select concat('PreMonth_',date_format(date_sub(#{startDate}, interval 1 month),'%m')), count(1) from CovHeader h 
+				left join CovChecker c on h.checker = c.checker_name 
+			where owner = #{user}  and c.impact in ( 'High','Medium')
+			 and first_detected >= concat(date_format(date_sub(#{startDate}, interval 1 month),'%Y-%m'),'-01')
+			 and first_detected < concat(date_format(date_sub(#{startDate}, interval 0 month),'%Y-%m'),'-01')
+		union
+			select concat('Pre2Month_',date_format(date_sub(#{startDate}, interval 2 month),'%m')), count(1) from CovHeader h
+				left join CovChecker c on h.checker = c.checker_name 
+			where owner = #{user}  and c.impact in ( 'High','Medium')
+			 and first_detected >= concat(date_format(date_sub(#{startDate}, interval 2 month),'%Y-%m'),'-01')
+			 and first_detected < concat(date_format(date_sub(#{startDate}, interval 1 month),'%Y-%m'),'-01')
+		union
+			select concat(s.ip,'~',s.stream_name,'~',proj_name), group_concat(val) from (
+			select ip, stream_name, group_concat(distinct concat(cid,'~',file,'~',c.impact,'~',c.type) order by c.impact  separator '!!!!!!') val from CovHeader h left join CovChecker c on h.checker = c.checker_name
+			 where owner = #{user}  and first_detected >= #{startDate} and first_detected < #{endDate} and c.impact in ( 'High','Medium')
+			group by ip, stream_name ) t left join CovStream s on t.ip = s.ip and t.stream_name = s.stream_name
+			group by s.proj_name
+		]]>
+	</select>
+	
+	<select id="getMailProjByTime" resultType="ProjMailObj">
+	<![CDATA[ 
+		select h.owner,p.proj_name proj,p.ip,group_concat(distinct p.stream_name) stream,h.status,count(*) count from CovProjInfo p, CovHeader h, CovChecker c where 
+			h.ip = p.ip and h.stream_name = p.stream_name and
+			h.checker = c.checker_name and c.impact in ('High','Medium') and
+			h.first_detected >= #{startDate} and h.first_detected < #{endDate}
+		group by h.owner,p.proj_name,h.status
+	]]>
+	</select>
+	
+	<select id="getMailProj" resultType="ProjMailObj">
+		select h.owner,p.proj_name proj,count(*) count from CovProjInfo p, CovHeader h, CovChecker c where 
+			h.ip = p.ip and h.stream_name = p.stream_name and
+			h.checker = c.checker_name and c.impact in ('High','Medium') and
+			h.status = 'New'
+		group by h.owner,p.proj_name
+	</select>
+	
+	<update id="verifyValidData">
+		update CovDetails set svn_file_valid = 0 where owner is not null and svn_file_valid = 1;
+		update CovHeader h set status = 'Fixed' where not exists(select 1 from CovDetails d where d.ip = h.ip and d.stream_name = h.stream_name and d.cid = h.cid);
+	</update>
+</mapper>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tencent.code.svn.task.cov.dao.CoveritySwitchInDao">
+
+	<insert id="insertReps">
+		insert into 
+			CovRep(ip, proj_name, svn_rep_name, svn_proj_name, svn_revision, stream_name, flag) 
+			<foreach collection="list" item="item" index="index" separator="union">
+				select #{item.ip}, #{item.projName}, #{item.svnRepName}, #{item.svnProjName}, #{item.svnRevision}, #{item.streamName}, 0
+					from dual
+				where not exists(select 1 from CovRep r where r.ip = #{item.ip} and r.proj_name = #{item.projName} and r.stream_name = #{item.streamName})	
+			</foreach>
+	</insert>
+	
+	<update id="updateProjects">
+		<foreach collection="list" item="item" index="index" separator=";">
+			update CovProj set last_time = #{item.lastTime}, first_time = #{item.firstTime}, description = #{item.description}
+				where ip = #{item.ip} and proj_name = #{item.projName}
+		</foreach>
+	</update>
+	
+	<insert id="insertProjects">
+		insert into 
+			CovProj(ip, proj_name, description, first_time, last_time) 
+			<foreach collection="list" item="item" index="index" separator="union">
+				select #{item.ip}, #{item.projName}, #{item.description}, #{item.firstTime}, #{item.lastTime}
+					from dual
+				where not exists(select 1 from CovProj p where p.ip = #{item.ip} and p.proj_name = #{item.projName})
+			</foreach>
+	</insert>
+	
+	<insert id="insertProjectsInfo">
+		insert into 
+			CovProjInfo(ip, proj_name) 
+			<foreach collection="list" item="item" index="index" separator="union">
+				select #{item.ip}, #{item.projName}
+					from dual
+				where not exists(select 1 from CovProjInfo p where p.ip = #{item.ip} and p.proj_name = #{item.projName})
+			</foreach>
+	</insert>
+	<insert id="insertStreams">
+		insert into 
+			CovStream(stream_name, proj_name, ip) 
+			<foreach collection="list" item="item" index="index" separator="union">
+				select #{item.streamName}, #{item.projName}, #{item.ip}
+					from dual
+				where not exists(select 1 from CovStream s where s.stream_name = #{item.streamName} and s.proj_name = #{item.projName} and s.ip = #{item.ip})
+			</foreach>
+	</insert>
+	
+	<insert id="insertHeaders">
+		insert into
+			CovHeader(
+						ip,
+						stream_name,
+						cid,
+						type,
+						impact,
+						status,
+						owner,
+						classification,
+						severity,
+						action,
+						category,
+						file,
+						count,
+						merge_key,
+						last_snapshot_stream,
+						issue_kind,
+						last_snapshot,
+						checker,
+						first_detected,
+						lastd_etected,
+						last_fixed,
+						last_triaged
+					)
+			<foreach collection="list" item="item" separator="union">
+				select #{item.ip}, #{item.streamName}, #{item.cid}, #{item.type}, #{item.impact},  case when #{item.status} in ('Dismissed' ,'Triaged') then 'New' else #{item.status} end, #{item.owner},
+						  #{item.classification}, #{item.severity}, #{item.action}, #{item.category}, #{item.file}, #{item.count},
+							 #{item.mergeKey}, #{item.lastSnapshotStream}, #{item.issueKind}, #{item.lastSnapshot}, #{item.checker},
+							 #{item.firstDetected},#{item.lastDetected}, #{item.lastFixed}, #{item.lastTriaged}
+					from dual
+				where not exists(select 1 from CovHeader h where h.ip = #{item.ip} and h.stream_name = #{item.streamName} and h.cid = #{item.cid})
+			</foreach>				
+	</insert>
+	
+	<update id="updateHeaders" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovHeader
+					set status = case when #{item.status} in ('Triaged') then 'New'  when #{item.status} in ('Dismissed') then 'Ignored'  else #{item.status} end,action = #{item.action}, last_snapshot = #{item.lastSnapshot},lastd_etected = #{item.lastDetected}
+			where ip = #{item.ip} and stream_name = #{item.streamName} and cid = #{item.cid} and status in ('New', 'Processing','Fixed')
+		</foreach>
+		;
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovHeader
+					set file = #{item.file}, merge_key = #{item.mergeKey},  owner = 'Unassigned', svn_file = null, flag = 0
+			where ip = #{item.ip} and stream_name = #{item.streamName} and cid = #{item.cid} and file != #{item.file}
+		</foreach>
+	</update>
+	
+	<insert id="insertDetails">
+		insert into 
+			CovDetails( 
+						ip,
+						cid,
+						stream_name,
+						last_snapshot,
+						event_step,
+						event_line,
+						event_tag,
+						event_desc,
+						event_kind,
+						file_path,
+						file_md5,
+						owner,
+						defect_triageid,
+						defect_triageid_ver_num,
+						d_id,
+						ver_num,
+						event_id,
+						event_set,
+						event_group,
+						svn_file_valid
+ 					)
+ 			<foreach collection="list" index="index" item="item" separator="union">
+ 				select #{item.ip}, #{item.cid}, #{item.streamName}, #{item.lastSnapshot}, #{item.eventStep}, #{item.eventLine}, #{item.eventTag}, #{item.eventDesc}, #{item.eventKind}
+ 						, #{item.filePath}, #{item.fileMd5}, #{item.owner}, #{item.defectTriageid}, #{item.defectTriageidVerNum}, #{item.dId}, #{item.verNum}, #{item.eventId}, #{item.eventSet}, #{item.eventGroup}, #{item.svnFileValid}
+ 					from dual
+ 			</foreach>				
+	</insert>
+	
+	<update id="updateDetails">
+		update CovDetails d, CovDetailsHistory h
+			set 
+				d.owner =h.owner,
+				d.svn_file_valid = 0,
+				d.svn_file = h.svn_file,
+				d.svn_revision = h.svn_revision,
+				d.flag_up_owner = 1
+				where 
+					d.ip = h.ip 
+				 	and d.stream_name = h.stream_name
+				 	and d.cid = h.cid
+					and d.file_path = h.file_path
+					and d.file_md5 = h.file_md5
+					and h.owner is not null
+					and h.ip = #{ip}
+					<if test="streamName != null and streamName != ''">
+						and h.stream_name = #{streamName}
+					</if>
+	</update>
+	
+	
+	<update id="updateProjInfo" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovProjInfo
+				set
+					bug_fixed_count = #{item.bugFixedCount},
+					bug_outstanding_count = #{item.bugOutstandingCount},
+					bug_new_count = #{item.bugNewCount},
+					bug_resolved_count = #{item.bugResolvedCount},		
+					bug_total_count = #{item.bugTotalCount},
+					bug_rate = #{item.bugRate},
+					code_line_count = #{item.codeLineCount},
+					comment_line_count = #{item.commentLineCount},			
+					blank_line_count = #{item.blankLineCount},
+					total_line_count = #{item.totalLineCount}
+			where ip = #{item.ip} and proj_name = #{item.projName}
+		</foreach>
+	</update>
+	
+	<update id="updateProjInfoOwner" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovProjInfo
+				set
+					owner = #{item.owner}
+			where ip = #{item.ip} and proj_name = #{item.projName}
+		</foreach>
+	</update>
+	
+	<update id="updateProjInfoOwnerMembers" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovProjInfo
+				set
+					owner_members = #{item.ownerMembers},
+					owner_members_r = concat(case when #{item.ownerMembersR} is null then '' else #{item.ownerMembersR} end, ';alexwentong;chrishuang;diegochen;edisonrong;gracelzhang;flexli;jameslee;jimmyquan;lekkoli;lucifercao;mickyluo;rhainliu;rogerxu;summerxia;v_queyewwu;xavierchen;xiamuxu;carlcyang;')
+			where ip = #{item.ip} and proj_name = #{item.projName} and stream_name = #{item.streamName}
+		</foreach>
+	</update>
+	
+	<update id="updateCovReps" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovRep
+				<set>
+					svn_rep_name = #{item.svnRepName},
+					svn_proj_name = #{item.svnProjName},
+					svn_url = #{item.svnUrl},
+					is_valid = #{item.isValid},
+					svn_revision = #{item.svnRevision},
+					local_path = case when local_path is not null then local_path else #{item.localPath} end,
+					local_time = case when local_time is not null then local_time else #{item.localTime} end
+				</set>
+			where ip = #{item.ip} and proj_name = #{item.projName} and stream_name = #{item.streamName} and #{item.isNew} != 1
+			 and (svn_url is null or (svn_url is not null and svn_url = #{item.svnUrl}))
+		</foreach>
+	</update>
+	
+	<insert id="insertCovRepsHasSvnUrl">
+		insert into CovRep(ip, proj_name, svn_rep_name, svn_proj_name, svn_revision, stream_name, svn_url, local_path, local_time, is_valid)
+		<foreach collection="list" index="index" item="item" separator="union">
+			select #{item.ip}, #{item.projName},#{item.svnRepName},#{item.svnProjName},#{item.svnRevision},#{item.streamName},#{item.svnUrl},#{item.localPath},#{item.localTime},#{item.isValid}
+			from dual where #{item.isNew} = 1
+		</foreach>
+	</insert>
+	
+	<select id="queryCovProjs" resultMap="covReps">
+		select distinct r.ip, r.proj_name, r.svn_rep_name, r.svn_proj_name, r.svn_revision, r.svn_url, r.stream_name, p.last_snapshot_time last_time,r.local_path localPath,r.flag flag
+			from CovRep r left join CovProjInfo p on r.ip = p.ip and r.proj_name = p.proj_name and r.stream_name = p.stream_name
+		where r.is_valid = 1
+			<if test="ip != null">
+				and r.ip = #{ip}
+			</if>
+			<if test="projName != null">
+				and r.proj_name = #{projName}
+			</if>
+			<if test="streamName != null">
+				and r.stream_name = #{streamName}
+			</if>
+			<if test="isCover != null and isCover == 'false'">
+				and r.svn_url is null
+			</if>
+	</select>
+	
+	
+	<select id="getProjInfo" resultType="CovProjInfo">
+		select
+			id,
+			ip,
+			proj_name projName
+		from CovProjInfo 
+			where 1=1
+			<if test="ip != null and ip != ''">
+				and ip = #{ip}
+			</if>
+			<if test="projName != null and projName != ''">
+				and proj_name = #{projName}
+			</if>
+	</select>
+	
+	<resultMap type="CovJobSvnUrl" id="covJobSvnUrls">
+		<result property="ip" column="ip"/>
+		<result property="projName" column="projName"/>
+		<result property="streamName" column="stream_name"/>
+		<result property="isCover" column="iscover"/>
+		<result property="desc" column="desc"/>
+		<result property="createTime" column="create_time"/>
+		<result property="isValid" column="isvalid"/>
+	</resultMap>
+	
+	<resultMap type="CovRep" id="covReps">
+		<result property="ip" column="ip"/>
+		<result property="projName" column="proj_name"/>
+		<result property="svnRepName" column="svn_rep_name"/>
+		<result property="svnProjName" column="svn_proj_name"/>
+		<result property="svnRevision" column="svn_revision"/>
+		<result property="svnUrl" column="svn_url"/>
+		<result property="streamName" column="stream_name"/>
+		<result property="localPath" column="local_path"/>
+		<result property="flag" column="flag"/>
+	</resultMap>
+	
+	<select id="getCovDetailOwners" resultType="CovDetailOwner">
+			<include refid="needUpdateDetailOwner"/>
+		    limit #{pageSize}
+	</select>
+	
+	<select id="countCovDetailOwners" resultType="java.lang.Integer">
+		select count(*) from (
+			<include refid="needUpdateDetailOwner"/>
+		) t
+	</select>
+	
+	<select id="getCovDetailOwnersByIpStream" resultType="CovDetailOwner">
+		select 
+		    d.svn_file svnUrl,
+		    r.svn_revision revision,
+		    group_concat(distinct d.event_line) lineNum
+		from
+		    CovDetails d
+		        left join
+		    CovRep r ON d.ip = r.ip
+		        and d.stream_name = r.stream_name
+		where
+		    d.owner is null and d.svn_file is not null and r.svn_revision is not null and r.svn_revision != 0 and d.flag = 1 and d.flag_up_owner = 0 
+		    and d.ip = #{ip} and d.stream_name = #{streamName}
+		group by   
+				    d.svn_file ,
+				    d.file_path,
+				    r.svn_revision
+	</select>
+	
+	<sql id="needUpdateDetailOwner">
+		select 
+		    d.svn_file svnUrl,
+		    r.svn_revision revision,
+		    group_concat(distinct d.event_line) lineNum
+		from
+		    CovDetails d
+		        left join
+		    CovRep r ON d.ip = r.ip
+		        and d.stream_name = r.stream_name
+		where
+		    d.owner is null and d.svn_file is not null and r.svn_revision is not null and r.svn_revision != 0 and d.flag = 1 and d.flag_up_owner = 0 
+		group by   
+				    d.svn_file ,
+				    d.file_path,
+				    r.svn_revision 
+	</sql>
+	
+	<update id="updateCodeLineOwner" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovDetails
+				set	owner = #{item.owner}, svn_file_valid = 0, flag_up_owner = 1
+			where svn_file = #{item.svnUrl} and svn_revision = #{item.revision} and event_line = #{item.lineNum} 
+		</foreach>
+	</update>
+	
+	<update id="updateCodeLineOwnerFail" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovDetails
+				set	svn_file_valid = 1, flag_up_owner = 1
+			where svn_file = #{item.svnUrl} and svn_revision = #{item.revision} and event_line = #{item.lineNum} 
+		</foreach>
+	</update>
+	
+	<update id="updateHeaderCodeLineOwner">
+		update CovHeader set owner = 'Unassigned';
+		update CovHeader h,
+		    CovDetails d 
+		set 
+		    h.owner = d.owner
+		where
+		    h.ip = d.ip
+	        and h.stream_name = d.stream_name
+	        and h.cid = d.cid
+	        and h.file = d.file_path
+	        and (h.owner is null or h.owner = 'Unassigned')
+	        and d.owner is not null;
+	</update>
+	
+	<insert id="insertCovProjInfo">
+		 insert into CovProjInfo(ip, proj_name, stream_name) 
+			select ip, proj_name, stream_name from
+			 	CovRep r
+			 where not exists (select 1 from CovProjInfo i where i.ip = r.ip and i.proj_name = r.proj_name and i.stream_name = r.stream_name)
+	</insert>
+	
+	<update id="updateCovHeaderAndDetailSvnUrl">
+		<!-- IEG -->
+		update CovHeader h LEFT JOIN CovRep r  ON h.ip = r.ip and h.stream_name = r.stream_name
+			set h.svn_file = concat(r.svn_url, replace(h.file, r.local_path,'')), h.FLAG = 1
+		where h.ip = '10.12.153.13' and r.ip = '10.12.153.13' and h.FLAG = 0 and h.file like concat(r.local_path,'%') and r.local_path is not null;
+			
+		update CovDetails h LEFT JOIN CovRep r ON h.ip = r.ip and h.stream_name = r.stream_name
+			set svn_file = concat(r.svn_url, replace(h.file_path, r.local_path,'')), h.FLAG = 1, h.svn_revision = r.svn_revision
+		where  h.ip = '10.12.153.13' and r.ip = '10.12.153.13'  and h.FLAG = 0 and h.file_path like concat(r.local_path ,'%') and r.local_path is not null;
+		
+		<!-- RDM -->	
+		update CovHeader h LEFT JOIN CovRep r  ON h.ip = r.ip and h.stream_name = r.stream_name
+			set h.svn_file = concat(r.svn_url, replace(h.file, r.local_path,'')), h.FLAG = 1
+		where  h.ip = '10.12.190.213' and r.ip = '10.12.190.213' and h.FLAG = 0 and h.file like concat(r.local_path,'%') and r.local_path is not null;
+		
+		update CovDetails h LEFT JOIN CovRep r ON h.ip = r.ip and h.stream_name = r.stream_name
+			set svn_file = concat(r.svn_url, replace(h.file_path, r.local_path,'')), h.FLAG = 1, h.svn_revision = r.svn_revision
+		where  h.ip = '10.12.190.213' and r.ip = '10.12.190.213' and h.FLAG = 0 and h.file_path like concat(r.local_path ,'%') and r.local_path is not null;
+		
+		<!-- CODE -->	
+		update CovHeader h LEFT JOIN CovRep r  ON h.ip = r.ip and h.stream_name = r.stream_name
+			set h.svn_file = concat(r.svn_url, replace(h.file, r.local_path,'')), h.FLAG = 1
+		where  h.ip = '10.6.19.156' and r.ip = '10.6.19.156' and h.FLAG = 0 and h.file like concat(r.local_path,'%') and r.local_path is not null;
+		
+		update CovDetails h LEFT JOIN CovRep r ON h.ip = r.ip and h.stream_name = r.stream_name
+			set svn_file = concat(r.svn_url, replace(h.file_path, r.local_path,'')), h.FLAG = 1, h.svn_revision = r.svn_revision
+		where  h.ip = '10.6.19.156' and r.ip = '10.6.19.156' and h.FLAG = 0 and h.file_path like concat(r.local_path ,'%') and r.local_path is not null;
+		
+		<!-- TSCAN -->	
+		update CovHeader h LEFT JOIN CovRep r  ON h.ip = r.ip and h.stream_name = r.stream_name
+			set h.svn_file = concat(r.svn_url, replace(h.file, r.local_path,'')), h.FLAG = 1
+		where  h.ip = 'tscan' and r.ip = 'tscan' and h.FLAG = 0 and h.file like concat(r.local_path,'%') and r.local_path is not null;
+		
+		update CovDetails h LEFT JOIN CovRep r ON h.ip = r.ip and h.stream_name = r.stream_name
+			set svn_file = concat(r.svn_url, replace(h.file_path, r.local_path,'')), h.FLAG = 1, h.svn_revision = r.svn_revision
+		where  h.ip = 'tscan' and r.ip = 'tscan' and h.FLAG = 0 and h.file_path like concat(r.local_path ,'%') and r.local_path is not null;
+	</update>
+	
+	<update id="updateProjInfoSnapshot" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+			update CovProjInfo
+				set
+					last_snapshot = #{item.lastSnapshot},
+					last_snapshot_time = #{item.lastSnapshotTime}
+			where ip = #{item.ip} and proj_name = #{item.projName} and stream_name = #{item.streamName}
+		</foreach>
+	</update>
+	
+	<delete id="deleteCovRepBySwitchIn">
+		<foreach collection="list" item="item" index="index" separator=";">
+				delete from CovRep where ip = #{item.ip} and proj_name =  #{item.projName} and stream_name =  #{item.streamName}
+		</foreach>
+	</delete>
+	
+	<select id="getCovProjInfo" resultType="CovProjInfo">
+		select ip ip, proj_name projName, stream_name streamName 
+			from CovProjInfo where 1=1
+			<if test="ip != null and ip != ''">
+				 and ip = #{ip}
+			</if>
+			
+			<if test="streamName != null and streamName != ''">
+				and stream_name = #{streamName}
+			</if>
+		 group by ip, proj_name, stream_name	
+	</select>
+	
+	<delete id="removeCovProj" statementType="STATEMENT">
+		delete from CovProj where concat(ip, proj_name) not in
+		<foreach collection="list" item="item" index="index" open="("  separator="," close=")">
+			'${item.ip}${item.id.name}'
+		</foreach>
+		and ip = '${ip}'
+	</delete>
+	
+	<delete id="removeCovReps" statementType="STATEMENT">
+		delete from CovRep where concat(ip,proj_name,stream_name) not in
+		<foreach collection="list" item="item" index="index" open="("  separator="," close=")">
+				'${item.ip}${item.primaryProjectId.name}${item.id.name}'
+		</foreach>
+		and ip = '${ip}'
+	</delete>
+	
+	<delete id="removeCovProjInfo" statementType="STATEMENT">
+		delete from CovProjInfo where concat(ip, proj_name, stream_name) not in
+		<foreach collection="list" item="item" index="index" open="("  separator="," close=")">
+				'${item.ip}${item.primaryProjectId.name}${item.id.name}'
+		</foreach>
+		and ip = '${ip}'
+	</delete>
+	
+	<delete id="removeCovStreams" statementType="STATEMENT">
+		delete from CovStream where concat(ip, proj_name, stream_name) not in
+		<foreach collection="list" item="item" index="index" open="("  separator="," close=")">
+				'${item.ip}${item.primaryProjectId.name}${item.id.name}'
+		</foreach>
+		and ip = '${ip}'
+	</delete>
+	
+	<delete id="removeCovHeader" statementType="STATEMENT">
+		delete from CovHeader where concat(ip, stream_name) not in
+		<foreach collection="list" item="item" index="index" open="("  separator="," close=")">
+				'${item.ip}${item.id.name}'
+		</foreach>
+		and ip = '${ip}'
+	</delete>	
+	
+	<delete id="removeCovDetails" statementType="STATEMENT">
+		delete from CovDetails where concat(ip, stream_name) not in
+		<foreach collection="list" item="item" index="index" open="("  separator="," close=")">
+				'${item.ip}${item.id.name}'
+		</foreach>
+		and ip = '${ip}'
+	</delete>	
+	
+	<delete id="deleteRepeatCovRep">
+		delete from CovRep 
+		where
+		    id not in (select 
+		        id
+		    from
+		        (select 
+		            min(id) id
+		        from
+		            CovRep
+		        group by ip , proj_name , stream_name , svn_url , local_path) t)
+	</delete>
+	
+		<delete id="deleteCovRepSwitchIn" statementType="STATEMENT">
+			delete from CovRepSwitchIn where concat(ip, proj_name,  stream_name)  in
+		<foreach collection="list" item="item" index="index" open="("  separator="," close=")">
+				'${item.ip}${item.projName}${item.streamName}'
+		</foreach>
+		and ip =  '${ip}'
+	</delete>
+	
+	<insert id="insertCovRepSwitchIn">
+			insert into CovRepSwitchIn(ip, proj_name, stream_name,svn_url, svn_revision, local_path,is_valid, flag)
+			<foreach collection="list" item="item" index="index" separator="union">
+					select #{item.ip}, #{item.projName}, #{item.streamName}, #{item.svnUrl}, #{item.svnRevision}, #{item.localPath}, #{item.isValid}, #{item.flag}
+						from dual
+			</foreach>
+	</insert>
+	
+	<insert id="insertCovRepBySwitchIn">
+		insert into CovRep(ip, proj_name, stream_name, svn_url, svn_revision, local_path, is_valid, flag)
+		<foreach collection="list" item="item" index="index" separator="union">
+			select #{item.ip}, #{item.projName}, #{item.streamName}, #{item.svnUrl}, #{item.svnRevision}, #{item.localPath}, #{item.isValid}, #{item.flag} from dual
+		</foreach>
+	</insert>
+	
+	<delete id="deleteCovDetailsByIpStream">
+		delete from CovDetails where ip = #{ip} and stream_name = #{streamName}
+	</delete>
+	
+	<update id="updateLOC" parameterType="LOC">
+		update CovProjInfo i, CovRep r set code_line_count = #{source}, comment_line_count = #{comment}, blank_line_count =#{blank}, total_line_count = #{total},
+			bug_total_count = (select count(*) from CovHeader h where i.ip = h.ip and  i.stream_name = h.stream_name), 
+			bug_rate = (select count(*) * 1000.0 from CovHeader h where i.ip = h.ip and  i.stream_name = h.stream_name)/#{total}
+		 where i.ip = r.ip and i.proj_name = r.proj_name and i.stream_name = r.stream_name 
+		 	and r.svn_url = #{svnUrl} and r.ip = #{ip} and r.proj_name = #{projName} and r.stream_name = #{streamName}
+	</update>
+	
+	<select id="getCovReps" resultType="CovRep">
+		select distinct ip,proj_name projName, stream_name streamName, svn_url svnUrl
+			from CovRep where 1=1
+			<if test="ip != null and ip != ''">
+				and ip = #{ip}
+			</if>
+	</select>
+	
+	<update id="updateHeaderDetailsSVNFileRev">
+			update CovHeader h LEFT JOIN CovRep r  ON h.ip = r.ip and h.stream_name = r.stream_name
+			set h.svn_file = concat(r.svn_url, replace(h.file, r.local_path,'')), h.FLAG = 1
+		where h.ip = #{ip} and h.stream_name = #{streamName} and h.file like concat(r.local_path,'%') and r.local_path is not null;
+			
+		update CovDetails h LEFT JOIN CovRep r ON h.ip = r.ip and h.stream_name = r.stream_name
+			set svn_file = concat(r.svn_url, replace(h.file_path, r.local_path,'')), h.FLAG = 1, h.svn_revision = r.svn_revision
+		where  h.ip = #{ip}  and h.stream_name = #{streamName}  and h.file_path like concat(r.local_path ,'%') and r.local_path is not null;
+	</update>
+	
+</mapper>

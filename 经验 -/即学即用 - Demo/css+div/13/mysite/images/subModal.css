@@ -1,0 +1,78 @@
+* {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+BODY {
+	LINE-HEIGHT: 2em; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #333; FONT-SIZE: 12px
+}
+HTML {
+	LINE-HEIGHT: 2em; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #333; FONT-SIZE: 12px
+}
+INPUT {
+	LINE-HEIGHT: 2em; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #333; FONT-SIZE: 12px
+}
+.info {
+	FONT-STYLE: italic; COLOR: #666; FONT-SIZE: 0.9em
+}
+#popupMask {
+	BACKGROUND-IMAGE: url(maskBG.png) !important; Z-INDEX: 200; POSITION: absolute; FILTER: alpha(opacity=30); BACKGROUND-COLOR: transparent !important; WIDTH: 100%; DISPLAY: none; BACKGROUND-REPEAT: repeat; HEIGHT: 100%; TOP: 0px; LEFT: 0px; opacity: .4
+}
+#popupContainer {
+	Z-INDEX: 201; POSITION: absolute; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: none; TOP: 0px; PADDING-TOP: 0px; LEFT: 0px
+}
+#popupInner {
+	TEXT-ALIGN: left; MIN-HEIGHT: 100px
+}
+#popupInner IMG {
+	FLOAT: left
+}
+#popupFrame {
+	Z-INDEX: 202; POSITION: relative; MARGIN: 0px; WIDTH: 100%; HEIGHT: 100%
+}
+#popupTitleBar {
+	Z-INDEX: 203; POSITION: relative; LINE-HEIGHT: 47px; WIDTH: 400px; BACKGROUND: url(titlebarbg.gif) no-repeat; HEIGHT: 47px; FONT-WEIGHT: bold
+}
+#popupControls {
+	MARGIN-TOP: 14px; DISPLAY: inline; FLOAT: left; MARGIN-RIGHT: 15px
+}
+#popupTitle {
+	DISPLAY: inline; FLOAT: left; COLOR: #ffffff; MARGIN-LEFT: 170px; FONT-SIZE: 14px
+}
+#popupControls {
+	FLOAT: right; CURSOR: hand
+}
+.jiewei {
+	TEXT-ALIGN: left; LINE-HEIGHT: 31px; PADDING-LEFT: 15px; WIDTH: 426px; BACKGROUND: #f8fcff; FLOAT: left; HEIGHT: 31px
+}
+.xiaotishi_check {
+	LINE-HEIGHT: 47px; WIDTH: 110px; FLOAT: right; HEIGHT: 47px; COLOR: white; FONT-WEIGHT: 100
+}
+.xiaotishiqueding {
+	TEXT-ALIGN: left; LINE-HEIGHT: 37px; WIDTH: 60px; FLOAT: right; HEIGHT: 37px; MARGIN-RIGHT: 10px; PADDING-TOP: 10px
+}
+.xiaotishiqueding2 {
+	TEXT-ALIGN: right; WIDTH: 220px; DISPLAY: inline; MARGIN-BOTTOM: 15px; FLOAT: left; MARGIN-RIGHT: 20px
+}
+.xiaotishiqueding INPUT {
+	BORDER-BOTTOM-STYLE: none; BORDER-RIGHT-STYLE: none; WIDTH: 52px; BORDER-TOP-STYLE: none; BACKGROUND: url(jrtjqueding.gif) no-repeat; HEIGHT: 24px; BORDER-LEFT-STYLE: none; CURSOR: pointer
+}
+.xiaotishiqueding2 INPUT {
+	BORDER-BOTTOM-STYLE: none; BORDER-RIGHT-STYLE: none; WIDTH: 46px; BORDER-TOP-STYLE: none; BACKGROUND: url(jrtjqueding.gif) no-repeat; HEIGHT: 24px; BORDER-LEFT-STYLE: none
+}
+.jiewei INPUT {
+	MARGIN-LEFT: 2px
+}
+#login {
+	Z-INDEX: 1000; BORDER-BOTTOM: 1px solid; POSITION: relative; TEXT-ALIGN: center; BORDER-LEFT: 1px solid; PADDING-BOTTOM: 10px; BACKGROUND-COLOR: #ffffff; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; DISPLAY: none; COLOR: #000; BORDER-TOP: 1px solid; TOP: 20px; BORDER-RIGHT: 1px solid; PADDING-TOP: 10px; LEFT: 30px
+}
+#login DIV {
+	TEXT-ALIGN: left; LINE-HEIGHT: 20px
+}
+#login DIV LABEL {
+	LINE-HEIGHT: 20px; WIDTH: 80px; HEIGHT: 20px; COLOR: #000; BORDER-RIGHT: #fff 3px solid
+}
+.STYLE1 {
+	COLOR: #ffff00
+}
+.lifeclass {
+	FONT-SIZE: 12px
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>综合训练</title>
+<style type="text/css">
+a {
+	text-decoration:none;
+	color:#666;
+}
+a:hover {
+	color:#f00;
+	font-weight:bold;
+}
+
+.underline1 a {
+	text-decoration:none;
+}
+.underline1 a:hover {
+	text-decoration:underline;
+}
+
+.underline2 a {
+    border-bottom:dashed 1px red; 					/* 红色虚下划线效果 */
+    zoom:1; 										/* 解决IE浏览器无法显示问题 */
+}
+.underline2 a:hover {
+    border-bottom:solid 1px #000; 					/* 改变虚下划线的颜色 */
+}
+.underline3 a:hover {
+    background:url(images/dashed1.gif) left bottom repeat-x; 	/* 定义背景图像，定位到超链接元素的底部，并沿x轴水平平铺 */
+}
+
+</style>
+</head>
+
+<body>
+<h1>设计下划线样式</h1>
+<ol>
+    <li class="underline1">
+        <p>使用text-decoration属性定义下划线样式</p>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">论坛</a></li>
+            <li><a href="#">博客</a></li>
+        </ul>
+    </li>
+    <li class="underline2">
+        <p>使用border属性定义下划线样式</p>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">论坛</a></li>
+            <li><a href="#">博客</a></li>
+        </ul>
+    </li>
+    <li class="underline3">
+        <p>使用background属性定义下划线样式</p>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">论坛</a></li>
+            <li><a href="#">博客</a></li>
+        </ul>
+    </li>
+</ol>
+</body>
+</html>

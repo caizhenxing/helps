@@ -1,0 +1,150 @@
+1. 熟悉常用手法
+2. 熟悉API，工具
+3. 熟悉实现思路
+
+常用架构	-	
+
+	Linux	-	
+
+	Nginx	-	反向代理服务器
+	Apache	-	
+	Tomcat	-	集群
+	Jetty	-	
+	
+	Gearman	-	分布式任务处理系统
+	
+	Mysql	-	单主多备，读写分离，读写权重
+	Mongodb	-	
+	Hbase	-	
+	Hadoop	-
+	
+	Nodejs	-	
+	RequireJS	-	
+	jQuery	-	
+	ExtJs	-	
+	Css + Div	-	
+	Html	-	
+	
+	SpringMVC	-
+	SSH	-	
+	S2SH	-	
+	SSI	-	
+	
+	Zookeeper	-	分布式系统一致性管理
+	ActiveMQ	-	
+	Restfull	-
+	Hessian(RPC)	-	
+	WebService	-	
+	
+	EhCache	-	 是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider。 Ehcache是一种广泛使用的开源Java分布式缓存。
+	Redis	-	它使用内存提供主存储支持,而仅使用硬盘做持久性的存储;它的数据模型非常独特,用的是单线程。
+	
+	Svn	-	单主多备
+	Git/gitlib/github/jgit/gitblit	- 代码托管
+	
+	Lucene	-	
+	Elasticsearch	-	
+	
+	Maven	-	代码管理
+	Ant	-
+	
+	项目管理系统	-	tapd, 青铜器
+	缺陷管理系统	-	tapd, 青铜器
+	
+	mfs	-	一个具有容错性的网络分布式文件系统。它把数据分散存放在多个物理服务器上，而呈现给用户的则是一个统一的资源。
+	ceph	-	一个 Linux PB 级分布式文件系统
+	
+	Jenkins	-	快速搭建持续集成环境
+
+常用架构整合	-	
+	code平台	-	
+		前端： jquery, css, html, requirejs
+		后端： spring mvc, zookeeper, activemq, restfull/hessian
+		容器： nginx, apache, tomcat
+		数据库： mysql, oracle, mongodb
+		服务器： linux
+		负载均衡
+		code_web, code_proj, svnadmin, svnagent, svnserver
+	tgit	-	
+		web
+		manager	集群
+		tgit server	集群
+		
+常用技术	-	
+	restfull/hessian	-	
+	token/apikey -	授权认证(OAuth)
+	统一认证登陆	-	用户访问A系统，没有登陆，将会跳到统一B系统登陆页面?url=http://code.oa.com，用户输入用户名密码后，B系统校验通过后，跳到A系统http://code.oa.com?ticket=加密字符串，A系统拿到ticket字符串后再向B系统校验，校验成功会返回用户名，用户登陆A系统成功
+	鉴权	-	Spring Security, Apache Shiro
+	提供接口，其他类引用接口(1.通过方法参数，2.通过作为成员)执行接口的方法，提供默认实现，并允许开发人员提供自己的实现
+	LDAP	-	很多公司都使用 LDAP服务器来保存员工的相关信息，内部的 IT 系统都需要与 LDAP 服务器做集成来进行用户认证与访问授权
+	集成进来	-	
+	可配置编程	-	
+	spring security	- 用户验证和授权，访问控制列表(ACL)
+	eclipse远程调试
+
+常用画图	-	
+	架构图
+	流程图
+	时序图
+	
+		
+Bugfix	-	
+	-	找日志，看懂错误日志猜想推理判断各种可能性，搜资料后测试解决
+	-	多线程独立彻底解决
+	
+用工具	-	
+	-	勇敢试错新工具新功能
+	
+写代码	-	
+	-	熟悉API，组合、继承、封装起来实现需求
+	-	以解决实际问题为目的，抽象出来一些对象，接口，它们拥有一些数据结构[含对象，接口]（属性）和能力（方法），去设计对象间的引用，以及数据在方法中的逻辑流向
+	-	抄袭有价值想法
+	-	搭好测试环境，必须测试，考虑全面深入
+
+看源码	-	
+	-	依赖关系，数据结构
+	-	有哪些模块，每个模块是干什么的，模块之间依赖关系是怎么样的
+	
+发现需求	-
+	-	需求的价值是什么
+	
+常用思想	-	
+	-	继承多态，依赖接口
+	-	组合模式：对象属性里面引用了接口，对象
+	-	缓存
+	-	连接池、对象池思想
+	-	异步回调
+	-	多批次批量
+	-	超时降参重连
+	-	多线程
+	-	封装思想
+	-	模块化思想
+	-	公共抽象
+	-	细粒度函数
+	-	水平扩展可维护
+	-	可插拔思想
+	-	主备集群
+	-	分布式
+	-	安全性
+	-	心跳包
+	-	分布式事务
+	-	柔性可用
+	-	服务器冗余: 提高可用性，除了服务器集群外，还可以服务器冗余，程序调用服务器A失败时候，会去请求服务器B或C
+	-	体验、性能、速度
+	-	应用层监控(aop)
+	-	微服务架构： 一个系统拆成多个组，每个组之间通过restfull通信
+	-	decorator（HTML装饰器）: 比如说页面的top,bottom这些每个页面几乎都有，而且都一样，如果我们在每个页面都include,可以发现我们的程序是多吗的冗余，重复
+	-	优化
+	
+设计模式	-	
+	面向对象开发基本原则：
+		抽象类和接口： 父类变量引用子类对象
+			父类 a = new 子类();
+			接口 a = new 实现类();
+		面向抽象： 类的成员变量或方法的传入参数是抽象类或接口
+		开闭原则： 抽象类或接口类的修改要关闭，子类或实现类的增加来开放。
+			对扩展开放，对修改关闭。意思是指增加新的模块时，不需要修改现有的模块。
+			考虑用户需求的变化部分对扩展开放，系统核心的结构部分对修改关闭。
+			
+			
+	

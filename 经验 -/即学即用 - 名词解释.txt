@@ -1,0 +1,46 @@
+Git fork	-	为一个项目贡献代码非常简单：首先点击项目站点的“fork”的按钮，然后将代码检出并将修改加入到刚才分出的代码库中，最后通过内建的“pull request”机制向项目负责人申请代码合并。
+Git	-	版本控制工具
+Github	-	一个网站，提供给用户空间创建git仓储，保存用户的一些数据文档或者代码等
+GitLab	-	是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。
+
+IIFE	-	立即调用函数表达式 Immediately Invoked Function Expression
+
+LVS	-	LVS是Linux Virtual Server的简写，意即Linux虚拟服务器，是一个虚拟的服务器集群系统。
+
+SVN blame - 追溯，过去的时间中谁，什么时候，修改了什么代码
+
+LAMP	-	Linux+Apache+Mysql/MariaDB+Perl/PHP/Python
+LNMLGC	-	linux+nginx+mysql+lua+gearman+C	http://blog.csdn.net/jiao_fuyou/article/details/35985843
+MEAN	-	Mongodb+Express+AngularJS+Node.js	http://edu.csdn.net/course/detail/1425
+
+EhCache	-	 是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider。 Ehcache是一种广泛使用的开源Java分布式缓存。
+Redis	-	它使用内存提供主存储支持,而仅使用硬盘做持久性的存储;它的数据模型非常独特,用的是单线程。
+RequireJS	-	模块化js
+Browerify	-	是一个node.js模块，主要用于改写现有的CommonJS模块，使得浏览器端也可以使用这些模块。
+Cloud9	-	一个在线运行代码云平台 https://c9.io/
+ASCILL	-	American Standard Code for Information Interchange， 美国标准信息交换码，  如：32(十进制) = 20(16进制) = space(键值) ，许多软件程序把 ASCII 表（又称作 ISO 8859-1）
+SoapUI	-	soapUI是一个开源测试工具，通过soap/http来检查、调用、实现Web Service的功能/负载/符合性测试
+
+Blackduck Protext	-	商业开源协议扫描
+Palamida	-	商业开源协议扫描
+Jninka	-	免费的开源协议扫描
+Coverity	-	代码质量扫描
+Klockwork	-	静态代码质量扫描
+CPD	-	相识度扫描
+Gearman	- 分布式任务处理系统
+Doxygen	- 类似javadoc
+
+时间四象限	-	重要紧急，重要不紧急，紧急不重要，不紧急不重要
+马斯洛需求	-	金字塔需求，生理、安全、社会、自主、自我价值实现
+
+ACL	-	访问控制列表 Access Control List
+Web 应用的安全性	-	用户认证（Authentication）和用户授权（Authorization）两个部分。用户认证指的是验证某个用户是否为系统中的合法主体，也就是说用户能否访问该系统。用户认证一般要求用户提供用户名和密码。系统通过校验用户名和密码来完成认证过程。用户授权指的是验证某个用户是否有权限执行某个操作。在一个系统中，不同用户所具有的权限是不同的。比如对一个文件来说，有的用户只能进行读取，而有的用户可以进行修改。一般来说，系统会为不同的用户分配不同的角色，而每个角色则对应一系列的权限
+
+SaaS	-	软件即服务
+PaaS	-	平台即服务
+IaaS	-	基础架构即服务
+
+
+
+	
+	

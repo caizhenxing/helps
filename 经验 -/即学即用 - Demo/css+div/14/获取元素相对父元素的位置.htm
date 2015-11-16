@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+
+<title></title>
+<style type="text/css">
+div {
+    width:200px;
+    height:100px;
+    border:solid 1px red;
+    padding:50px;
+}
+#wrap {
+    position:relative;
+    border-width:20px;
+}
+
+body {
+    margin:20px;
+    padding:0;
+}
+
+
+</style>
+</head>
+
+<body>
+
+
+<div id="wrap">
+    <div id="sub">
+        <div id="box"></div>
+    </div>
+</div>
+
+
+<script language="javascript" type="text/javascript">
+
+
+var box = document.getElementById("box");
+
+var o = getP(box);
+
+alert(o.x);
+
+//获取指定元素距离父元素左上角的偏移坐标
+//参数：e表示获取位置的元素
+//返回值：返回对象直接量，其中属性x表示x轴偏移距离，属性y表示y轴偏移距离
+function getP(e){
+    if(e.parentNode == e.offsetParent){ 	//判断offsetParent属性是否指向父级元素
+        var x = e.offsetLeft; 	//如果是，则直接读取offsetLeft属性值
+        var y = e.offsetTop ; 	//读取offsetTop属性值
+    }
+    else{	//否则调用getW()扩展函数获取当前元素和父元素的x轴坐标，并返回它们的差值
+        var o = getW(e);
+        var p = getW(e.parentNode);
+        var x = o.x - p.x;
+        var y = o.y - p.y;
+    }
+    return {	//返回对象直接量，对象包含当前元素距离父元素的坐标
+        "x" : x, 
+        "y" : y
+    }; 
+}
+
+
+
+function getW(e)
+{
+    var x = y = 0;
+    while(e.offsetParent)
+    {
+        x += e.offsetLeft;
+        y += e.offsetTop;
+        e = e.offsetParent;
+    }
+    return {
+        "x" : x,
+        "y" : y
+    }
+    ;
+}
+
+</script>
+
+</body>
+
+</html>

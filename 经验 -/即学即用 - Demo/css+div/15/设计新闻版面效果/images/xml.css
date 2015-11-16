@@ -1,0 +1,46 @@
+new {
+    display:block;
+    width:900px;
+    margin:12px;
+}
+new h1 {
+    display:block;
+    text-align:center;
+    font-size:28px;
+    margin:1em;
+}
+new detail {
+    display:block;
+    text-align:center;
+    font-size:14px;
+    margin:1em;
+}
+new time, new from {
+    padding-right:12px;
+    ;
+}
+new title {
+    display:block;
+    text-align:center;
+    font-size:12px;
+    margin:0;
+    padding:0;
+}
+new pic {
+    display:block;
+    float:left;
+    text-align:center;
+}
+new img {
+    display:inline-block;
+    background:url(00000003.jpg);
+    width:307px;
+    height:409px;
+    margin-right:1em;
+    margin-bottom:1em;
+}
+new p {
+    display:block;
+    line-height:1.8em;
+    text-indent:2em;
+}

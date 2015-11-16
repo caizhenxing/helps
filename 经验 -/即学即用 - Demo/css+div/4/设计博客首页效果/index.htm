@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>设计博客首页效果</title>
+<style>
+body {                        /*网页基本属性*/
+    margin:0px; 
+	padding:0px;
+	text-align:center;
+    }
+.container{                    /*container容器样式*/
+    width:800px;
+	margin:0 auto;             /*居中*/
+	}
+.header{                      /*header样式类*/
+     width:800px;             /*宽度*/
+	     height:200px;             /*高度*/
+	 background:url(images/bg.jpg); /*header部分的背景图片*/
+      }
+.menu{
+    width:100%;               /*定义table标签样式*/
+	font-size:16px;
+	background-color:#90bcff;	  /*背景颜色*/
+	text-align:center;            /*居中对齐*/
+	fond-weight:bold;
+}
+
+.leftbar{                      /*leftbar样式*/
+	width:199px;              /*宽度*/
+	height:650px;
+	background-color:#d4d7c6;   /*背景颜色*/
+	text-align:center;            /*水平对齐为居中*/
+	vertical-align:top;           /*垂直对齐为顶端对齐*/
+	border-right:1px #FFFFFF solid; /*右边框样式*/
+	float:left;                    /*使leftbar块左浮动，居于页面左侧*/
+}
+.pic1{
+	border:3px solid #f393a5;      /*leftbar中图片样式*/
+}
+.leftbar p{                      /*leftbar中文本样式*/
+	font-size:20px;
+}
+h2 {                           /*leftbar中标题样式*/
+    font-weight:bold;
+    color: #c223c8; 
+	    font-size:18px;
+    padding: 0;
+    width: 199px; 
+} 
+.favlinks {               /*favlinks样式*/
+    margin: 0; 
+    padding: 0; 
+    width: 199px;
+} 
+
+ul.favlinks li {            /*favlinks中li列表样式*/
+    padding-left: 12px; 
+    line-height:25px;
+	font-size:14px;
+    list-style-position:inside;
+   
+} 
+
+.favlinks a:link {                         /*favlinks中链接样式*/
+    color: #A5ffffB; 
+    text-decoration: none; 
+    border-bottom: 1px dotted #A5003B;     /*底部边框样式*/
+}
+
+.content{                     /*contenta样式类*/
+	width:600px;              /*宽度*/
+	height:650px;
+	background:#e5e5e3 ;       /*背景颜色*/
+	vertical-align:top;          /*垂直对齐方式为顶端对齐*/
+	font-size:12px; 
+	text-align:center;
+    float:left;                 /*左浮动*/
+}
+h4{                           /*正文标题样式*/
+	text-decoration:underline;     /*显示下划线*/
+	color:#0078aa;
+	padding-top:15px;
+	font-size:16px;
+}
+.content p{                      /*正文段落样式*/
+    line-height:2em;
+	    font-size:13px;
+		}
+
+
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header"></div>
+<table class="menu">
+	      <tr><td>首页</td><td>我的博文</td><td>班级故事</td><td>我的收藏</td><td>成长心得
+</td><td>我爱挑战</td><td>友情链接</td></tr>
+</table>
+    <div class="main">
+	   <div class="leftbar">
+			<p><img src="images/1.jpg" class="pic1">
+			<br>我的博文</p>
+			<p><img src="images/2.jpg" class="pic1">
+			<br>班级故事</p>
+			<hr style=" borber:1px solid; " />
+			<h2 >My Favorite Sites</h2> 
+            <ul class="favlinks"> 
+                 <li><a href="#">妈妈的博客</a></li> 
+                 <li><a href="#">好友的微博</a></li> 
+                 <li><a href="#" >班级的博客</a></li> 
+                 <li><a href="#">我们的天空</a></li>             
+            </ul> 
+		</div>
+		<div class="content">
+			<h4>用一段话激励自己</h4>
+			<p>我们最深的恐惧并非是我们力不能及。</br>
+            我们最深的恐惧是我们的力量无可限量。</br>
+            令我们恐惧的是我们的光芒，</br>
+            而不是我们的黑暗。</br>
+            我们都会扪心自问</br>
+            我是谁，怎样才能灿烂夺目，才华横溢？</br>
+            其实，你要问，你怎么能不是谁？你就是神之子。</br>
+            你的碌碌无为无益于世界。</br>
+            退缩并非明智之举，</br>
+            以为这样就不会让人们不安。</br>
+            我们注定要光彩照人,就像孩子一样。</br>
+            我们生来就是为了展现我们心中上帝的荣耀。</br>
+            它并非只是少数人拥有；而是藏在每个人的心中。</br>
+            当我们让自己的光芒闪耀，</br>
+            我们就在无意中默许他人去做同样的事。</br>
+            当我们从自己的恐惧中解放，</br>
+            我们就自然而然地解放他人！</p>
+	    	<p><img src="images/hua.gif"></p>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>

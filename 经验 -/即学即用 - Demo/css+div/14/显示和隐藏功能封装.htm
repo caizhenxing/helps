@@ -1,0 +1,66 @@
+<html>
+
+<head>
+
+<title></title>
+
+</head>
+
+<body>
+
+<p style="float:right; border:solid 1px red; width:100px; height:100px;">p1</p>
+
+<script language="javascript" type="text/javascript">
+
+var p = document.getElementsByTagName("p")[0];
+
+
+display(p)
+display(p)
+display(p, true)
+
+
+function display(e, b)
+{
+    if(b && (typeof b != "boolean")) throw new Error("第二个参数应该是布尔值!");
+    var c = getStyle(e, "display");
+    (c != "none") && (e._display = c);
+    e._display = e._display || "";
+    if(b || (c == "none") )
+    {
+
+        e.style.display = e._display;
+    }
+    else
+    {
+
+        e.style.display = "none";
+    }
+}
+
+
+function getStyle(e, n)
+{
+    if(e.style[n])
+    {
+        return e.style[n];
+    }
+    else if(e.currentStyle)
+    {
+        return e.currentStyle[n];
+    }
+    else if(document.defaultView && document.defaultView.getComputedStyle)
+    {
+        n = n.replace(/([A-Z])/g, "-$1");
+        n = n.toLowerCase();
+        var s = document.defaultView.getComputedStyle(e, null);
+        if(s) return s.getPropertyValue(n);
+    }
+    else
+    return null;
+}
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>检测元素是否拥有Layout特性</title>
+</head>
+<body>
+
+
+<div id="div1" style="width:100%">被定义了宽度的div元素</div>
+<div id="div2">没有被定义定位或高宽的div元素</div>
+<button onclick="alert('第1个元素的haslayout=' + div1.currentStyle.hasLayout)">第1个元素的haslayout</button>
+<button onclick="alert('第2个元素的haslayout=' + div2.currentStyle.hasLayout)">第2个元素的haslayout</button>
+
+
+
+</body>
+</html>

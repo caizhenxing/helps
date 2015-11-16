@@ -1,0 +1,589 @@
+常用手法	-
+	分块和块嵌套，对齐
+	从外围往里面写样式
+	overflow:hidden;// 在tab中替代 display: none
+	margin:0 auto; width:500px;//居中对齐
+	line-height|width: 2em;// 2em表示2倍font-size
+	position: relative;// 解决表单对象和同行文本对齐问题
+	lable和input左右布局
+	li和input上下布局
+	<h2><div>的border-bottom作为分隔线
+	<fieldset>的border-top作为分界线
+	背景图片和<input>融合，border设置为0px #fff
+	#header span{color:yellow!important} //!important比加权值都高
+	input:focus{background: red}; //css伪类控制改变样式; 
+	input[type=submit],input[type=reset]{} //属性匹配
+	<a>或<span>来设计标签
+	负边距：负边距+定位：水平垂直居中
+	
+	background-position:0 -14px;// 一张图片中有多个图片，通过改变背景位置来设置它的背景，减少服务器http请求次数下载图片
+	抄袭网上好的设计
+	
+	
+常用css属性	-	
+	float: left;
+	clear: both;
+	position: 
+			absolute:  相对于除static以外的最近父元素位置
+			relative: 相对于自身现在的位置移位。如："left:20" 会向元素的 LEFT 位置添加 20 像素。
+			fixed: 相对于浏览器固定定位，不会随滚动条滚动而变动位置
+			static: 默认值
+	margin: 0px auto;// 水平居中
+	padding: 0px | 10px 20px 30px 30px;
+	width: 400px | 50% | auto;
+	height: 1024px;
+	top: 20px | -10px;
+	bottom: 10px;
+	color: red;
+	border: 1px solid red;
+	font: 12px/16px 宋体,"Times New Roman",Georgia,Serif;
+	font-size: 12px;
+	line-height: 2em;
+	border-radius: 2px;
+	text-align: center;
+	display: block;
+	overflow: hidden;// 可巧妙用于tab，隐藏溢出的内容，替代display:none
+	overflow: visible | auto | hidden | scroll | inherit; // 内容超过指定宽高如何显示
+	z-index: 1000;
+	vertical-align:middle;// 垂直居中, 不支持块级元素，如div，只有当块级别元素display:table-cell(单元格)才有效果
+	background-color: red;
+	background: red|url(images/bg.jpg);
+    background: url(images/email.png) #eee no-repeat right top; | url(images/email.png) #eee no-repeat 0px 10px;
+	list-style: none;// ul li去掉点
+	border-collapse: collapse | separate | inherit ;// 合并边框为一个 | 边框分开 | 继承父类边框属性
+	background-image:url(image/eg_bg_02.gif);
+	background-repeat:no-repeat | repeat-x | repeat-y;// 背景重复
+	
+	background-position: 40% 60%;// 第一个值是水平位置，第二个值是垂直位置。左上角是 0% 0%。右下角是 100% 100%。
+	background-attachment: scroll | fixed;// fixed: 固定背景图片，不随对象滚动条移动而改变
+	a:hover{}
+	
+	
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);// 阴影效果
+	text-shadow: 0px 2px 0px #f2f2f2;// 文本阴影效果
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a5b8da), to(#7089b3));// 背景色线性渐变
+	background-clip:content-box;// 规定背景的绘制区域
+	
+	a:link{}
+	a:visited{}
+	a:hover{}
+	a:active{}
+	p:before{content:"台词："}// p标签前面加"台词："
+	p:after{content:"台词："}
+	input:focus{}
+	:first-child{}// 第一个子对象
+	:first{}// 第一页样式(仅@page)
+	
+	a[class^="My"]{color:red}// class值开头为My的元素
+	a[href^="mailto:"] {// href为mailto:开头的右上角加上email图片
+	  background: url(images/email.png) #eee no-repeat right top;
+	  padding-right: 15px;
+	}
+	
+	text-indent: 2em;//首行缩进
+	cursor:pointer;
+	
+常用选择器	-	
+	.class1, .class2{// class="class1" 和 class="class2" 并列（中间逗号）
+
+	}
+	.class1.class2{// class="class1 class2"（中间无空格）
+
+	}
+
+	span .img{// 所有子类（有空格，优先级高）
+
+	}
+
+	span.img{// class="img"的span元素
+
+	}
+
+	#id.img{// 无效的
+
+	}
+
+	#id > img{// 第一级子类
+
+	}
+
+	img{// 标签选择器
+
+	}
+
+	#id{// id选择器
+
+	}
+
+	.class{// 类选择器
+
+	}
+
+	#div+p{// #div向后相邻1个同级的p标签
+		font-size:14px;
+	}	
+	
+常用class命名	-	
+	container
+	header
+	nav
+	main
+	leftbar
+	rightbar
+	content
+	footer
+	
+规范	-	
+	-	从大区域到小区域的次序来写CSS文档， 确定大区域的结构，然后在深入继承和规划
+	-	将文件分割多个样式表，按逻辑对样式进行分组，添加注释
+	-	排版，对齐
+
+.tab-panel{
+	display: none;
+}
+.tab-panel.active{// 多类链接，class属性完全匹配(不论顺序)，少一个都不行
+	display: block;
+}
+
+.modal{
+	z-index: 1000;
+	position: absolute;
+}
+
+.template:after{
+	font: 12px/16px 宋体,"Times New Roman",Georgia,Serif;// 字号/行高 字体
+	color: #333;
+	content: url(images/load.gif);
+	position: absolute;// 位置
+	top: 50% | 50px;
+	right: 0;
+	bottom: 20px;
+	left: 20px;
+	float: left;// 浮动
+	width: auto | 200px | 50%;
+	opacity: 0.3;
+	margin-left: -10px;
+	padding: 10px;
+	border: 1px solid gray;
+	margin-top: -5px; // 等同于 margin-bottom: 5px;
+	vertical-align: text-top;// 对齐平级元素字体上方
+	border-collapse: collapse | separate | inherit ;// 合并边框为一个 | 边框分开 | 继承父类边框属性
+	display: table | inline;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);// 阴影效果
+	-moz-box-shadow: inset 0 1px 0 0 #aec3e5;// 阴影效果
+    -webkit-box-shadow: inset 0 1px 0 0 #aec3e5;// 阴影效果
+    
+	border-radius: 4px | 50%; // 圆角
+	
+	outline:none | solid | ridge;// 元素轮廓，无轮廓 | 实线轮廓 | 3D凸槽轮廓
+	white-space: pre-wrap; // 保留空白符序列，但是正常地进行换行。
+	*display: inline;// 属性带*兼容ie浏览器
+	text-indent: 2em;//首行缩进
+	text-align: center;// 文本对齐
+	background-position: 40% 60%;// 第一个值是水平位置，第二个值是垂直位置。左上角是 0% 0%。右下角是 100% 100%。
+	background-attachment: scroll | fixed;// fixed: 固定背景图片，不随对象滚动条移动而改变
+	background: #eeeeee url(bg.png) repeat-x 10px 5px fixed;// background-color background-image background-repeat background-position background-attachment
+	letter-spacing: 2px;// 字间距
+	text-transform: normal|capitalize(单词首字母大写)|uppercase|lowercase;	//字体大小写效果
+}
+
+p{
+	text-indent: 2em; // 文字缩进， 1em=16px, 字号、PX像素、PT点数、em、CM厘米、MM毫米
+	line-height: 18px | 90%;// 行与行之间的距离
+}
+
+h1{
+	border-bottom: 2px solid gray;// 边框
+	text-align: center;// 文本对齐
+	padding-bottom: 24px;// 下内边距
+}
+
+body{
+	background: url(image/bg.jpg);
+	font-family: 宋体,"Times New Roman",Georgia,Serif;// 不支持第一个字体，则会尝试下一个
+	font-size: 14px;
+	color: red;// 字体颜色
+}
+
+
+伪类伪对象选择器	-	
+	input:focus{	
+	}
+	:first-child{}// 第一个子对象
+	:first{}// 第一页样式(仅@page)
+	:after{// 在对象后加内容
+		content: "台词";
+	}
+	:before{// 在对象前加内容
+		content: "台词："；
+	} 
+	
+动态伪类	-	
+	应用于任何元素 :hover :active :focus 
+	
+a标签 -	
+	a{
+		text-decoration: none;
+	}
+	a:link{color: blue}
+	a:visited{color:green}
+	a:hover, a:active{color:red}
+	
+	tr:hover{background-color: red}
+	input:focus{background-color: yellow;}
+
+子选择器	-	
+	div > span 第一级子类
+
+包含选择器	-	
+	div span  所有子孙类
+	
+相邻选择器	-	
+	#div+p{font-size:14px;}// #div向后相邻1个同级的p标签
+	如: p2
+	<p>p1</p>
+	<div id="div"></div>
+	<p>p2</p>
+	<p>p3</p>
+
+属性选择器	-	
+	匹配属性名: 
+		[class]{color:red}// 所有带class属性的元素
+		img[alt]{border: none}// 所有带alt的img元素
+		a[href][title]{font-weigth: bold;}// 所有带href且title的a元素
+	
+	匹配属性值:
+		a[href="http://baidu.com"][title="css"]{font-size: 12px;}// href=http://baidu.com且title=css的a元素
+		
+		div[id][title="okay"]{color: red} // 有id属性且title=okay的div
+		
+	前缀匹配:
+		[class^="My"]{color:red}// class值开头为My的元素
+		
+	后缀匹配:
+		[class$="test"]{colo:red}// class值结尾为test的元素
+	
+	模糊匹配:
+		[class*="est"]{color:red}// class值含有est字符串的元素
+		[class~="est"]{color:red}// class值含有est字符串的元素
+
+通用选择器	-	
+	通配符 *, 可以结合其他选择使用
+	*{
+		padding: 0;
+		margin: 0;
+	}
+
+分组选择器	-	
+	逗号分隔, 相同样式放在一组
+	h1,h2,h3,h4,h5,h6,p{
+		line-height: 1.6em;
+	}
+	
+指定选择器	-	
+	span.red{// span元素中class=red
+			color:red;
+	}
+	div#top{// div元素中id=top
+	
+	}
+	
+css层叠性	-	
+	两个或多个规则应用在同一元素上
+	层叠优先级:
+		1.标为!important的用户样式
+		2.标为!important的作者样式
+		3.作者样式
+		4.用户样式
+		5.浏览器/用户代理应用的样式
+	选择器优先级: (根据特殊性加权值)，style!important加权值>100最高，优先级最高
+		body{}//文档样式	（优先级最低）
+		div{}//元素样式	加权值(1)
+		.blue{}// class样式	加权值(10)
+		#header{}//id样式	加权值(100)
+		#header{}//id样式，覆盖上一行#header样式	加权值(100)
+		#header span{}//组合加权值(100+1=101)
+		style="color:yellow"//内联样式，加权值>100
+		#header span{color:yellow!important}//!important比加权值都高
+		style="color:yellow!important"//style!important比加权值都高, （优先级最高）
+		
+		继承的特殊性加权值为0
+		例如:
+			span{color:gray}
+			#header{color: black}
+			
+			<div id="header" class="blue">
+				<span>颜色是gray</span>// 虽#header权值是100，但span继承#header权值为0，而span的自身权值是1，所以最终显示的颜色是gray
+			<div>
+			
+css继承	-	
+	子元素继承父元素样式
+	不具有继承性的属性:
+		边框，边界，补白，背景，定位，布局，元素宽高
+	具有继承性的属性:
+		颜色，字号，行距
+		
+文档应用样式 -	
+	内联样式/嵌入样式:
+		<div style="color=red"></div>
+	内部样式:
+		<style type="text/css">
+			div{color:red}
+		</style>
+	外部样式:
+		链接方式:	<link href="/css/base.css" rel="stylesheet" type="text/css">
+		导入方式:	
+			<style type="text/css">
+				<!--
+					@import url("/css/base.css");
+				-->
+			</style>
+		
+		base.css:
+			@import url("/css/color.css");
+			@import url("/css/layout.css");
+			
+注释	-	
+	单行注释:
+		p{
+			color: #ffffff;	/*字体颜色*/
+		}
+	多行注释:
+		/*
+			网页布局
+		*/
+		.head{width: 960px;}
+		.footer{width:960px;}
+		/*end*/
+	结构性注释:
+		/*-------------------------------------------
+		Basic Style Sheet
+		version: 1.x
+		author: xxx
+		email: xxx@163.com
+		website: http://xxx.com
+		-------------------------------------------*/
+	 模块注释:
+		/**
+		   *@name											:mode_name_a
+		   *@author										:me
+		   *@version										:1.0
+		   *@type											:基类
+		   *@explain										:Demo
+		 */
+	 	 这儿是模块a样式代码
+		 /*@end**/
+		 
+		 /**
+		   *@name											:mode_name_b
+		   *@author										:me
+		   *@version										:1.0
+		   *@type											:扩展类
+		   *@explain										:Demo
+		   *@dependent									:mode_name_a
+		 */
+		  这儿是模块b样式代码
+		  /*@end**/
+		  
+css优化器	-	
+	www.cssoptimiser.com 删除注释，删除空白，去掉额外的字节
+	apache mod_gzip或mod_deflate压缩css80%
+
+css常用属性分类	-	
+	背景：
+	
+	定位：
+		position: static | absolute | fixed | related， 结合left, right,top, bottom来定位
+			static: 默认值
+			absolute:  相对于除static以外的最近父元素位置
+			relative: 相对于自身现在的位置移位。如："left:20" 会向元素的 LEFT 位置添加 20 像素。
+			fixed: 相对于浏览器固定定位，不会随滚动条滚动而变动位置
+			inherit: 从父元素继承position属性
+		z-index:
+			层叠顺序，值越大，显示越靠上，仅作用于position: relative | absolute
+		top: auto | +- % | +- length | inherit;   与最近一个有定位属性上级元素顶边框距离，position不等于static才有效果	
+		right: auto |+- % | +- length | inherit;  与最近一个有定位属性上级元素右边框距离，position不等于static才有效果	
+		bottom: auto | +- % | +- length | inherit;  与最近一个有定位属性上级元素底边框距离，position不等于static才有效果	
+		left: auto | +- % | +- length | inherit; 与最近一个有定位属性上级元素左边框距离，position不等于static才有效果	
+	尺寸：
+		height: auto | % | length | inherit; 元素高度
+		width: auto | % | length | inherit; 元素宽度
+		max-height:
+		min-height:
+		max-width:
+		min-width:
+	布局：
+		clear: none | left | right | both;	 对象左右不允许有浮动对象，与float配合使用
+		float: none | left | right; 对象为块状显示，即display:block; 覆盖display属性
+		clip: auto | rect (top, right, bottom, left); 裁切区域，必须有position: absolute;
+		overflow: visible | auto | hidden | scroll | inherit; 内容超过指定宽高如何显示
+		overflow-x: 内容超过指定高如何显示
+		overflow-y: 内容超过指定宽如何显示
+		display: 
+			block: 块级元素，前后带有换行符
+			none: 隐藏
+			inline: 内联，前后没有换行符
+			inline-block: 行内块元素
+			list-item: 作为列表显示
+			table	此元素会作为块级表格来显示（类似 <table>），表格前后带有换行符
+			inline-table	此元素会作为内联表格来显示（类似 <table>），表格前后没有换行符
+	外边距：
+	
+	边框：
+	
+	内边距：
+	
+	列表：
+	
+css颜色	-	rgb大白小黑同灰偏大色
+	十六进制:	#RRGGBB	#FF00FF
+	RGB函数:	RGB(125,0,255)	RGB(25%， 0%， 100%)
+	颜色名称:	red	green
+	用户系统色盘值:	p{color: windowtext; background-color: background;}
+	
+
+自定义字体	-	
+	@font-face {
+	  font-family: IconicStroke;
+	  font-weight: normal;
+	  src: url(../font/iconic_stroke.eot);
+	  src: local('IconicStroke'), url(../font/iconic_stroke.eot?#iefix) format('embedded-opentype'), url(../font/iconic_stroke.woff) format('woff'), url(../font/iconic_stroke.ttf) format('truetype'), url(../font/iconic_stroke.svg#iconic) format('svg'), url(../font/iconic_stroke.otf) format('opentype');
+	}
+
+不同媒介显示	-	
+	@media screen, print {// 屏幕和打印样式
+		  [class*="iconic-"] {
+			font-style: inherit;
+			font-weight: normal;
+			vertical-align: middle;
+		  }
+		  [class*="iconic-"]:before {
+			display: inline-block;
+			width: 1em;
+			font-family: IconicFill;
+			text-align: center;
+			content: "";
+		  }
+	}
+	
+单位	-	建议使用em或px
+	绝对单位:
+		in: 英尺
+		cm:	厘米
+		pt: 磅
+		pc: 皮卡,用于印刷,1pc等于12pt
+	相对单位:	受屏幕分辨率，可视区域，浏览器设置等影响
+		em:	1em等于font-size值，如果设置font-size为2em，则等于2倍父元素font-size值，如果父元素都没有设置font-size，则按浏览器默认字体大小16px计算
+		ex:	1/2的em
+		px:	屏幕像素点
+	百分比:	
+		参考父元素取值
+	URL:	
+		
+字体	-	衬线字体(变宽)，无衬线字体(变宽圆滑)，等宽字体(等宽)
+	font: 符合属性。注：字体大小和类型必须，且放在最后。属性间值空格分割，属性内多个值逗号相连。
+		font-style || font-variant || font-weight || font-size/line-height || font-family
+	备用字体:	指定字体都不可用时，从系统中找到类似字体。
+		serif, sans-serif, cursive, fantasy, monospace
+	font-style:	normal|italic|oblique;// 字体倾斜效果
+	font-weight: normal|bold|bolder|lighter|100|200|...|900;// 字体粗细, normal=400,bold=700=<b>
+	color: 字体颜色
+	text-decoration: none|underline|overline|line-through|blink|inherit; // 字体下划线，删除线，顶划线
+	text-decoration: overline underline;// 上下划线一起用
+	font-variant: normal|small-caps;// 字体大小效果，small-caps: 将小写字母变成缩小了的大写字母
+	text-transform: normal|capitalize(单词首字母大写)|uppercase|lowercase;	//字体大小写效果
+	text-align: left|right|center|justify(文本两端对齐);// 文本水平对齐方式
+
+块级别元素和行内元素	-	
+	块级元素: 每次另起一行的方式往下排（可通过css控制不用换行往下排）。可容纳内联元素和其他块元素。
+		display: inline;// 将块级元素转为内联元素，不用每次都从新行开始
+		* form - 交互表单，只能容纳其他块元素
+		* address - 地址   
+	　　* blockquote - 块引用   
+	　　* center - 举中对齐块   
+	　　* dir - 目录列表   
+	　　* div - 常用块级容易，也是css layout的主要标签   
+	　　* dl - 定义列表   
+	　　* fieldset - form控制组     
+	　　* h1 - 大标题   
+	　　* h2 - 副标题   
+	　　* h3 - 3级标题   
+	　　* h4 - 4级标题   
+	　　* h5 - 5级标题   
+	　　* h6 - 6级标题   
+	　　* hr - 水平分隔线   
+	　　* isindex - input prompt   
+	　　* menu - 菜单列表   
+	　　* noframes - frames可选内容，（对于不支持frame的浏览器显示此区块内容   
+	　　* noscript - 可选脚本内容（对于不支持script的浏览器显示此内容）   
+	　　* ol - 排序表单   
+	　　* p - 段落   
+	　　* pre - 格式化文本   
+	　　* table - 表格   
+	　　* ul - 非排序列表
+	内联元素: 语义级(semantic)的基本元素。内联元素只能容纳文本或者其他内联元素。
+		display: block;// 将内联元素转为块级元素，每次都从新行开始
+		* a - 锚点   
+	　　* abbr - 缩写   
+	　　* acronym - 首字   
+	　　* b - 粗体(不推荐)   
+	　　* bdo - bidi override   
+	　　* big - 大字体   
+	　　* br - 换行   
+	　　* cite - 引用   
+	　　* code - 计算机代码(在引用源码的时候需要)   
+	　　* dfn - 定义字段   
+	　　* em - 强调   
+	　　* font - 字体设定(不推荐)   
+	　　* i - 斜体   
+	　　* img - 图片   
+	　　* input - 输入框   
+	　　* kbd - 定义键盘文本   
+	　　* label - 表格标签   
+	　　* q - 短引用   
+	　　* s - 中划线(不推荐)   
+	　　* samp - 定义范例计算机代码   
+	　　* select - 项目选择   
+	　　* small - 小字体文本   
+	　　* span - 常用内联容器，定义文本内区块   
+	　　* strike - 中划线   
+	　　* strong - 粗体强调   
+	　　* sub - 下标   
+	　　* sup - 上标   
+	　　* textarea - 多行文本输入框   
+	　　* tt - 电传文本   
+	　　* u - 下划线   
+	　　* var - 定义变量
+	可变元素: 可变元素为根据上下文语境决定该元素为块元素或者内联元素。 
+		* applet - java applet   
+	　　* button - 按钮   
+	　　* del - 删除文本   
+	　　* iframe - inline frame   
+	　　* ins - 插入的文本   
+	　　* map - 图片区块(map)   
+	　　* object - object对象   
+	　　* script - 客户端脚本  
+
+元素水平居中	-	
+	margin-left和margin-right设置为auto, width和height必须指定
+		{
+			width: 200px;// 必须指定
+			height: 30px;// 必须指定
+			margin-left: auto;
+			margin-right: auto;
+		}	
+		
+元素垂直居中	- 可用于文字与图片对齐
+	vertical-align: auto|baseline|sub(下标对齐)|super(上标对齐)|top(顶端对齐)|text-top(与文本顶端对齐)|middle(垂直居中)|bottom|text-bottom|length;
+	vertical-align不支持块级元素，如div，只有当块级别元素display:table-cell(单元格)才有效果。
+	
+	
+		
+	
+	
+	
+		
+	
+	
+	
+			

@@ -1,0 +1,117 @@
+java	-	
+	******************************************************************************************************************hash
+		private int hash;
+		public ConnectionKey(String userName, String password) {
+			this.hash = 31;
+			if (userName != null) {
+				this.hash += userName.hashCode();
+			}
+			this.hash *= 31;
+			if (password != null)
+				this.hash += password.hashCode();
+		}
+	******************************************************************************************************************jsonp跨域
+	java:
+		@RequestMapping(method = RequestMethod.GET, value = "/jsonp")
+		public @ResponseBody JSONPObject getOverView(@RequestParam(value = "streamName") String streamName, @RequestParam(value = "callback") String callback) {
+			List data = covDataService.getData(streamName);
+			return new JSONPObject(callback, data);
+		}
+	
+	js:
+		$.getJSON(
+			"http://xxx.com/test/jsonp?streamName=test&callback=?", 
+			function(data) {
+				for(i = 0; i < data.length; i++){
+					alert(data[i].name);
+				}
+			}
+		);
+	******************************************************************************************************************泛型
+	public static <T> T getBean(Class<T> cls) {
+		return applicationContext.getBean(cls);
+	}
+	
+	public static <T> T getBean(String name) {
+		return (T) applicationContext.getBean(name);
+	}
+	******************************************************************************************************************套结流 Buffer > InputStream > FileInputStream > File
+	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+	******************************************************************************************************************string分词
+	public StringTokenizer(String str) {
+        this(str, " \t\n\r\f", false);
+    }
+	new StringTokenizer("good morning").nextToken();
+	******************************************************************************************************************MessageFormat
+	MessageFormat.format("adding [gitblit] indexBranch={0} for {1}", params.branch, repo);
+	******************************************************************************************************************文件工具类
+	org.apache.commons.io.FileUtils.copyFile(new File(this.nginxConf), new File(this.nginxConf + "." + System.currentTimeMillis()));
+	******************************************************************************************************************文件锁
+	FileLock lock = new FileOutputStream(lockPath).getChannel().lock();
+	FileUtils.writeLines(tempFile, "UTF-8", content);
+	lock.release();
+	******************************************************************************************************************charAt
+	 if (name.charAt(name.length() - 1) == '/') {
+            name = name.substring(0, name.length() - 1);
+	}
+	******************************************************************************************************************string截取
+	String username = new String("carlcyang:123456".getBytes(), 0, 9);
+    System.out.println(username);// carlcyang
+	******************************************************************************************************************内部类
+	public static class FileKey implements RepositoryCache.Key {
+	
+	}
+	
+	******************************************************************************************************************Lock如何处理线程通信
+	final Lock lock = new ReentrantLock();//锁对象  
+	final Condition notFull  = lock.newCondition();//写线程条件   
+	
+	******************************************************************************************************************
+	private static final String C64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="; // default base64.
+	private static final char[] BASE16 = { '0', '1', '2', '3', '4', '5', '6','7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' }, BASE64 = C64.toCharArray();
+	******************************************************************************************************************
+	private static ThreadLocal<MessageDigest> MD = new ThreadLocal<MessageDigest>();// 所谓ThreadLocal，简单一点想，就是一个全局的Map，Map的key是线程对象，value是你要保存的对象， 进入某个线程后，就可以从map中取得之前存储的相应线程关联的对象
+	private static MessageDigest getMessageDigest() {
+		MessageDigest ret = MD.get();
+		if (ret == null) {
+			try {
+				ret = MessageDigest.getInstance("MD5");
+				MD.set(ret);
+			} catch (NoSuchAlgorithmException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return ret;
+	}
+	******************************************************************************************************************
+	/**
+     * 兼容类型转换
+	 *	{@code UUID}
+     * <ul>
+     * <li> String -> char, enum, Date
+     * <li> byte, short, int, long -> byte, short, int, long
+     * <li> float, double -> float, double
+     * </ul>
+     */
+	 ******************************************************************************************************************
+	 public interface Generator {
+		String generateId();
+		public static class UUIDGenerator implements Generator {
+			public synchronized String generateId() {
+				return UUID.randomUUID().toString().replace("-", "");
+			}
+		}
+	}
+	******************************************************************************************************************
+	public static final String LOCALHOST = "127.0.0.1";
+	public static final String ANYHOST = "0.0.0.0";
+	******************************************************************************************************************
+	
+	
+css	-
+	******************************************************************************************************************首字下沉
+	span.first{
+		font-size:60px; float:left; font-weight:bold;
+	}
+	
+	

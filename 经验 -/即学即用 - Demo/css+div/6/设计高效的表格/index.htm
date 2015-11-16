@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>表格</title>
+</head>
+<style type="text/css">
+body {
+    font: normal 11px auto sans-serif;
+    color: #4f6b72;
+    background: #E6EAE9;
+}
+a {
+    color: #c75f3e;
+}
+#mytable {
+    width: 700px;
+    padding: 0;
+    margin: 0;
+}
+caption {                 /*设置表格标题 */
+    padding: 0 0 5px 0;
+    width: 700px;
+    text-align: center;
+    font-size:30px;
+    font-weight:bold;
+}
+th {
+    color: #4f6b72;
+    border-right: 1px solid #C1DAD7;
+    border-bottom: 1px solid #C1DAD7;
+    border-top: 1px solid #C1DAD7;
+    letter-spacing: 2px;
+    text-align: left;
+    padding: 6px 6px 6px 12px;
+    background: #CAE8EA;
+}
+td {
+    border-right: 1px solid #C1DAD7;
+    border-bottom: 1px solid #C1DAD7;
+    background: #fff;
+    font-size:14px;
+    padding: 6px 6px 6px 12px;
+    color: #4f6b72;
+}
+td.alt {
+    background: #F5FAFA;
+    color: #797268;
+}
+th.spec {
+    border-left: 1px solid #C1DAD7;
+    border-top: 0;
+    background: #fff;
+}
+th.specalt {
+    border-left: 1px solid #C1DAD7;
+    border-top: 0;
+    background: #f5fafa;
+    color: #797268;
+}
+</style>
+<body>
+<table id="mytable" cellspacing="0" summary="财经2000级毕业生通讯录">
+    <caption>
+    财经2000级毕业生通讯录
+    </caption>
+    <tr>
+        <th scope="col" abbr="Configurations" >姓名</th>
+        <th scope="col" abbr="Dual 1.8">出生日期</th>
+        <th scope="col" abbr="Dual 2">电话</th>
+        <th scope="col" abbr="Dual 2.5">单位</th>
+    </tr>
+    <tr>
+        <th scope="row" abbr="Model" class="spec">王明</th>
+        <td>1978.1.4</td>
+        <td>137563443</td>
+        <td>中国铁道部</td>
+    </tr>
+    <tr>
+        <th scope="row" abbr="G5 Processor" class="specalt">李丽</th>
+        <td class="alt">1977.5.7</td>
+        <td class="alt">13893212</td>
+        <td class="alt">北京市朝阳区街道办事处</td>
+    </tr>
+    <tr>
+        <th scope="row" abbr="Frontside bus" class="spec">刘丽敏</th>
+        <td>1978.4.23</td>
+        <td>13345678</td>
+        <td>北京市11中学</td>
+    </tr>
+    <tr>
+        <th scope="row" abbr="L2 Cache" class="specalt">李松</th>
+        <td class="alt">1977.11.31</td>
+        <td class="alt">139432567</td>
+        <td class="alt">北京东城区防汛办</td>
+    </tr>
+    <tr>
+        <th scope="row" abbr="Frontside bus" class="spec">赵艳</th>
+        <td>1978.7.3</td>
+        <td>1355613234</td>
+        <td>北京深华新股份有限公司</td>
+    </tr>
+    <tr>
+        <th scope="row" abbr="L2 Cache" class="specalt">杜征</th>
+        <td class="alt">1978.6.19</td>
+        <td class="alt">1368395322</td>
+        <td class="alt">酷6网</td>
+    </tr>
+    <tr>
+        <th scope="row" abbr="Frontside bus" class="spec">王朋</th>
+        <td>1978.9.22</td>
+        <td>13567890</td>
+        <td>adobe公司</td>
+    </tr>
+    <tr>
+        <th scope="row" abbr="L2 Cache" class="specalt">杨小东</th>
+        <td class="alt">1978.1.3</td>
+        <td class="alt">1354983611</td>
+        <td class="alt">朝阳区将台东路乐天玛特</td>
+    </tr>
+    <tr>
+        <th scope="row" abbr="Frontside bus" class="spec">杨秀燕</th>
+        <td>1977.12.3</td>
+        <td>1354353623</td>
+        <td>朝阳区教委</td>
+    </tr>
+    <tr>
+        <th scope="row" abbr="L2 Cache" class="specalt">张小光</th>
+        <td class="alt">1978.10.24</td>
+        <td class="alt">134567831</td>
+        <td class="alt">铁路第二中学</td>
+    </tr>
+</table>
+</body>
+</html>

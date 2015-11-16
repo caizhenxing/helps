@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>动态效果表单</title>
+<script language="javascript" type="text/javascript" >
+
+var selects;
+var inputs;
+var radios = new Array();
+var checkboxes = new Array();
+var hovers = new Array();
+var buttons = new Array();
+var selectText = "请选择";
+
+//this function runs when the page is loaded so put all your other onload stuff in here too.
+function init() {
+	
+	//check if styles are enabled and only then start replacing elements
+	if(findPosX(document.getElementById('stylesheetTest')) == -999) {
+		replaceSelects();
+		replaceRadios();
+		replaceCheckboxes();
+	}
+	hoverEffects();
+	buttonHovers();
+}
+
+function replaceRadios() {
+	//get all the radio buttons on the page
+	var inputs = document.getElementsByTagName('input');
+	var j = 0;
+	for(var i=0; i < inputs.length; i++) {
+		if(inputs[i].type=='radio') {
+			radios[j] = inputs[i];
+			++j;
+		}
+	}
+	
+	//cycle through the radio inputs
+	for(var i=0; i <radios.length; i++) {
+		
+		//make them transparent
+		radios[i].className = "transparent";
+		
+		//get their position
+		var x = findPosX(radios[i]);
+		var y = findPosY(radios[i]);
+		
+		//build new div
+		var radioArea = document.createElement('div');
+		if(radios[i].checked) {radios[i].nextSibling.className = "chosen"; radioArea.className = "radioAreaChecked";}
+		else if(!radios[i].checked) {radioArea.className = "radioAreaUnchecked";}
+		radioArea.style.left = x + 'px';
+		radioArea.style.top = y + 'px';
+		radioArea.id = 'myRadio'+i;
+		radios[i].onclick = new Function('checkRadio('+i+')');
+		
+		//insert div
+		document.getElementsByTagName("body")[0].appendChild(radioArea);
+	}
+}
+
+function replaceCheckboxes() {
+	//get all the checkboxes on the page
+	var inputs = document.getElementsByTagName('input');
+	var j = 0;
+	for (var i2=0; i2 < inputs.length; i2++) {
+		if(inputs[i2].type=='checkbox') {
+			checkboxes[j] = inputs[i2];
+			++j;
+		}
+	}
+
+	//cycle through the checkboxes
+	for(var i2=0; i2 < checkboxes.length; i2++) {
+
+		//make them transparent
+		checkboxes[i2].className = "transparent";
+
+		//get their position
+		var x = findPosX(checkboxes[i2]);
+		var y = findPosY(checkboxes[i2]);
+
+		//build new div
+		var checkboxArea = document.createElement('div');
+		if(checkboxes[i2].checked) {checkboxes[i2].nextSibling.className = "chosen"; checkboxArea.className = "checkboxAreaChecked";}
+		else if(!checkboxes[i2].checked) {checkboxArea.className = "checkboxAreaUnchecked";}
+		checkboxArea.style.left = x + 'px';
+		checkboxArea.style.top = y + 'px';
+		checkboxArea.id = 'myCheck'+i2;
+		checkboxes[i2].onclick = new Function('checkCheck('+i2+')');
+
+		//insert div
+		document.getElementsByTagName("body")[0].appendChild(checkboxArea);
+	}
+}
+
+function replaceSelects() {
+	//get all the select fields on the page
+    selects = document.getElementsByTagName('select');
+	
+	//cycle trough the select fields
+    for(var i=0; i < selects.length; i++) {
+		
+		//create and build div structure
+		var selectArea = document.createElement('div');
+		var left = document.createElement('div');
+		var right = document.createElement('div');
+		var center = document.createElement('div');
+		var button = document.createElement('a');
+		var text = document.createTextNode(selectText);
+		center.id = "mySelectText"+i;
+		button.href="javascript:showOptions("+i+")";
+		selectArea.className = "selectArea";
+		left.className = "left";
+		right.className = "right";
+		center.className = "center";
+		right.appendChild(button);
+		center.appendChild(text);
+		selectArea.appendChild(left);
+		selectArea.appendChild(right);
+		selectArea.appendChild(center);
+		
+		//hide the select field
+        selects[i].style.display='none'; 
+		
+		//insert select div
+		selects[i].parentNode.insertBefore(selectArea, selects[i]);
+		
+		//build & place options div
+		var optionsDiv = document.createElement('div');
+		optionsDiv.className = "optionsDivInvisible";
+		optionsDiv.id = "optionsDiv"+i;
+		optionsDiv.style.left = findPosX(selectArea) + 'px';
+		optionsDiv.style.top = findPosY(selectArea) + 19 + 'px';
+		
+		//get select's options and add to options div
+		for(var j=0; j < selects[i].options.length; j++) {
+			var optionHolder = document.createElement('p');
+			var optionLink = document.createElement('a');
+			var optionTxt = document.createTextNode(selects[i].options[j].text);
+			optionLink.href = "javascript:showOptions("+i+"); selectMe('"+selects[i].id+"',"+j+","+i+");";
+			optionLink.appendChild(optionTxt);
+			optionHolder.appendChild(optionLink);
+			optionsDiv.appendChild(optionHolder);
+		}
+		
+		//insert options div
+		document.getElementsByTagName("body")[0].appendChild(optionsDiv);
+	}
+}
+
+function showOptions(g) {
+		elem = document.getElementById("optionsDiv"+g);
+		if(elem.className=="optionsDivInvisible") {elem.className = "optionsDivVisible";}
+		else if(elem.className=="optionsDivVisible") {elem.className = "optionsDivInvisible";}
+}
+
+function selectMe(selectFieldId,linkNo,selectNo) {
+	//feed selected option to the actual select field
+	selectField = document.getElementById(selectFieldId);
+	for(var k = 0; k < selectField.options.length; k++) {
+		if(k==linkNo) {
+			selectField.options[k].selected = "selected";
+		}
+		else {
+			selectField.options[k].selected = "";
+		}
+	}
+	//show selected option
+	textVar = document.getElementById("mySelectText"+selectNo);
+	var newText = document.createTextNode(selectField.options[linkNo].value);
+	textVar.replaceChild(newText, textVar.childNodes[0]);
+}
+
+function findPosY(obj) {
+	var posTop = 0;
+	while (obj.offsetParent) {
+		posTop += obj.offsetTop;
+		obj = obj.offsetParent;
+	}
+	return posTop;
+}
+function findPosX(obj) {
+	var posLeft = 0;
+	while (obj.offsetParent) {
+		posLeft += obj.offsetLeft;
+		obj = obj.offsetParent;
+	}
+	return posLeft;
+}
+
+function checkRadio(g) {
+	if(radios[g].checked) {
+		for (var k = 0; k < radios.length; k++)
+		{
+			if(k != g) {
+				document.getElementById('myRadio'+k).className = "radioAreaUnchecked";
+				radios[k].nextSibling.className = "";
+			}
+			else if(k == g) {
+				document.getElementById('myRadio'+k).className = "radioAreaChecked";
+				radios[g].nextSibling.className = "chosen";
+			}
+		}
+	}
+	else if(!radios[g].checked) {document.getElementById('myRadio'+g).className = "radioAreaUnchecked"; radios[g].nextSibling.className = "";}
+}
+
+function checkCheck(g) {
+	if(checkboxes[g].checked) {
+		for(var k = 0; k < checkboxes.length; k++) {
+			if(k == g) {
+				document.getElementById('myCheck'+k).className = "checkboxAreaChecked";
+				checkboxes[g].nextSibling.className = "chosen";
+			}
+		}
+	}
+	else if(!checkboxes[g].checked) {
+		document.getElementById('myCheck'+g).className = "checkboxAreaUnchecked";
+		checkboxes[g].nextSibling.className = "";
+	}
+}
+
+function hoverEffects() {
+	//get all elements (text inputs, passwords inputs, textareas)
+	var elements = document.getElementsByTagName('input');
+	var j = 0;
+	for (var i4 = 0; i4 < elements.length; i4++) {
+		if((elements[i4].type=='text')||(elements[i4].type=='password')) {
+			hovers[j] = elements[i4];
+			++j;
+		}
+	}
+	elements = document.getElementsByTagName('textarea');
+	for (var i4 = 0; i4 < elements.length; i4++) {
+		hovers[j] = elements[i4];
+		++j;
+	}
+	
+	//add focus effects
+	for (var i4 = 0; i4 < hovers.length; i4++) {
+		hovers[i4].onfocus = function() {this.className += "Hovered";}
+		hovers[i4].onblur = function() {this.className = this.className.replace(/Hovered/g, "");}
+	}
+}
+
+function buttonHovers() {
+	//get all buttons
+	var elements = document.getElementsByTagName('input');
+	var j = 0;
+	for (var i5 = 0; i5 < elements.length; i5++) {
+		if(elements[i5].type=='submit') {
+			buttons[j] = elements[i5];
+			++j;
+		}
+	}
+	
+	//add hover effects
+	for (var i5 = 0; i5 < buttons.length; i5++) {
+		buttons[i5].onmouseover = function() {this.className += "Hovered";}
+		buttons[i5].onmouseout = function() {this.className = this.className.replace(/Hovered/g, "");}
+	}
+}
+
+
+window.onload = init;
+
+</script>
+<style type="text/css" media="screen">
+
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#404040;
+	background:#FFF;
+}
+img {
+	border:0;
+}
+#container {
+	padding:20px;
+}
+
+/*Forms defaults*/
+input, textarea {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#404040;
+}
+label {
+	color:#999;
+	cursor:pointer;
+	padding-left:2px;
+	line-height:15px;
+	vertical-align:top;
+}
+label.chosen {
+	color:#333;
+}
+
+/*Transparent items*/
+.transparent {
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	opacity: 0;
+	border:0px solid #FFF;
+	background:#FFF;
+	z-index:10;
+	cursor:pointer;
+}
+.transparentFake {
+	background:none;
+	border:none;
+}
+.transparent2 {
+	z-index:10;
+}
+
+/*Radio buttons*/
+.radioAreaUnchecked, .radioAreaChecked {
+	z-index:5;
+	position:absolute;
+	width:15px;
+	height:15px;
+	cursor:pointer;
+}
+.radioAreaUnchecked {
+	background:url(images/radio.gif) no-repeat left top;
+}
+.radioAreaChecked {
+	background:url(images/radio.gif) no-repeat left bottom;
+}
+
+/*Checkboxes*/
+.checkboxAreaUnchecked, .checkboxAreaChecked {
+	z-index:5;
+	position:absolute;
+	width:14px;
+	height:14px;
+	cursor:pointer;
+}
+.checkboxAreaUnchecked {
+	background:url(images/checkbox.gif) no-repeat left top;
+}
+.checkboxAreaChecked {
+	background:url(images/checkbox.gif) no-repeat left bottom;
+}
+
+/*Text inputs*/
+.textinput, .textinputHovered {
+	width:236px;
+	height:15px;
+	background:url(images/input.gif) no-repeat left top;
+	border:none;
+	padding:4px 8px;
+}
+.textinputHovered {
+	background-position:left bottom;
+}
+
+/*Text areas*/
+.textarea, .textareaHovered {
+	width:336px;
+	height:125px;
+	background:url(images/textarea.gif) no-repeat left top;
+	border:none;
+	padding:4px 8px;
+}
+.textareaHovered {
+	background-position:left bottom;
+}
+
+/*Selects*/
+.selectArea {
+	width:200px;
+	height:21px;
+	background:url(images/select_bg.gif) repeat-x left top;
+}
+.selectArea .left {
+	width:8px;
+	height:21px;
+	float:left;
+	background:url(images/select_left.gif) no-repeat left top;
+}
+.selectArea .right {
+	width:21px;
+	height:21px;
+	float:right;
+	background:url(images/select_right.gif) no-repeat left top;
+}
+.selectArea .right a {
+	display:block;
+	width:21px;
+	height:21px;
+}
+.selectArea .right i {
+	display:none;
+}
+.selectArea .center {
+	width:160px;
+	margin-left:5px;
+	margin-right:20px;
+	color:#FFF;
+	padding-top:3px;
+}
+
+/*Selects drop-down*/
+.optionsDivInvisible, .optionsDivVisible {
+	position:absolute;
+	margin-top:-1px;
+	margin-left:3px;
+	width:172px;
+	background:#6f7074;
+	padding:2px;
+	font-size:11px;
+	z-index:20;
+}
+.optionsDivInvisible {
+	display:none;
+}
+.optionsDivVisible {
+	display:block;
+}
+.optionsDivVisible p {
+	margin:0;
+	padding:0;
+}
+.optionsDivVisible a {
+	color:#F2F2F2;
+	text-decoration:none;
+	display:block;
+	padding:1px 4px;
+	border:1px solid #6f7074;
+}
+.optionsDivVisible a:hover {
+	color:#FFF;
+	background:#5F6062;
+	border-color:#cfd0d6;
+}
+
+/*Button*/
+.buttonSubmit, .buttonSubmitHovered {
+	width:69px;
+	height:26px;
+	color:#FFF;
+	font-weight:bold;
+	padding:2px 5px;
+	background:url(button.gif) no-repeat left top;
+	cursor:pointer;
+	border:none;
+}
+.buttonSubmitHovered {
+	background-position:left bottom;
+}
+
+/*Test div - testing if stylesheets are enabled*/
+#stylesheetTest {
+	position:absolute;
+	left:-999px;
+	width:10px;
+	height:10px;
+}
+
+
+</style>
+</head>
+<body>
+<div id="container">
+		<form action="vars.php" method="post">
+				<select size="1" id="mySelect1" name="mySelect1">
+						<option selected="selected" value="1">no.1-1</option>
+						<option value="2">no.1-2</option>
+						<option value="3">no.1-3</option>
+						<option value="4">no.1-4</option>
+				</select>
+				<br />
+				<select size="1" id="mySelect2" name="mySelect2">
+						<option selected="selected" value="1">no.2-1</option>
+						<option value="2">no.2-2</option>
+						<option value="3">no.2-3</option>
+						<option value="4">no.2-4</option>
+						<option value="5">no.2-5</option>
+				</select>
+				<br />
+				<input type="radio" name="radioSet" id="option1" value="foo" />
+				<label for="option1">1</label>
+				<br />
+				<input type="radio" name="radioSet" id="option2" value="bar" />
+				<label for="option2">2</label>
+				<br />
+				<input type="radio" name="radioSet" id="option3" value="another option" />
+				<label for="option3">3</label>
+				<br />
+				<br />
+				<input type="checkbox" name="checkSet1" id="check1" value="foo" />
+				<label for="check1">4</label>
+				<br />
+				<input type="checkbox" name="checkSet2" id="check2" value="bar" />
+				<label for="check2">5</label>
+				<br />
+				<input type="checkbox" name="checkSet3" id="check3" value="another option" />
+				<label for="check3">6</label>
+				<br />
+				<br />
+				<label for="textinput">姓名:</label>
+				<br />
+				<input type="text" id="textinput" name="textinput" class="textinput" maxlength="25" />
+				<br />
+				<label for="passwordinput">密码:</label>
+				<br />
+				<input type="password" id="passwordinput" name="passwordinput" class="textinput" maxlength="25" />
+				<br />
+				<br />
+				<label for="textareainput">建议:</label>
+				<br />
+				<textarea id="textareainput" name="textareainput" class="textarea"></textarea>
+				<br />
+				<br />
+				<input type="submit" value="提交" class="buttonSubmit" />
+				<div id="stylesheetTest"></div>
+		</form>
+</div>
+</body>
+</html>

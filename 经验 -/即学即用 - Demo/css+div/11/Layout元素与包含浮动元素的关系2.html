@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>Layout元素与相邻浮动元素的关系</title>
+<style type="text/css">
+#wrap {
+    width: 100%;
+    border: 2px solid green;
+}
+#header {
+    width: 90%;
+    border: 6px solid red;
+}
+#logo {
+    float: left;
+    width: 100px;
+    height: 200px;
+    border: 10px solid blue;
+}
+h1, h2 {
+    background: #aaa;
+}
+h1 {
+    width:60%;
+}
+h2 {
+    float:left;
+    clear:both;
+}
+p {
+    background: #666;
+}
+.clear {
+    clear: both;
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <div id="logo">Logo</div>
+        <h1>Headline</h1>
+        <p class="clear"></p>
+    </div>
+    <h2>Subhead</h2>
+    <p class="clear">clear</p>
+</div>
+</body>
+</html>

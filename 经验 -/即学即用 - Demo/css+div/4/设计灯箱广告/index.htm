@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>灯箱广告</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+body {                          /*网页基本属性*/
+    margin: 30px auto auto 30px;    /*四周补白*/
+    background-color: #000000;     /*网页背景颜色*/
+}
+#menu {                          /*dl标记类样式*/
+    position: relative;               /*相对定位*/
+    height: 180px;                 /*高度*/
+    width: 210px;                 /*宽度*/
+    background: #ccc;              /*dl标记的背景颜色*/
+    text-align: center;
+    padding-top: 20px;
+}
+#menu dt {                         /*dt样式类*/
+    position: absolute;             /*绝对定位*/
+    right: 5px;                   /*右边框离父级元素的距离*/
+    bottom: 5px;                 /*下边框离父级元素的距离*/
+}
+#menu dt a {                      /*a样式类*/
+    float: left;                  /*左对齐*/
+    display: block;              /*定义为块级元素*/
+    padding: 1px 4px;
+    border: 1px solid #ccc;       /*为列表项加边框*/
+    margin-left: 2px;
+    text-decoration: none;        /*不显示下划线*/
+    color: #309;               /*字体颜色*/
+    font-size: 12px;
+}
+#menu dt a:hover {               /*鼠标悬停时的a样式类*/
+    background: #fff;
+    color: #FF0000;
+}
+#menu dd {               /*dd类样式*/
+    width: 210px;       /*宽度*/
+    height: 144px;       /*高度*/
+    overflow: hidden;    /*隐藏溢出*/
+}
+</style>
+</head>
+<body>
+<dl id="menu">
+    <dt> <a href="#img1">1</a> <a href="#img2">2</a> <a href="#img3">3</a> <a href="#img4">4</a> </dt>
+    <dd> <img src="images/1.JPG" id="img1"/> <img src="images/2.JPG" id="img2"/> <img src="images/3.JPG" id="img3"/> <img src="images/4.JPG" id="img4"/> </dd>
+</dl>
+</body>
+</html>
