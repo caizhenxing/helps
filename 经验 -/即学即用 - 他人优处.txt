@@ -1,10 +1,10 @@
-lekkio			-	主动求知欲, 主动找活
-sunney			-	大胆尝试, 大胆推理判断
-diego			-	积累基础
+lekkio			-	主动求知欲，主动找活
+sunney			-	大胆尝试，大胆猜想推理判断
+diego			-	积累基础，基础组合
 lucifercao		-	看书
 flexli			-	有亮点
 jimmy			-	熟悉
-koby			-	学习设计理念, 考虑全面
-carlcyang		-	把握方向
+koby			-	学习设计理念，考虑全面
+carlcyang		-	把握方向，看懂规则
 
  
