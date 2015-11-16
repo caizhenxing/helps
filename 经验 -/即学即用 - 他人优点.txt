@@ -5,6 +5,6 @@ lucifercao		-	看书
 flexli			-	有亮点
 jimmy			-	熟悉
 koby			-	学习设计理念，考虑全面
-sandy		-	把握方向
+roger		-	把握方向
 
  
