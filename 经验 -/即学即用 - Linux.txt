@@ -1,6 +1,7 @@
 常用手法	-	
 	嵌套
 	管道命令
+	$(命令)
 
 常用命令	-	
 	ssh root@xx.xx.xx.xx
@@ -9,8 +10,6 @@
 	rm
 	mv
 	vim xxx.log
-	tail -f xxx.log
-	cat xxx.log
 	top
 	chmod 775 xxx.log
 	chown
@@ -53,7 +52,36 @@
 	head	-	ls -t | head -2 #当前目录按时间排序取前2个文件
 	find	-	find . -type f - exec ls -s {} \; | sort -n -r | head -5 #找出当前目录下, 5个最大的文件
 	
+	.	-	当前路径
+	..	-	上一级路径
+	../../	-	上上一级路径
+	
+	
 	df -h -	磁盘空间使用情况
+	
+	dump	-	判断是否死锁及线程阻塞原因
+	touch	-	创建新的空文件或者修改已有文件的时间戳
+	cat -n xxx.log - -n显示行号
+	more	-	分页展示文件内容，按Enter:下一行，空格键：下一页，F：显示下一屏内容，B：显示上一屏内容
+	less	-	展示文件内容，支持内容查找，高亮显示
+	tail -f -n100 xx.log	-	文件最后100行，-f:让tail程序不退出，并持续显示新增的行
+	head -n2 xx.log	-	显示文件开头的一组行
+	sort -n xx.log	-	文件内容排序 -r:按逆序排， -k 2:指定按第二列排序， -t ' ': 指定列的分隔符为空格
+	wc	-	统计字符数，字数，行数
+	uniq xx.log -c	-	查看重复出现的行 -c:查看重复行次数， sort xx.log | uniq -c #先排序后显示重复行
+	grep qq xx.log	-	查找符合条件的字符串 -c: 匹配的总行数
+	find /home -name xx.log -	在home目录下查找文件名xx.log路径 -delete: 查找后删除 find /home -name "*.log" #查找.log结尾的文件 find . -print #递归打印所有文件
+	whereis	zkCli.sh - 定位可执行文件的位置
+	expr 10 / 10	-	对运算表达式或者字符串进行运算求值 expr length "good" #计算字符串good长度
+	tar	-	归档文件	tar -cf a.tar detach tmp #将detach和tmp目录打包成a.tar -t: 列出包中文件的名称 -x：解压 -f：包的名称 -c：生成新的包 tar -xvf a.tar
+	tar --help > test.txt	- #将tar --help执行结果输出的test.txt文件中（完全覆盖）
+	tar --help >> test.txt	- #将tar --help执行结果输出的test.txt文件中（在末尾追加内容）
+	tar -tf a.tar 等同于 tar -t -f a.tar
+	
+	curl -i www.baidu.com -	#抓取网页内容， 完成提交表单 -i：返回带http header的信息
+	wget www.baidu.com	-	#下载网页信息
+	
+	
 	
 常用快捷键	-	
 	ctrl+w： 删除光标位置前的单词
@@ -65,6 +93,8 @@
 	esc+t： 调换光标前的两个单词
 	ctrl+e： 光标置尾
 	ctrl+a： 光标置首
+	GG: 光标移至编辑文件的末尾
+	
 	
 	
 Shell	- 用户和Linux内核进行交互的接口
