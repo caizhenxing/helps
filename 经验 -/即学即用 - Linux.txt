@@ -81,7 +81,26 @@
 	curl -i www.baidu.com -	#抓取网页内容， 完成提交表单 -i：返回带http header的信息
 	wget www.baidu.com	-	#下载网页信息
 	
+	cut -f1 -d " " xx.log	- #截取每一行的特定部分并送到标准输出， （例中将xx.log每行按空格拆分取第一列数据）
+	sed	-	#流编辑器，按行处理，【不会修改文件本身】	sed 's/good/bad/' access.log | head -10 #替换日志中的good为bad 	sed -n '2,6p' access.log #-n:只输出指定的行，2,6p：选择第二到第六之间的行	sed '/qq/d' access.log #根据正则删除日志中的指定行，删除有qq字符的行	sed '=' access.log #显示文件行号 sed -e 'i\head' access.log | head -10 #在每行首插入head字符串	sed -e 'a\end' access.log | head -10 #在每行末插入end字符串
+			sed -n -f cmdfile access.log #可以将sed命令放到文件中执行, cmdfile文件内容： s/good/bad/ #good替换成bad
+																					   1,6p #打印第1到6行
+																					   1,6= #打印第1到6行行号
+			【sed不能处理类似编译环境的文本处理规则，可以用awk】
+	awk	-	提供类似编程的开放环境，可以自定义文本处理规则，【提供一种编程语言而不仅仅是一组文本编辑的命令，可使用if和循环语句】
+			awk [option] 'pattern {action}' file #option为命令选项，pattern为行匹配规则，action为执行的具体操作，如果没有pattern，则对所有行执行action，如果没有action，则打印所有匹配的行，file为输入的文件
+			awk '{print $1}' access.log | head -10 #打印文件指定的列 print:格式化输出，$1：第一列，awk默认用空格将一行分割为多个列，-F：指定分隔符
+			awk '/google/{print $5,$6}' access.log #查找包含google字符串的行，打印第5，6列
+			awk 'length($0)>40{print $3}' access.log #查找大于40的行，打印第3列, $0：行本身，$3：第3列
+			
 	
+	
+	
+常用组合命令	-	
+		cat access.log | cut -f1 -d " " | sort | uniq -c | sort -k 1 -n -r | head -10	-	#访问量排名前十的IP地址，访问前十页面地址，最耗时间
+		export total_line=`wc -l access.log | cut -f1 -d " "` && export not_found_line=`awk '$6='404'{print $6}' access.log | wc -l` && $not_found_line \* 100 / $total_line	-	#统计404请求码占比
+		sed -n '1,5p;1,5=' access.log #这是两条命令，第一个是打印出第一行到第五行，第二条命令式将第一行到第五行每一行的行号打印出来
+		
 	
 常用快捷键	-	
 	ctrl+w： 删除光标位置前的单词
@@ -172,8 +191,18 @@ stop.sh	-
 	fi
 
 	
-sleep 2	-	
-
+sleep 2	-
+	
+sed	-	#流编辑器，按行处理，不会修改文件本省	
+	sed 's/good/bad/' access.log | head -10 #替换日志中的good为bad 	
+	sed -n '2,6p' access.log #-n:只输出指定的行，2,6p：选择第二到第六之间的行	
+	sed '/qq/d' access.log #根据正则删除日志中的指定行，删除有qq字符的行
+	sed '=' access.log #显示文件行号
+	sed -e 'i\head' access.log | head -10 #在每行首插入head字符串
+	sed -e 'a\end' access.log | head -10 #在每行末插入end字符串
+	sed -n -f cmdfile access.log #可以将sed命令放到文件中执行, cmdfile文件内容： s/good/bad/ #good替换成bad
+																			   1,6p #打印第1到6行
+																			   1,6= #打印第1到6行行号
 ubunton	-	
 	桌面切换到命令窗口: ctrl+alt+F2
 	命令窗口切换到桌面: ctrl+alt+F7

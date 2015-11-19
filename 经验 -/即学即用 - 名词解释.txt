@@ -40,6 +40,8 @@ SaaS	-	软件即服务
 PaaS	-	平台即服务
 IaaS	-	基础架构即服务
 
+CC攻击	-	攻击者借助代理服务器生成指向受害主机的合法请求，实现DDOS,和伪装就叫：cc(Challenge Collapsar)，或称http flood
+
 
 
 	
