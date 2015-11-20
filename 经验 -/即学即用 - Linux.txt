@@ -59,7 +59,7 @@
 	
 	df -h -	磁盘空间使用情况
 	
-	dump	-	判断是否死锁及线程阻塞原因
+	dump	-	判断是否死锁及线程阻塞原因	/usr/local/jdk/bin/jmap -dump:format=b,file=./heamdump.out 25520
 	touch	-	创建新的空文件或者修改已有文件的时间戳
 	cat -n xxx.log - -n显示行号
 	more	-	分页展示文件内容，按Enter:下一行，空格键：下一页，F：显示下一屏内容，B：显示上一屏内容
