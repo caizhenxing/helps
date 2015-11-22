@@ -10,6 +10,9 @@
 	继承 public abstract class Job{ public abstract void run(){}; public void log(){this.run();}}
 		   public class MyJob extends Job{public void run(){};}
 	单例模式
+	Future模式	-	FutureTask, 提货单模式，先下提货单，在货没有时做一些其他事情，等货准备好时就直接提货。
+	线程池	-	系统多核，可用线程池并发处理任务
+	对象池	-	
 	工厂模式
 	桥接模式
 	分而治之
@@ -19,6 +22,8 @@
 	监听器
 	拦截器
 	异步回调
+	
+	结果缓存
 	
 	for{}
 	while{}
@@ -69,7 +74,14 @@
 	java.io.StringWriter
 	java.util.Collections
 	org.w3c.dom.Document
+	Executors
+	ReetrantLock
+	Socket/ServerSocket
+	线程同步	-	synchronized	{ReetrantLock lock = new ReetrantLock() lock.lock(); count++; lock.unlock();}//ReetrantLock可以绑定多个Condition条件，以实现更精细化的同步控制
 	
+	HttpClient	- 发送http get请求	EntityUtils.toByteArray()
+	ObjectMapper	-	解析json
+	XStream	-	解析xml
 	
 		
 常用api	-	先记住有些什么功能，用的时候再详细查看

@@ -8,3 +8,12 @@ Everything	-	速度最快的文件名搜索工具
 
 fiddler	-	抓包工具
 wireshark	-	抓包工具
+
+ab	-	ab -n 100 -c 5 http://www.baidu.com/test http性能测试工具
+jmeter	-	比ab功能更为强大的工具支持http,soap,ftp,tcp,smtp,pop3
+loadRunner	-	商业性能测试工具
+YSlow	-	前端优化
+jconsole	-	远程实时查看测试机的负载，内存使用，gc等情况，和tomcat配合使用
+visualVM	-	远程实时查看测试机的负载，内存使用，gc等情况，和tomcat配合使用
+
+tcpcopy	-	网易开源项目，将在线请求复制到测试机器，模拟真实环境，达到程序在不上线的情况下承担线上真实流量的效果，广泛运用于国内各大互联网公司

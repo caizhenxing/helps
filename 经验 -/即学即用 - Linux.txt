@@ -4,6 +4,7 @@
 	$(命令)
 
 常用命令	-	
+	--help -	命令帮助 mkdir --help
 	ssh root@xx.xx.xx.xx
 	cd /xxx
 	ls/ll	-	ls -t #按时间排序 ls -aF --color=always #列出所有文件包括隐藏文件，并附加指示符和颜色标识
@@ -22,7 +23,7 @@
 	echo
 	export	- export JAVA_HOME=/usr/local/java	将变量指定给后续的命令执行环境(如子shell)
 	bash	-	创建一个子Shell
-	exit
+	exit	-	0成功，其他值失败
 	echo $$	-	后台运行的最后一个进程的进程ID号
 	
 	bash test.sh	-	执行test.sh脚本
@@ -34,18 +35,22 @@
 	
 	upset	-	upset JAVA_HOME 删除变量
 	
+	$(uptime)/`uptime`	-	命令替换：用命令的输出替换命令本身，是执行里面的代码得到的结果，
+	${}	-	是参数，{}是为了避免后面的影响到了，比如参数${a}a这样连着使用。如果不用{}，系统就会识别成$aa了
+	$	-	$var：获取var变量的值
+	$$ 脚本运行的当前进程ID号
+	$1～$n 添加到Shell的各参数值。$1是第1参数、$2是第2参数...
 	{}	- 从左至右扩展	echo a{b,c,d}e 输出： abe, ace, ade ; echo {a..z} 输出：a~z ; echo {0..10} 输出:0~10 ; echo {0,1}{a,b} 输出:0a 0b 1a 1b ; echo {a,b{1..3},c} 输出：a b1 b2 b3 c
 	| -	管道命令
 	~	-	Home目录
 	~carlcyang	-	carlcyang的Home目录
 	mkdir	-	创建目录: mkdir ~/{dir1,dir2,dir3} #在home下创建dir1,dir2,dir3三个目录
-	--help -	命令帮助 mkdir --help
 	\	-	转义	\n
 	sudo	-	授权执行命令
 	
 	pwd	-	显示当前所在目录
 	*/?/[...]	-	文件名扩展 通配符 	ls /etc/*.conf #显示所有已.conf结尾的文件; ls image?.jpg #显示image1.jpg,image2.jpg; ls/etc/[ab]*.conf #显示a.conf,b.conf
-	$(uptime)/'uptime'	-	命令替换：用命令的输出替换命令本身
+	
 	
 	alias	-	创建别名		alias test='ls -l'; test		alias ..='cd ..'	
 	unlias	-	删除别名		unalias test	unalias -a #删除所有别名
@@ -57,7 +62,8 @@
 	../../	-	上上一级路径
 	
 	
-	df -h -	磁盘空间使用情况
+	df -h -	磁盘空间使用情况， -h单位格式化输出
+	du - d 1 -h /home/carlcyang	-	#查看目录所占用空间	-d递归深度 -h 文件大小单位输出
 	
 	dump	-	判断是否死锁及线程阻塞原因	/usr/local/jdk/bin/jmap -dump:format=b,file=./heamdump.out 25520
 	touch	-	创建新的空文件或者修改已有文件的时间戳
@@ -92,7 +98,30 @@
 			awk '{print $1}' access.log | head -10 #打印文件指定的列 print:格式化输出，$1：第一列，awk默认用空格将一行分割为多个列，-F：指定分隔符
 			awk '/google/{print $5,$6}' access.log #查找包含google字符串的行，打印第5，6列
 			awk 'length($0)>40{print $3}' access.log #查找大于40的行，打印第3列, $0：行本身，$3：第3列
+			awk '{line = sprintf("method:%s,response:%s", $3, $7); print line}' access.log | head -10 #格式化输出：method:GET,response:12111
+			awk -f testawk access.log #将awk命令和程序写在testawk文件中
 			
+	top	-	系统负载，按1查看每核cpu利用率，us: 用户进程占用时间，sy: System time 内核态所花费的时间，频繁的用户态与内核态切换, ni: nice time系统调整进程优先级耗时 id:idle time, wa: waiting time表示cpu在等待i/o操作所花费的时间， hi: hard irq time系统处理硬件中断所占用的时间， si: soft irq time 系统处理软件中断所占用时间 st: steal time丢失时间,当前虚拟机和宿主的其他虚拟机cpu争用频繁
+	top -p 2102	-	按进程来查看cpu利用率
+	uptime	-	load average: 0.22(1分钟内的load值),0.36(5分钟内),0.26(15分钟内) load值小于3，系统负载正常，load值大于5，系统负载很高
+	jps	-	java应用线程
+	sprintf	-	格式化输出，awk '{line = sprintf("method:%s,response:%s", $3, $7); print line}' access.log | head -10 #格式化输出：method:GET,response:12111
+	ntpdate -u 210.72.145.44	-	网络时间同步命令
+	
+	
+	
+	sar -n DEV 1 1	-	查看网络状况
+	iostat -d -k	-	磁盘I/O
+	free -m	-	内存使用
+	vmstat	-	swap i/o的情况
+	
+	qps	-	query per second
+	rt	-	response time
+	select/ps, update/ps, delete/ps	- 数据库每秒查询，更新，删除请求数量
+	gc	-	java gc发生时，jvm上的应用程序的工作线程将会暂时停止运行，会导致卡顿情况，频繁的Full gc是有性能问题的
+	
+	ping	-	心跳检测 -c次数
+	
 	
 	
 	
@@ -100,6 +129,85 @@
 		cat access.log | cut -f1 -d " " | sort | uniq -c | sort -k 1 -n -r | head -10	-	#访问量排名前十的IP地址，访问前十页面地址，最耗时间
 		export total_line=`wc -l access.log | cut -f1 -d " "` && export not_found_line=`awk '$6='404'{print $6}' access.log | wc -l` && $not_found_line \* 100 / $total_line	-	#统计404请求码占比
 		sed -n '1,5p;1,5=' access.log #这是两条命令，第一个是打印出第一行到第五行，第二条命令式将第一行到第五行每一行的行号打印出来
+常用脚本	-	
+	stop.sh	-
+		#!/bin/sh
+
+		pidlist=`ps -ef | grep /usr/local/gearman/sbin/gearmand | grep -v "grep" | awk '{print $2}'`
+		echo "pidlist: $pidlist"
+		if [ "$pidlist" == "" ]
+		then
+			echo "no pidlist"
+		else
+			for pid in ${pidlist}
+			{
+				kill -9 $pid
+				echo "kill pid: $pid"
+			}
+		fi
+
+
+	监控每个应用业务列表	-	
+		#！/bin/bash
+		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+		CURL=/usr/local/bin/curl
+		URL_FILE=/home/carlcyang/checklist
+		HOST="http://192.1.1.1:8080"
+		OUTPUT=""
+		STATUS=1 #1:success 2:error
+		
+		while read LINE
+		do
+		 result=`$CURL -s -I ${HOST}${LINE} | grep 'Server-Status' | awk -F : '{print $2}'`
+		 if [[ $result = *ok* ]];then
+			continue
+		 else
+			STATUS=2
+			OUTPUT="$OUTPUT $LINE"
+		 fi
+		done < $URL_FILE
+		
+		if [ $$STATUS -eq 1 ];then
+			echo "success"
+		else
+			echo "$OUTPUT error"
+		fi
+
+		exit 0
+		
+	查看系统load超过2和磁盘利用率超过85%告警	-	
+		#!/bin/bash
+		load=`top -n 1 | sed -n '1p' | awk '{print $11}'`
+		load=${load%\, *}
+		disk_usage=`df -h | sed -n '2p' | awk '{print $(NF - 1)}'`
+		disk_usage=${disk_usage%\%*}
+		overhead=`expr $load \> 2.00`
+		if [ $overhead -eq 1 ];then
+			echo "system load is overhead"
+		fi
+
+		if [ $disk_usage -gt 85 ];then
+			echo "disk is nearly full, need more disk space"
+		fi
+		exit 0
+		
+	将操作日志入mysql数据库	-	
+		#!/bin/bash
+		ACCESS_FILE=/home/access.log
+		MYSQL=/usr/bin/mysql
+		while read LINE
+		do
+			OLD_FILS="$IFS"
+			IFS=" "
+			field_arr=($LINE) #空格拆分为数组
+			IFS="$OLD_IFS"
+			STATEMENT="insert into access_log values('${field_arr[0]}','${field_arr[1]}');"
+			echo $STATEMENT
+			
+			$MYSQL test -u root -p123456 -e "${STATEMENT}"
+		done < $ACCESS_FILE
+		exit 0
+		
 		
 	
 常用快捷键	-	
@@ -114,7 +222,27 @@
 	ctrl+a： 光标置首
 	GG: 光标移至编辑文件的末尾
 	
+表达式	-	
+	[[ $a == z* ]]    # 如果$a以"z"开头(模式匹配)那么结果将为真
+	[[ $a == "z*" ]]  # 如果$a与z*相等(就是字面意思完全一样), 那么结果为真.
+		  
+	[ $a == z* ]      # 文件扩展匹配(file globbing)和单词分割有效.
+	[ "$a" == "z*" ]  # 如果$a与z*相等(就是字面意思完全一样), 那么结果为真. 
 	
+	
+	file=/dir1/dir2/dir3/my.file.txt
+	${file#*/}：拿掉第一条 / 及其左边的字符串：dir1/dir2/dir3/my.file.txt
+	
+	+ - * / ：分别为 "加、减、乘、除"。
+	% ：余数运算
+	& | ^ !：分别为 "AND、OR、XOR、NOT" 运算。
+	
+	<：小于
+	>：大于
+	<=：小于或等于
+	>=：大于或等于
+	==：等于
+	!=：不等于
 	
 Shell	- 用户和Linux内核进行交互的接口
 	查看正使用的shell类型： 1. grep root /etc/passwd 
@@ -174,23 +302,8 @@ Linux理念	-
 	
 	
 	
-stop.sh	-
-	#!/bin/sh
 
-	pidlist=`ps -ef | grep /usr/local/gearman/sbin/gearmand | grep -v "grep" | awk '{print $2}'`
-	echo "pidlist: $pidlist"
-	if [ "$pidlist" == "" ]
-	then
-		echo "no pidlist"
-	else
-		for pid in ${pidlist}
-		{
-			kill -9 $pid
-			echo "kill pid: $pid"
-		}
-	fi
-
-	
+		
 sleep 2	-
 	
 sed	-	#流编辑器，按行处理，不会修改文件本省	
