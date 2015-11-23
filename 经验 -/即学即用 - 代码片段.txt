@@ -47,88 +47,86 @@ java	-
 	******************************************************************************************************************文件工具类
 		org.apache.commons.io.FileUtils.copyFile(new File(this.nginxConf), new File(this.nginxConf + "." + System.currentTimeMillis()));
 	******************************************************************************************************************文件锁
-	FileLock lock = new FileOutputStream(lockPath).getChannel().lock();
-	FileUtils.writeLines(tempFile, "UTF-8", content);
-	lock.release();
+		FileLock lock = new FileOutputStream(lockPath).getChannel().lock();
+		FileUtils.writeLines(tempFile, "UTF-8", content);
+		lock.release();
 	******************************************************************************************************************charAt
-	 if (name.charAt(name.length() - 1) == '/') {
-            name = name.substring(0, name.length() - 1);
-	}
+		 if (name.charAt(name.length() - 1) == '/') {
+				name = name.substring(0, name.length() - 1);
+		}
 	******************************************************************************************************************string截取
-	String username = new String("carlcyang:123456".getBytes(), 0, 9);
-    System.out.println(username);// carlcyang
+		String username = new String("carlcyang:123456".getBytes(), 0, 9);
+		System.out.println(username);// carlcyang
 	******************************************************************************************************************内部类
-	public static class FileKey implements RepositoryCache.Key {
-	
-	}
-	
+		public static class FileKey implements RepositoryCache.Key {
+		
+		}
 	******************************************************************************************************************Lock如何处理线程通信
-	final Lock lock = new ReentrantLock();//锁对象  
-	final Condition notFull  = lock.newCondition();//写线程条件   
-	
+		final Lock lock = new ReentrantLock();//锁对象  
+		final Condition notFull  = lock.newCondition();//写线程条件   
 	******************************************************************************************************************
-	private static final String C64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="; // default base64.
-	private static final char[] BASE16 = { '0', '1', '2', '3', '4', '5', '6','7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' }, BASE64 = C64.toCharArray();
+		private static final String C64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="; // default base64.
+		private static final char[] BASE16 = { '0', '1', '2', '3', '4', '5', '6','7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' }, BASE64 = C64.toCharArray();
 	******************************************************************************************************************
-	private static ThreadLocal<MessageDigest> MD = new ThreadLocal<MessageDigest>();// 所谓ThreadLocal，简单一点想，就是一个全局的Map，Map的key是线程对象，value是你要保存的对象， 进入某个线程后，就可以从map中取得之前存储的相应线程关联的对象
-	private static MessageDigest getMessageDigest() {
-		MessageDigest ret = MD.get();
-		if (ret == null) {
-			try {
-				ret = MessageDigest.getInstance("MD5");
-				MD.set(ret);
-			} catch (NoSuchAlgorithmException e) {
-				throw new RuntimeException(e);
+		private static ThreadLocal<MessageDigest> MD = new ThreadLocal<MessageDigest>();// 所谓ThreadLocal，简单一点想，就是一个全局的Map，Map的key是线程对象，value是你要保存的对象， 进入某个线程后，就可以从map中取得之前存储的相应线程关联的对象
+		private static MessageDigest getMessageDigest() {
+			MessageDigest ret = MD.get();
+			if (ret == null) {
+				try {
+					ret = MessageDigest.getInstance("MD5");
+					MD.set(ret);
+				} catch (NoSuchAlgorithmException e) {
+					throw new RuntimeException(e);
+				}
 			}
+			return ret;
 		}
-		return ret;
-	}
 	******************************************************************************************************************
-	/**
-     * 兼容类型转换
-	 *	{@code UUID}
-     * <ul>
-     * <li> String -> char, enum, Date
-     * <li> byte, short, int, long -> byte, short, int, long
-     * <li> float, double -> float, double
-     * </ul>
-     */
+		/**
+		 * 兼容类型转换
+		 *	{@code UUID}
+		 * <ul>
+		 * <li> String -> char, enum, Date
+		 * <li> byte, short, int, long -> byte, short, int, long
+		 * <li> float, double -> float, double
+		 * </ul>
+		 */
 	 ******************************************************************************************************************
-	 public interface Generator {
-		String generateId();
-		public static class UUIDGenerator implements Generator {
-			public synchronized String generateId() {
-				return UUID.randomUUID().toString().replace("-", "");
+		public interface Generator {
+			String generateId();
+			public static class UUIDGenerator implements Generator {
+				public synchronized String generateId() {
+					return UUID.randomUUID().toString().replace("-", "");
+				}
 			}
 		}
-	}
 	******************************************************************************************************************
-	public static final String LOCALHOST = "127.0.0.1";
-	public static final String ANYHOST = "0.0.0.0";
+		public static final String LOCALHOST = "127.0.0.1";
+		public static final String ANYHOST = "0.0.0.0";
 	******************************************************************************************************************负载均衡 轮询算法
-	Map<String, Integer> serverMap = new HashMap<String, Integer>();// 重新创建一个map，避免出现由于服务器上下线导致的并发问题
-	serverMap.putAll(serverWeightMap);
-	Set<String> keySet = serverMap.keySet();
-	ArrayList<String> keyList = new ArrayList<String>();
-	keyList.addAll(keySet);
-	String server = null;
-	synchronized(pos){
-		if(pos >= keySet.size()){
-			pos = 0;
+		Map<String, Integer> serverMap = new HashMap<String, Integer>();// 重新创建一个map，避免出现由于服务器上下线导致的并发问题
+		serverMap.putAll(serverWeightMap);
+		Set<String> keySet = serverMap.keySet();
+		ArrayList<String> keyList = new ArrayList<String>();
+		keyList.addAll(keySet);
+		String server = null;
+		synchronized(pos){
+			if(pos >= keySet.size()){
+				pos = 0;
+			}
+			server = keyList.get(pos);
+			pos ++;
 		}
-		server = keyList.get(pos);
-		pos ++;
-	}
-	return server;
+		return server;
 	******************************************************************************************************************负载均衡 随机算法
-	Map<String, Integer> serverMap = new HashMap<String, Integer>();// 重新创建一个map，避免出现由于服务器上下线导致的并发问题
-	serverMap.putAll(serverWeightMap);
-	Set<String> keySet = serverMap.keySet();
-	ArrayList<String> keyList = new ArrayList<String>();
-	keyList.addAll(keySet);
-	
-	Random random = new Random();
-	return keyList.get(random.nextInt(keyList.size()));
+		Map<String, Integer> serverMap = new HashMap<String, Integer>();// 重新创建一个map，避免出现由于服务器上下线导致的并发问题
+		serverMap.putAll(serverWeightMap);
+		Set<String> keySet = serverMap.keySet();
+		ArrayList<String> keyList = new ArrayList<String>();
+		keyList.addAll(keySet);
+		
+		Random random = new Random();
+		return keyList.get(random.nextInt(keyList.size()));
 	******************************************************************************************************************
 	
 	******************************************************************************************************************
@@ -144,8 +142,8 @@ java	-
 	******************************************************************************************************************
 css	-
 	******************************************************************************************************************首字下沉
-	span.first{
-		font-size:60px; float:left; font-weight:bold;
-	}
+		span.first{
+			font-size:60px; float:left; font-weight:bold;
+		}
 	
 	
