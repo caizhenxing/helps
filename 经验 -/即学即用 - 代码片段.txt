@@ -11,41 +11,41 @@ java	-
 				this.hash += password.hashCode();
 		}
 	******************************************************************************************************************jsonp跨域
-	java:
-		@RequestMapping(method = RequestMethod.GET, value = "/jsonp")
-		public @ResponseBody JSONPObject getOverView(@RequestParam(value = "streamName") String streamName, @RequestParam(value = "callback") String callback) {
-			List data = covDataService.getData(streamName);
-			return new JSONPObject(callback, data);
-		}
-	
-	js:
-		$.getJSON(
-			"http://xxx.com/test/jsonp?streamName=test&callback=?", 
-			function(data) {
-				for(i = 0; i < data.length; i++){
-					alert(data[i].name);
-				}
+		java:
+			@RequestMapping(method = RequestMethod.GET, value = "/jsonp")
+			public @ResponseBody JSONPObject getOverView(@RequestParam(value = "streamName") String streamName, @RequestParam(value = "callback") String callback) {
+				List data = covDataService.getData(streamName);
+				return new JSONPObject(callback, data);
 			}
-		);
+		
+		js:
+			$.getJSON(
+				"http://xxx.com/test/jsonp?streamName=test&callback=?", 
+				function(data) {
+					for(i = 0; i < data.length; i++){
+						alert(data[i].name);
+					}
+				}
+			);
 	******************************************************************************************************************泛型
-	public static <T> T getBean(Class<T> cls) {
-		return applicationContext.getBean(cls);
-	}
-	
-	public static <T> T getBean(String name) {
-		return (T) applicationContext.getBean(name);
-	}
+		public static <T> T getBean(Class<T> cls) {
+			return applicationContext.getBean(cls);
+		}
+		
+		public static <T> T getBean(String name) {
+			return (T) applicationContext.getBean(name);
+		}
 	******************************************************************************************************************套结流 Buffer > InputStream > FileInputStream > File
-	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 	******************************************************************************************************************string分词
-	public StringTokenizer(String str) {
-        this(str, " \t\n\r\f", false);
-    }
-	new StringTokenizer("good morning").nextToken();
+		public StringTokenizer(String str) {
+			this(str, " \t\n\r\f", false);
+		}
+		new StringTokenizer("good morning").nextToken();
 	******************************************************************************************************************MessageFormat
-	MessageFormat.format("adding [gitblit] indexBranch={0} for {1}", params.branch, repo);
+		MessageFormat.format("adding [gitblit] indexBranch={0} for {1}", params.branch, repo);
 	******************************************************************************************************************文件工具类
-	org.apache.commons.io.FileUtils.copyFile(new File(this.nginxConf), new File(this.nginxConf + "." + System.currentTimeMillis()));
+		org.apache.commons.io.FileUtils.copyFile(new File(this.nginxConf), new File(this.nginxConf + "." + System.currentTimeMillis()));
 	******************************************************************************************************************文件锁
 	FileLock lock = new FileOutputStream(lockPath).getChannel().lock();
 	FileUtils.writeLines(tempFile, "UTF-8", content);
