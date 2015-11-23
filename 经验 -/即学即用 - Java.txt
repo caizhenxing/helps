@@ -82,11 +82,11 @@
 	HttpClient	- 发送http get请求	EntityUtils.toByteArray()
 	ObjectMapper	-	解析json
 	XStream	-	解析xml
-	
+
+常用算法	-	
+		负载均衡算法： 轮询法，随机法，源地址哈希法，加权轮询法，加权随机法，最小连接法
 		
-常用api	-	先记住有些什么功能，用的时候再详细查看
-	package:
-		java awt - 图形界面
+
 	
 进制转换：
 	16进制0x： 0-10-a-f, a相当于10进制的10，f相当于十进制的15
