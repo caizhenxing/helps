@@ -8,4 +8,5 @@ flexli			-	有亮点，一眼明优劣
 roger			-	把握方向，思路清晰大胆优化
 marssun			-	用心观察周围
 xavier 			-	规则记忆，联想关联记忆
+edison			-	复杂拆分变基础，基础优雅组合成复杂
 carlcyang		-	熟悉默读看懂规则
