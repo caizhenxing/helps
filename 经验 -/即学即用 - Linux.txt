@@ -55,7 +55,7 @@
 	alias	-	创建别名		alias test='ls -l'; test		alias ..='cd ..'	
 	unlias	-	删除别名		unalias test	unalias -a #删除所有别名
 	head	-	ls -t | head -2 #当前目录按时间排序取前2个文件
-	find	-	find . -type f - exec ls -s {} \; | sort -n -r | head -5 #找出当前目录下, 5个最大的文件
+	find	-	搜索和定位文件，目录的列表 find /etc -name inittab #查找/etc目录下名称为innitab文件， -i:忽略大小写，-type d: 文件类型是目录，-perm 0777：文件权限是777，! -perm 0777:文件权限非777，  find . -type f - exec ls -s {} \; | sort -n -r | head -5 #找出当前目录下, 5个最大的文件，	find /tmp -type f -name "*.log" -exec rm -f {} \; #找出tmp目录下面所有.log结尾文件，并删除， find . -type f -empty #当前目录所有空文件，find . -type d -empty #当前目录所有空目录， find . -type f -name ".*" #所有隐藏文件， -user root: 所有者是root， -group developer: 用户组是developer， -mtime 3： 3天前修改的文件， -mtime -3： 3天内， -mtime +30 -mtime -60： 30天前60天内， -cmin -60： 一小时内变更过的文件， -amin -60: 一小时内访问过的文件， -size 50MB： 大小是50MB的所有文件， -size +50MB -size -100MB: 大于50MB小于100MB的文件， find ~ -type f -size +100MB -exec rm -rf {} \; #找出你账号的主目录下，大于100MB的文件并删除
 	
 	.	-	当前路径
 	..	-	上一级路径
@@ -68,6 +68,7 @@
 	dump	-	判断是否死锁及线程阻塞原因	/usr/local/jdk/bin/jmap -dump:format=b,file=./heamdump.out 25520
 	touch	-	创建新的空文件或者修改已有文件的时间戳
 	cat -n xxx.log - -n显示行号， cat > test #输入内容到test， cat test test2 > test3 #将test test2文件内容重定向test3
+	tac	-	与cat相反，按行倒序显示文件内容
 	more	-	从前向后分页展示文件内容，按Enter:下一行，空格键：下一页，F：显示下一屏内容，B：显示上一屏内容
 	less	-	从后向前展示文件内容，支持内容查找，高亮显示
 	tail -f -n100 xx.log	-	文件最后100行，-f:让tail程序不退出，并持续显示新增的行
@@ -125,12 +126,18 @@
 	set -o	-	bash内置命令， set -o allexport #开启allexport命令 set +o allexport #关闭allexport命令
 	shopt -s	-	bash内置命令， shopt -s feature-name #开启feature-name命令， shopt -u feature-name #关闭命令
 	
-	
+常用参数	-	
+	-n	-	num next
+	-a	-	all 
+	-l	-	line list
+	-L	-	length
+	-w	-	word
+	-c	-	(byte count)
 	
 常用组合命令	-	
-		cat access.log | cut -f1 -d " " | sort | uniq -c | sort -k 1 -n -r | head -10	-	#访问量排名前十的IP地址，访问前十页面地址，最耗时间
-		export total_line=`wc -l access.log | cut -f1 -d " "` && export not_found_line=`awk '$6='404'{print $6}' access.log | wc -l` && $not_found_line \* 100 / $total_line	-	#统计404请求码占比
-		sed -n '1,5p;1,5=' access.log #这是两条命令，第一个是打印出第一行到第五行，第二条命令式将第一行到第五行每一行的行号打印出来
+	cat access.log | cut -f1 -d " " | sort | uniq -c | sort -k 1 -n -r | head -10	-	#访问量排名前十的IP地址，访问前十页面地址，最耗时间
+	export total_line=`wc -l access.log | cut -f1 -d " "` && export not_found_line=`awk '$6='404'{print $6}' access.log | wc -l` && $not_found_line \* 100 / $total_line	-	#统计404请求码占比
+	sed -n '1,5p;1,5=' access.log #这是两条命令，第一个是打印出第一行到第五行，第二条命令式将第一行到第五行每一行的行号打印出来
 常用脚本	-	
 	stop.sh	-
 		#!/bin/sh
@@ -323,6 +330,22 @@ sed	-	#流编辑器，按行处理，不会修改文件本省
 	sed -n -f cmdfile access.log #可以将sed命令放到文件中执行, cmdfile文件内容： s/good/bad/ #good替换成bad
 																			   1,6p #打印第1到6行
 																			   1,6= #打印第1到6行行号
+
+find	-	搜索和定位文件，目录的列表 
+	-i:忽略大小写，-type d: 文件类型是目录，-perm 0777：文件权限是777，! -perm 0777:文件权限非777，  
+	-user root: 所有者是root， -group developer: 用户组是developer， 
+	-mtime 3： 3天前修改的文件， -mtime -3： 3天内， -mtime +30 -mtime -60： 30天前60天内， 
+	-cmin -60： 一小时内变更过的文件， -amin -60: 一小时内访问过的文件， 
+	-size 50MB： 大小是50MB的所有文件， -size +50MB -size -100MB: 大于50MB小于100MB的文件，
+	find /etc -name inittab #查找/etc目录下名称为innitab文件， 
+	find . -type f - exec ls -s {} \; | sort -n -r | head -5 #找出当前目录下, 5个最大的文件，	
+	find /tmp -type f -name "*.log" -exec rm -f {} \; #找出tmp目录下面所有.log结尾文件，并删除， 
+	find . -type f -empty #当前目录所有空文件，
+	find . -type d -empty #当前目录所有空目录， 
+	find . -type f -name ".*" #所有隐藏文件，  
+	find ~ -type f -size +100MB -exec rm -rf {} \; #找出你账号的主目录下，大于100MB的文件并删除
+																			
+																			   
 ubunton	-	
 	桌面切换到命令窗口: ctrl+alt+F2
 	命令窗口切换到桌面: ctrl+alt+F7
