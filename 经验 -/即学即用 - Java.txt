@@ -85,6 +85,7 @@
 
 常用算法	-	
 		负载均衡算法： 轮询法，随机法，源地址哈希法，加权轮询法，加权随机法，最小连接法
+		consistent hash： hash环上有Node n1,n2,n3,n4，传入的key的hash值在n1和n2之间，key就存放在n2，如果n1和n2建新增了一个n5节点， 这样只影响n1,n2节点的hash存放。 key的hash%N
 		
 
 	
