@@ -63,7 +63,10 @@ Restfull	-
 zab协议	-	zookeeper集群间通信协议
 
 Groovy脚本语言	-	能够直接编译成java的class，利用Groovy动态特性，来实现负载均衡的规则动态配置	
-
+Binary log	-	mysql的从机向主机复制binary log来同步数据
+Dual-Master	-	A,B,C,D 四台mysql数据库， A是B的Master，A用于write，C是D的Master，C用于read，A,C之间互为备份
+Web攻击	-	XSS,CSRF,SQL注入,DDos
+XSS	- 跨站脚本攻击
 
 
 

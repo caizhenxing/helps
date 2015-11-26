@@ -34,6 +34,7 @@
 	
 	Zookeeper	-	分布式系统一致性管理
 	ActiveMQ	-	
+	JMS	-	
 	Restfull	-
 	Hessian(RPC)	-	
 	WebService	-	
@@ -45,6 +46,7 @@
 	Git/gitlib/github/jgit/gitblit	- 代码托管
 	
 	Lucene	-	
+	Solr	-	
 	Elasticsearch	-	
 	
 	Maven	-	代码管理
@@ -84,7 +86,7 @@
 	集群	-	(tomcat)集群指的是将几台服务器集中在一起，实现同一业务。 利用集群中系统的冗余，当系统中某台机器发生损坏的时候，其他后备的机器可以迅速的接替它来启动服务，等待故障机的维修和返回。最大限度的保证集群中服务的可用性
 	负载均衡	-	(nginx)负载均衡又有DNS负载均衡（比较常用）、IP负载均衡、反向代理负载均衡等，也就是在集群中有服务器A、B、C，它们都是互不影响，互不相干的，任何一台的机器宕了，都不会影响其他机器的运行，当用户来一个请求，有负载均衡器的算法决定由哪台机器来处理，假如你的算法是采用round算法，有用户a、b、c，那么分别由服务器A、B、C来处理； 
 	监控告警	-	
-	
+	session管理	-	分布式session（memcached-session-manager工具，将session以sessionid为key的hashmap保存在memcached, 以负载均衡consistent hash分配）
 	
 	
 	编译构建	-	
@@ -106,6 +108,13 @@
 	spring security	- 用户验证和授权，访问控制列表(ACL)
 	eclipse远程调试
 	心跳检测	-	系统层ping，应用层curl http://co.oa.com/check， 每个业务功能检测curl http://co.oa.com/user/check(返回值加上response.setHeader("Server-Status", "ok"))
+	分布式session	-	memcached-session-manager工具，将session保存在memcached
+	持久化存储	-	
+	分库分表	- 分表采用字段的取模算法，如按用户id分为10张表，id=11的用户被分到11%10=1 tabl_1表中
+	业务拆分	-	
+	读写分离	-	
+	ActiveMQ	-	
+	
 	
 常用画图	-	
 	架构图
